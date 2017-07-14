@@ -2,7 +2,7 @@
 include_once("../../core/admin.php");
 include_once("../../core/files.php");
 include_once("../../core/images.php");
-admin::initialize('subastas','docsCatAdd2',false); 
+admin::initialize('todos','docsCatAdd2',false); 
 $pca_name=admin::getParam("pca_name");
 $maxUid=admin::getDBvalue("SELECT max(pca_uid) FROM mdl_pro_category");
 $maxUid++;

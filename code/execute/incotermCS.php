@@ -1,6 +1,6 @@
 <?php
 include_once("../../core/admin.php");
-admin::initialize('users','createRoles',false);
+admin::initialize('todos','createRoles',false);
 
 $uid = admin::getParam("uid");
 $status = admin::getParam("status");

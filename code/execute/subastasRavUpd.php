@@ -3,7 +3,7 @@ include_once("../../core/admin.php");
 include_once("../../core/files.php");
 include_once("../../core/images.php");
 include_once("../../core/thumb.php");
-admin::initialize('subastaRav','subastaRavUpd'); 
+admin::initialize('todos','subastaRavUpd'); 
 $token=admin::getParam("token");
 $rav_uid = admin::getParam("rav_uid");
 $rav_rol =admin::getParam("rav_rol");

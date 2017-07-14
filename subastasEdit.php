@@ -40,7 +40,7 @@ admin::initialize($opcionMenu, $opocionSubMenu);
 <meta name="rating" content="General">
 <META HTTP-EQUIV="Content-Type" content="text/html; ISO-8859-1">
 <script type="text/javascript">var SERVER='<?=$domain?>'; </script>
-<!--Buscador proveedore -->
+<!--Buscador proveedores -->
 <link rel="stylesheet" type="text/css" href="css/jquery-ui-1.11.4.css">
 <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.11.4.custom.js"></script>

@@ -2,7 +2,7 @@
 include_once("../../core/admin.php");
 include_once("../../core/files.php");
 include_once("../../core/images.php");
-admin::initialize('users','usersEdit',false);
+admin::initialize('todos','usersEdit',false);
 
 $use_uidA = admin::getSession("usr_uid");
 $usr_loginA = admin::toSql(admin::getParam("usr_login"),"Text");

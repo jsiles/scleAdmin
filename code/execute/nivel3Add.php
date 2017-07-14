@@ -1,6 +1,6 @@
 <?php
 include_once("../../core/admin.php");
-admin::initialize('subastas','subastasList');
+admin::initialize('todos','subastasList');
 $ca3_description =  admin::getParam("nivel3_desc");
 $ca2_uid=  admin::getParam("ca2_uid");
 if(strlen($ca3_description)>0&&$ca2_uid!=''){

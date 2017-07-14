@@ -2,7 +2,7 @@
 include_once("../../core/admin.php");
 include_once("../../core/files.php");
 include_once("../../core/images.php");
-admin::initialize('client','clientNew',false); 
+admin::initialize('todos','clientNew',false); 
 $pts_uid=admin::getParam("pts_uid");
 
 // REGISTRANDO LENGUAGE DE LAS CATEGORIAS

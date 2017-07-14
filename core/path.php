@@ -38,12 +38,12 @@ define("PATH_ROOT"	,$rootsystem);				// RUTA PRINCIPAL DEL SITIO
 define("PATH_PUBLIC", 	"F:\desa\htdocs"); 		// DONDE SE SUBEN ARCHIVOS
 
 define("PATH_LOG"	, 	PATH_ROOT . "/log");		// ARCHIVO DE ERRORES
-define("DEBUG"		,	true);
-define("SAVELOG"	,	true);
+define("DEBUG"		,	false);
+define("SAVELOG"	,	false);
 define("IP_CHECK"	,	true);
 define("MULTIPLE_INSTANCES"	,	false);
 define("PATH_TEMPLATE",	PATH_ROOT."/tpl/");
-define("LOCK_TIME", 10);                                        //tiempo de bloqueo en minutos
+define("LOCK_TIME", 5);                                        //tiempo de bloqueo en minutos
 
 define("TIME_ACTIVITY", 120);                                   //tiempo de actividad en minutos
 function __autoload($class_name) {

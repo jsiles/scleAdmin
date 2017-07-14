@@ -3,7 +3,7 @@
 include_once("../../core/safeHtml.php");
 include_once("../../core/files.php");
 include_once("../../core/images.php");*/
-admin::initialize('content','contentList',false);
+admin::initialize('todos','contentList',false);
 
 $sqlTpl = "SELECT * FROM mdl_product, mdl_subasta, mdl_pro_category WHERE sub_uid=pro_sub_uid and pca_uid=sub_pca_uid and sub_uid='".$uidTpl."'";
 $db->query($sqlTpl);

@@ -8,8 +8,8 @@ switch($tipUid){
             $moduleListId=43;
             $moduleCrearId=44;
             break;
-    case 2: $opcionMenu = "aprCompras";
-            $opocionSubMenu ="aprComprasEdit";
+    case 2: $opcionMenu = "aprOrdCompras";
+            $opocionSubMenu ="aprOrdComprasEdit";
             $etiquetaCrear = "aprComprasNew";
             $moduleListId=46;
             $moduleCrearId=46;

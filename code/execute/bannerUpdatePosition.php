@@ -1,7 +1,7 @@
 <?php
 include_once("../../database/connection.php");  
 include_once("../../core/admin.php");
-admin::initialize('banner','bannerList',false); 
+admin::initialize('banners','bannerList',false); 
 
 $sSQL ="select mbc_place from mdl_banners_contents where mbc_delete=0 and mbc_status='ACTIVE'";   
 $db->query($sSQL);   

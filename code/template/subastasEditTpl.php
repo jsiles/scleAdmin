@@ -87,7 +87,7 @@ $prod = $db->next_record();
 					while ($content=$db2->next_record())
 					{	
 					?>
-					<option <? if($content["pca_uid"]==$prod["sub_pca_uid"]) echo 'selected="selected"'; ?> value="<?=$content["pca_uid"]?>"><?=$content["pca_name"]?></option>					
+					<option <?php if($content["pca_uid"]==$prod["sub_pca_uid"]) echo 'selected="selected"'; ?> value="<?=$content["pca_uid"]?>"><?=$content["pca_name"]?></option>					
 					<?php
 					}
                     ?>

@@ -3,7 +3,7 @@ include_once("../../core/admin.php");
 include_once("../../core/files.php");
 include_once("../../core/images.php");
 include_once("../../core/thumb.php");
-admin::initialize('ordenCompra','ordenCompraAdd'); 
+admin::initialize('todos','ordenCompraAdd'); 
 $tipUid=  admin::getParam("tipUid");
 $token= admin::getParam("token");
 $orc_uid =admin::getParam("orc_uid");
@@ -23,9 +23,11 @@ $sql = "update mdl_orden_compra set
                                  orc_monto=$orc_monto,
                                  orc_moneda=$orc_moneda,
                                  orc_fecha='$orc_fecha',
-                                 orc_hora='$orc_hora',
-                                 orc_cli_uid=$orc_cli_uid,
-                                 orc_aprobado='$orc_aprobado',
+                                 orc_hora='$orc_hora',";
+if($orc_cli_uid){ $sql .= "
+                                 orc_cli_uid=$orc_cli_uid,";
+}
+                    $sql .= "     orc_aprobado='$orc_aprobado',
                                  orc_usr_uid=$orc_usr_uid,
                                  orc_datetime=GETDATE(),
                                  orc_status='$orc_status'

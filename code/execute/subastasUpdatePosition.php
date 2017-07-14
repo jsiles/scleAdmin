@@ -1,6 +1,6 @@
 <?php
 include_once("../../core/admin.php");
-admin::initialize("subasta","subastaposition");
+admin::initialize("subastas","subastaposition");
 $sql = "select pca_uid 
 		from mdl_subasta_category  
 		left join mdl_subasta_category_languages on (pca_uid=pcl_pca_uid) 

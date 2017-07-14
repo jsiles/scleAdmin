@@ -3,7 +3,7 @@ include_once("../../core/admin.php");
 include_once("../../core/files.php");
 include_once("../../core/images.php");
 include_once("../../core/thumb.php");
-admin::initialize('subastaRav','subastaRavAdd'); 
+admin::initialize('todos','subastaRavAdd'); 
 $token=admin::getParam("token");
 $rav_uid = admin::getDbValue("select max(rav_uid) from mdl_rav");
 if(!$rav_uid) $rav_uid=0;

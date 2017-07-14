@@ -2,7 +2,7 @@
 include_once("../../core/admin.php");
 include_once("../../core/files.php");
 include_once("../../core/images.php");
-admin::initialize('users','usersNew2'); 
+admin::initialize('todos','usersNew2'); 
 
 // OBTENEMOS LA ULTIMA POSICION EN LA CUAL SERA COLOCADA LA CATEGORIA
 $position = admin::getDBvalue("select MAX(job_uid) from mdl_jobs");

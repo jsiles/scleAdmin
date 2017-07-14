@@ -1,6 +1,6 @@
 <?php
 include_once("../../core/admin.php");
-admin::initialize('autorizacion','autorizacionList');
+admin::initialize('todos','autorizacionList');
 $sub_uid = admin::getParam("uid");
 $sql = "update mdl_subasta set sub_finish=1 where sub_uid=".$sub_uid;
 $db->query($sql);

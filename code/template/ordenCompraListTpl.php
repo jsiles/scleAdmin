@@ -199,7 +199,7 @@ while ($orden_list = $pagDb->next_record())
     	<td width="10%"><?=$orc_proveedor?></td>
     	<td width="10%"><?=$solUnidad?></td>
         <td width="10%"><?=$orc_estado?></td>        
-        <td width="5%" align="right"><?=$orc_monto." ".$monedaLit?></td>        
+        <td width="5%" align="right"><?=admin::numberFormat($orc_monto)." ".$monedaLit?></td>        
         <td align="center" width="5%" height="5">
             <?php
                 $valuePermit=admin::getDBvalue("select moa_status from sys_modules_options,sys_modules_access where mop_uid=moa_mop_uid and mop_status='ACTIVE'and mop_mod_uid=$moduleListId and mop_lab_category='Ver' and moa_rol_uid=".$_SESSION['usr_rol']."");

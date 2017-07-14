@@ -1,6 +1,6 @@
 <?php
 include_once("../../core/admin.php");
-admin::initialize('dpf','dpfList',false); 
+admin::initialize('todos','dpfList',false); 
 $itemList=admin::getParam("itemList");
 if ($itemList!='')
     {

@@ -3,7 +3,7 @@ include_once("../../core/admin.php");
 include_once("../../core/files.php");
 include_once("../../core/images.php");
 include_once("../../core/thumb.php");
-admin::initialize('subasta','subastaAdd'); 
+admin::initialize('subastas','subastaAdd'); 
 
 $mythumb = new thumb(); 
 

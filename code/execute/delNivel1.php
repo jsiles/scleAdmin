@@ -1,6 +1,6 @@
 <?php
 include_once("../../core/admin.php");
-admin::initialize('subastas','docsCatAdd2',false); 
+admin::initialize('todos','docsCatAdd2',false); 
 $ca1_uid =  admin::getParam("ca1_uid");
 if($ca1_uid) $db->query("update mdl_categoria1 set ca1_delete=1 where ca1_uid=$ca1_uid");
 ?>

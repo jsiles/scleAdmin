@@ -3,7 +3,7 @@ include_once("../../core/admin.php");
 include_once("../../core/files.php");
 include_once("../../core/images.php");
 include_once("../../core/thumb.php");
-admin::initialize('ordenCompra','ordenCompraAdd'); 
+admin::initialize('ordCompras','ordenCompraAdd'); 
 $tipUid=  admin::getParam("tipUid");
 $token= admin::getParam("token");
 $orc_uid =admin::getDbValue("select max(orc_uid) from mdl_orden_compra");

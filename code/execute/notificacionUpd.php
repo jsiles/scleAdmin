@@ -3,7 +3,7 @@ include_once("../../core/admin.php");
 include_once("../../core/files.php");
 include_once("../../core/images.php");
 include_once("../../core/thumb.php");
-admin::initialize('solicitud','solicitudAdd'); 
+admin::initialize('notificaciones','solicitudAdd'); 
 $tipUid=  admin::getParam("tipUid");
 $token= admin::getParam("token");
 $not_uid= admin::getParam("not_uid");

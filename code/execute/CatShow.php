@@ -1,7 +1,7 @@
 <table width="100%" border="0" cellpadding="5" class="box"><?php
 include_once("../../database/connection.php");  
 include_once("../../core/admin.php");
-admin::initialize('users','usersNew2'); 
+admin::initialize('todos','usersNew2'); 
 
 $job_category=admin::getParam("job_category");
 // CONSTRUIMOS EL NUEVO SELECT	

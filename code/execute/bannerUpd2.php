@@ -2,7 +2,7 @@
 include_once("../../core/admin.php");
 include_once("../../core/files.php");
 include_once("../../core/images.php");
-admin::initialize('banner','bannerList',false);
+admin::initialize('banners','bannerList',false);
 
 $token = admin::getParam("token");
 $ban_uid = admin::getParam("ban_uid");

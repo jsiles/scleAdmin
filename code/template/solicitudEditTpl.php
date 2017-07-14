@@ -272,7 +272,7 @@ $solEdit=$db->next_record();
 	</table>
     </div>
     <div id="add<?=$ind_uid?>" class="row0">
-    <form method="post"  name="frmSolicitud" action="code/execute/solAdd2.php" enctype="multipart/form-data" > 
+    <form method="post"  name="frmSolicitud" action="code/execute/solAdd.php" enctype="multipart/form-data" > 
 	<table class="list" width="100%">
 	<tr>
             

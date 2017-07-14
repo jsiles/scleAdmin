@@ -1,6 +1,6 @@
 <?php
 include_once("../../core/admin.php");
-admin::initialize('informe','informeList',false);
+admin::initialize('todos','informeList',false);
 //@session_start();
 $sub_uid = admin::getParam("uid");
 

@@ -2,7 +2,7 @@
 include_once("../../core/admin.php");
 include_once("../../core/files.php");
 include_once("../../core/images.php");
-admin::initialize('client','clientNew',false); 
+admin::initialize('todos','clientNew',false); 
 $lec_uid=admin::getParam("lec_uid");
 
 // REGISTRANDO LENGUAGE DE LAS CATEGORIAS

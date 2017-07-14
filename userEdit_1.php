@@ -1,6 +1,6 @@
 <?php 
 include ("core/admin.php");
-admin::initialize('users','usersEdit');
+admin::initialize('todos','usersEdit');
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">    
 <html>

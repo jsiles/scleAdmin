@@ -55,10 +55,10 @@ $notEdit=$db->next_record();
             <td width="20%"><textarea cols="100" disabled="disabled" class="textarea" rows="20" name="not_template"><?=admin::toHtml($notEdit["not_template"])?></textarea></td>
             <td width="7%">&nbsp;</td>
         </tr>
-      	<tr>
+      <!--	<tr>
             <td width="5%" >Firma:</td>
             <td width="20%"><textarea cols="100" disabled="disabled" class="textarea" rows="5" name="not_sign"><?=$notEdit["not_sign"]?></textarea></td>
-            <td width="7%">&nbsp;</td>
+            <td width="7%">&nbsp;</td>-->
         </tr>
 
         

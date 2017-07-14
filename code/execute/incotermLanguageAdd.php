@@ -1,6 +1,6 @@
 <?php
 include_once("../../core/admin.php");
-admin::initialize('subastas','docsCatAdd2',false); 
+admin::initialize('todos','docsCatAdd2',false); 
 $inl_name=admin::getParam("inl_name");
 $maxUid=admin::getDBvalue("SELECT max(inl_uid) FROM mdl_incoterm_language");
 $maxUid++;

@@ -1090,12 +1090,13 @@ function deleteOtherCategory()
 		show:'fadeIn' ,
 		opacity:0,
 		buttons:{Eliminar:true, Cancelar:false},
-		callback: function(v,m){
+		submit: function(e,v,m,f){
 			if(v){
 
 			/////ACA viene el CODIGO
 			
-                                token = $.getUrlVar('token');
+                                //token = $.getUrlVar('token');
+                                
                                 var sub_pca_uid = document.getElementById('sub_pca_uid').value;
                                 if (sub_pca_uid!="")
                                         {
@@ -1271,7 +1272,7 @@ function deleteOtherTransporte()
 		show:'fadeIn' ,
 		opacity:0,
 		buttons:{Eliminar:true, Cancelar:false},
-		callback: function(v,m){
+		submit: function(e,v,m,f){
 			if(v){
 
 			/////ACA viene el CODIGO
@@ -1465,7 +1466,7 @@ function deleteOtherIncoterm()
 		show:'fadeIn' ,
 		opacity:0,
 		buttons:{Eliminar:true, Cancelar:false},
-		callback: function(v,m){
+		submit: function(e,v,m,f){
 			if(v){
 
 			/////ACA viene el CODIGO

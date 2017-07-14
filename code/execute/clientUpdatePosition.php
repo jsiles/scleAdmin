@@ -1,6 +1,6 @@
 <?php
 include_once("../../core/admin.php");
-admin::initialize('docs','docsNew',false); 
+admin::initialize('client','docsNew',false); 
 $itemList=admin::getParam("itemList");
 
 if ($itemList!='')

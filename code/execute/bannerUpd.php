@@ -3,7 +3,7 @@ include_once("../../core/admin.php");
 include_once("../../core/files.php");
 include_once("../../core/images.php");
 include_once("../../core/thumb.php");
-admin::initialize('banner','bannerList',false);
+admin::initialize('banners','bannerList',false);
 $mythumb = new thumb();
 $ban_uid=admin::toSql(admin::getParam("uid"),"Number");
 

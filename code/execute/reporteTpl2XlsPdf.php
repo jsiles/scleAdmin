@@ -1,6 +1,6 @@
 <?php
 include_once("../../core/admin.php");
-admin::initialize('reportes','reporteList',false);
+admin::initialize('reportesParametros','reporteList',false);
 $pro_uid =admin::toSql(admin::getParam("pro"),"Number");
 $formato =admin::toSql(admin::getParam("type"),"Text");
 

@@ -1,6 +1,6 @@
 <?php
 include_once("../../core/admin.php");
-admin::initialize('subasta','subastaAdd',false); 
+admin::initialize('subastas','subastaAdd',false); 
 $sub_uid = admin::getParam("sub_uid");
 $sql = "update mdl_subasta 
 		set sub_delete=1 

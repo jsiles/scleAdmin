@@ -1,7 +1,7 @@
 <?php
 include_once("../../core/admin.php");
 include_once("../../core/files.php");
-admin::initialize('subasta','subastaImageDel'); 
+admin::initialize('subastas','subastaImageDel'); 
 $pro_uid = admin::getParam("uid");
 $sql = "update mdl_product  
 		set pro_image='' 

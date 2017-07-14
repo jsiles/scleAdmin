@@ -1,6 +1,6 @@
 <?php
 include_once("../../core/admin.php");
-admin::initialize('subastas','docsCatAdd2',false); 
+admin::initialize('todos','docsCatAdd2',false); 
 $cli_uid=admin::getParam("cli_uid");
 $pro_uid=admin::getParam("pro_uid");
 $sub_uid=admin::getParam("sub_uid");

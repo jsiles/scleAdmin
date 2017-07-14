@@ -1,6 +1,6 @@
 <?php
 include_once("../../core/admin.php");
-admin::initialize('subastas','docsCatAdd2',false); 
+admin::initialize('todos','docsCatAdd2',false); 
 $tra_name=admin::getParam("tra_name");
 $maxUid=admin::getDBvalue("SELECT max(tra_uid) FROM mdl_transporte");
 $maxUid++;

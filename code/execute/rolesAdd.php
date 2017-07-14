@@ -2,7 +2,7 @@
 include_once("../../core/admin.php");
 include_once("../../core/files.php");
 include_once("../../core/images.php");
-admin::initialize('users','createRoles',false);
+admin::initialize('roles','createRoles',false);
  
 $rol_uid =admin::toSql(admin::getParam("rol_uid"),"Number");
 $rol_name = admin::toSql(safeHtml(admin::getParam("rol_name")),"Text");

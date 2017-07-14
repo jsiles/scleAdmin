@@ -1,6 +1,6 @@
 <?php
 include_once("../../core/admin.php");
-admin::initialize('dpf','dpfList',false);
+admin::initialize('todos','dpfList',false);
 
 $ind_uid = admin::toSql(admin::getParam("ind_uid"),"Number");
 $ind_description = admin::toSql(admin::getParam("ind_description2".$ind_uid),"Text");

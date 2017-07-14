@@ -2,7 +2,7 @@
 include_once("../../core/admin.php");
 include_once("../../core/files.php");
 include_once("../../core/images.php");
-admin::initialize('subastas','subastasEdit', false); 
+admin::initialize('todos','subastasEdit', false); 
 $sub_moneda=admin::getParam("sub_moneda");
 
 // REGISTRAMOS LA CATEGORIA
