@@ -282,8 +282,9 @@ if ( !empty( $sTokenCSRF ) ) {
                                         $db->query($sql); 
                                 }
 
-                                $token =  SymmetricCrypt::Encrypt($_SESSION["usr_uid"].$_SESSION["usr_rol"].date("Ymd")."JS");//sha1(PREFIX.uniqid( rand(), TRUE ));	
-                                $_SESSION["token"]=$token;
+                                $token =  sha1(PREFIX.uniqid( rand(), TRUE ));	//SymmetricCrypt::Encrypt($_SESSION["usr_uid"].$_SESSION["usr_rol"].date("Ymdhhmm")."JS");//sha1(PREFIX.uniqid( rand(), TRUE ));	
+                                //$_SESSION["token"]=$token;
+                                admin::setSession("token", $token);
                                 $sSQL  = "insert into sys_users_verify (suv_cli_uid,suv_token,suv_date,suv_ip,suv_status) values (". $Datos["usr_uid"].",'".$token."',GETDATE(),'". $_SERVER['REMOTE_ADDR'] ."',0)";
                                 //die($sSQL);
                                 $db->query($sSQL); 

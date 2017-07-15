@@ -40,9 +40,11 @@ if($tipUid==2) {
             }
             $k++;
         }
-        if($tipUid==2) $where .=" and sou_uni_uid in ($unidadHabUid) ";
+        //if($tipUid==2) 
+        $where .=" and sou_uni_uid in ($unidadHabUid) ";
     }else{
-        if($tipUid==2) $where .=" and sou_uni_uid=-1 ";
+        //if($tipUid==2) 
+        $where .=" and sou_uni_uid=-1 ";
     }
 
 $order= admin::toSql(admin::getParam("order"),"Number");

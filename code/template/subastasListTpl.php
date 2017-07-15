@@ -39,9 +39,11 @@ if($tipUid==2) {
             }
             $k++;
         }
-        if($tipUid==2) $Where .=" and suu_uni_uid in ($unidadHabUid) ";
+        //if($tipUid==2) 
+        $Where .=" and suu_uni_uid in ($unidadHabUid) ";
     }else{
-         if($tipUid==2) $Where .=" and suu_uni_uid=-1 ";
+         //if($tipUid==2) 
+         $Where .=" and suu_uni_uid=-1 ";
     }
     
 $qsearch="select sub_mount_base, sub_modalidad, sub_moneda, pro_uid, pro_name, pca_name, sub_status, sub_uid, "

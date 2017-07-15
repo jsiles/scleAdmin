@@ -25,10 +25,12 @@ $rol=admin::getSession("usr_rol");
             }
             $k++;
         }
-        if($tipUid==2) $Where .=" and oru_uni_uid in ($unidadHabUid) ";
+       // if($tipUid==2) 
+       $Where .=" and oru_uni_uid in ($unidadHabUid) ";
     }else{
         
-         if($tipUid==2) $Where .=" and oru_uni_uid=-1";
+        // if($tipUid==2) 
+        $Where .=" and oru_uni_uid=-1";
     }
 
 

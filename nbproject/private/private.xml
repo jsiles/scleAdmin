@@ -3,13 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/F:/desa/scle/core/path.cfg</file>
-            <file>file:/F:/desa/scle/code/execute/clientUpd.php</file>
-            <file>file:/F:/desa/scle/code/execute/clientAdd.php</file>
-            <file>file:/F:/desa/scle/core/path.php</file>
-            <file>file:/F:/desa/scle/code/execute/informeApr.php</file>
-            <file>file:/F:/desa/scle/code/template/subastasListTpl.php</file>
-            <file>file:/F:/desa/scle/core/admin.php</file>
+            <file>file:/C:/desa/scle/code/template/informeListTpl.php</file>
+            <file>file:/C:/desa/scle/code/template/ordenCompraListTpl.php</file>
+            <file>file:/C:/desa/scle/code/execute/userUpd.php</file>
+            <file>file:/C:/desa/scle/code/execute/login.php</file>
+            <file>file:/C:/desa/scle/core/admin.php</file>
+            <file>file:/C:/desa/scle/code/template/solicitudListTpl.php</file>
+            <file>file:/C:/desa/scle/core/path.php</file>
+            <file>file:/C:/desa/scle/code/template/subastasListTpl.php</file>
+            <file>file:/C:/desa/scle/code/template/loginTpl.php</file>
         </group>
     </open-files>
 </project-private>

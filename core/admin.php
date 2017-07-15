@@ -493,11 +493,12 @@ class admin{
 		global $basedatos, $host, $user,$pass,$domain;
                 self::checkIP();
                 $rs = new DBmysql();
-                $token =  SymmetricCrypt::Encrypt($_SESSION["usr_uid"].$_SESSION["usr_rol"].date("Ymd")."JS");
-		$sql = "select suv_status from sys_users_verify where suv_cli_uid='".$_SESSION["usr_uid"]."' and suv_token='".$token."' and suv_ip='".$_SERVER['REMOTE_ADDR']."'";
+                $token = admin::getSession("token"); //SymmetricCrypt::Encrypt($_SESSION["usr_uid"].$_SESSION["usr_rol"].date("Ymd")."JS");
+		$sql = "select suv_status from sys_users_verify where suv_cli_uid='".$_SESSION["usr_uid"]."' and suv_token='".$token."' and suv_ip='".$_SERVER['REMOTE_ADDR']."' and suv_date<dateadd(mm,15,getdate()) and suv_status=0 ";
 		//$sql = "select suv_status from sys_users_verify where suv_cli_uid='".$_SESSION["usr_uid"]."' and suv_ip='".$_SERVER['REMOTE_ADDR']."' and suv_status=0";
-		//echo($sql);//die;
+		//echo($sql);die;
 		$rs->query($sql);
+                //self::doLog($sql);
                 //print_r($rs);die;
         if ($row = $rs->next_record()){
         	if ( $row["suv_status"] === "0") {
@@ -506,8 +507,8 @@ class admin{
 					$indexMenu=admin::getDbValue("select mod_uid from sys_modules where mod_alias='".$sMenu."'");
 					$indexSubMenu=admin::getDbValue("select mod_uid from sys_modules where mod_alias='".$sSubMenu."'");
 					
-					
-			
+					//self::doLog("entro a 1".$indexMenu);
+                                        
 						if ($sMenu!="login" && $sSubMenu!="login") 
 						{
 						if (!$_SESSION["usr_uid"])
@@ -515,11 +516,11 @@ class admin{
 								unset($SESSION["usr_uid"]) ;
 								if($redirect){
 									//die('1');
-                                                                        header("HTTP/1.0 403 Forbidden");//exit;
-									header('Location: '.PATH_DOMAIN.'/logout.php');
+                                                                        header("HTTP/1.0 403 Forbidden");die('No tiene permisos');//exit;
+									//header('Location: '.PATH_DOMAIN.'/logout.php');
 									}
-					        	else{ header("HTTP/1.0 403 Forbidden");//exit;
-                                                        header('Location: '.PATH_DOMAIN.'/logout.php');
+					        	else{ header("HTTP/1.0 403 Forbidden");die('No tiene permisos');//exit;
+                                                       // header('Location: '.PATH_DOMAIN.'/logout.php');
                                                         
                                                         }//die('No tiene permisos');
                                                         }else{
@@ -533,8 +534,8 @@ class admin{
                                                                     
                                                                 //header("Location: ".PATH_DOMAIN."/".$urlSite);
                                                                 }//else header("Location: ".PATH_DOMAIN."/index.php");*/
-                                                                header("HTTP/1.0 403 Forbidden");//exit;
-                                                                header('Location: '.PATH_DOMAIN.'/logout.php');
+                                                                header("HTTP/1.0 403 Forbidden");die('No tiene permisos');
+                                                                //header('Location: '.PATH_DOMAIN.'/logout.php');
                                                             }
                                                         }
 						}
@@ -543,23 +544,23 @@ class admin{
 	        else {
 	        		if($redirect){
 	        			//die('2');
-                                                header("HTTP/1.0 403 Forbidden");//exit;
-						header('Location: '.PATH_DOMAIN.'/logout.php');
+                                                header("HTTP/1.0 403 Forbidden");die('No tiene permisos');
+						//header('Location: '.PATH_DOMAIN.'/logout.php');
 						}
-		        	else {header("HTTP/1.0 403 Forbidden");//exit;
-		        		header('Location: '.PATH_DOMAIN.'/logout.php');//die('No tiene permisos');
+		        	else {header("HTTP/1.0 403 Forbidden");die('No tiene permisos');
+		        		//header('Location: '.PATH_DOMAIN.'/logout.php');//die('No tiene permisos');
                                         }
 	        }
         }
         else {
         	if($redirect){
         		//die('3');
-				header("HTTP/1.0 403 Forbidden");//exit;
-                                header('Location: '.PATH_DOMAIN.'/logout.php');
+				header("HTTP/1.0 403 Forbidden");die('No tiene permisos');
+                                //header('Location: '.PATH_DOMAIN.'/logout.php');
 				}
         	else {
-                    header("HTTP/1.0 403 Forbidden");//exit;
-        		header('Location: '.PATH_DOMAIN.'/logout.php');//die('No tiene permisos');
+                    header("HTTP/1.0 403 Forbidden");die('No tiene permisos');
+        		//header('Location: '.PATH_DOMAIN.'/logout.php');//die('No tiene permisos');
                 }
         }
 	
