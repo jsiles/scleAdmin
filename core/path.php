@@ -34,13 +34,13 @@ $domain = "http://" . $_SERVER['HTTP_HOST'].$xpath;
 $rootsystem = $_SERVER['DOCUMENT_ROOT'] . $xpath;
 
 define("PATH_DOMAIN",	$domain);
-define("PATH_ROOT"	,$rootsystem);				// RUTA PRINCIPAL DEL SITIO
-define("PATH_PUBLIC", 	"c:\desa\htdocs"); 		// DONDE SE SUBEN ARCHIVOS
+define("PATH_ROOT"	,$rootsystem);	                // RUTA PRINCIPAL DEL SITIO
+define("PATH_PUBLIC", 	"c:\desa\htdocs"); 		// DONDE SE SUBEN ARCHIVOS PUBLISH
 
 define("PATH_LOG"	, 	PATH_ROOT . "/log");		// ARCHIVO DE ERRORES
 define("DEBUG"		,	false);
 define("SAVELOG"	,	false);
-define("IP_CHECK"	,	true);
+define("IP_CHECK"	,	false);
 define("MULTIPLE_INSTANCES"	,	false);
 define("PATH_TEMPLATE",	PATH_ROOT."/tpl/");
 define("LOCK_TIME", 5);                                        //tiempo de bloqueo en minutos
