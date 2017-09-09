@@ -22,13 +22,13 @@ $test = new admin();
 
 $array_temporal =array(); // used for getFullUr
 //echo $_SERVER['HTTPS'];//die;
-/*if(empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == "off"){
+if(empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == "off"){
     
     $redirect = 'https://' . $_SERVER['HTTP_HOST']. $_SERVER['REQUEST_URI'];
     header('HTTP/1.1 301 Moved Permanently');
     header('Location: ' . $redirect);
     exit();
-}*/
+}
 //die;
 class admin{
     function  __construct()

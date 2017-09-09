@@ -15,10 +15,30 @@
           
            <tr>
                <td width="29%">NIT o CI:</td>
-            <td width="54%">
-<input name="cli_nit_ci" type="text" class="input" id="cli_nit_ci" size="60" onfocus="setClassInput(this,'ON');document.getElementById('div_cli_nit_ci').style.display='none';" onblur="setClassInput(this,'OFF');document.getElementById('div_cli_nit_ci').style.display='none';" onclick="setClassInput(this,'ON');document.getElementById('div_cli_nit_ci').style.display='none';" /><br />
-<span id="div_cli_nit_ci" style="" class="error">NIT o CI es obligatorio</span>			</td>
-            <td width="17%">&nbsp;</td>
+               <td colspan="2">
+                <div id="inputProveedor"></div>
+                <br><br>
+                <div id="busqueda">
+                    <input name="cli_nit_ci" type="text" class="input proveedor" 
+                           id="cli_nit_ci" size="60" 
+                           onfocus="setClassInput(this,'ON');document.getElementById('div_cli_nit_ci').style.display='none';" 
+                           onblur="setClassInput(this,'OFF');document.getElementById('div_cli_nit_ci').style.display='none';"
+                           onclick="setClassInput(this,'ON');document.getElementById('div_cli_nit_ci').style.display='none';" />&nbsp;
+                    <?php
+                    if(SAP){
+                    ?>
+                    <label style="color:#ff8a36">SAP</label>
+                    <?php
+                    }
+                    ?>
+                    <br>
+                    
+<!--<input name="cli_nit_ci" type="text" class="input" id="cli_nit_ci" size="60" onfocus="setClassInput(this,'ON');document.getElementById('div_cli_nit_ci').style.display='none';" onblur="setClassInput(this,'OFF');document.getElementById('div_cli_nit_ci').style.display='none';" onclick="setClassInput(this,'ON');document.getElementById('div_cli_nit_ci').style.display='none';" />-->
+                 <!--   <br />-->
+<span id="div_cli_nit_ci" style="" class="error">NIT o CI es obligatorio</span>		
+                </div>
+                </td>
+            
           </tr>
           
           <tr>
@@ -368,12 +388,12 @@
 	  	<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
 			<tr>
 				<td width="59%" align="center">
-				<a href="#" onclick="verifyClient();" class="button">
+				<a href="#" onclick="verifyClient();" id="btnRegister" class="button">
 				<?=admin::labels('register');?>
 				</a> 
 				</td>
           <td width="41%" style="font-size:11px;">
-		  		<?=admin::labels('or');?> <a href="clientList.php" ><?=admin::labels('cancel');?></a> 
+              <label id="btnOr"><?=admin::labels('or');?></label> <a href="clientList.php" id="btnCancelar" ><?=admin::labels('cancel');?></a> 
 		  </td>
         </tr>
       </table></div>

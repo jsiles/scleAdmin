@@ -55,4 +55,7 @@ $db3=new DBmysql;
 $db4=new DBmysql;
 $pagDb=new DBmysql;
 $msg="";
+
+$dbSAP = new DBmysql("SAP", DBHOST,DBUSER, DBPASSWORD);
+define("SAP", false);   
 ?>
