@@ -1,6 +1,6 @@
 <?php
 include_once ("../../core/admin.php"); 
-admin::initialize('users','usersList',false);
+admin::initialize('client','clientList',false);
 $pts_uid = admin::toSql(admin::getParam("uid"),"String");
 $Exists = admin::getDbValue("SELECT count(distinct wtp_uid) FROM mdl_waytopay where wtp_pts_uid='".$pts_uid."'");
 
