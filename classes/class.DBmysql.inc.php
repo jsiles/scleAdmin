@@ -20,6 +20,7 @@ private $row;
 			$this->Usuario = $user;
 			$this->Clave = $pass;	
 			$this->engine="sqlsrv";
+                        //$this->engine="Driver={SQL Server Native Client 11.0}";
 			$this->connect();
 	}
 
@@ -30,7 +31,8 @@ function connect($db="", $host="", $user="", $pass="")
 	if ($user != "") $this->Usuario = $user;
 	if ($pass != "") $this->Clave = $pass;
 try {
-		//$this->Conexion_ID =new PDO($this->engine.":host=".$this->Servidor.";dbname=".$this->BaseDatos, $this->Usuario, $this->Clave);
+                //$this->Conexion_ID =new PDO("odbc:".$this->engine.";Server=".$this->Servidor.";Database=".$this->BaseDatos.";charset=UTF-8", $this->Usuario, $this->Clave);
+ 		//$this->Conexion_ID =new PDO("odbc:".$this->engine.";Server=".$this->Servidor.";Database=".$this->BaseDatos, $this->Usuario, $this->Clave);
 		$this->Conexion_ID =new PDO($this->engine.":Server=".$this->Servidor.";Database=".$this->BaseDatos, $this->Usuario, $this->Clave);
  	} catch (PDOException $e) {
     echo "Failed to get DB handle: " . $e->getMessage() . "\n";
