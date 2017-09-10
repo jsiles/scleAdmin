@@ -13,7 +13,7 @@ padding:0px;
 }
 
 a:link,a:visited { 
-color: #000; /*verde oficial*/
+color: #ed1b21;
 text-decoration: none;
 }
 a:hover {
@@ -36,7 +36,7 @@ font-size: 10px;
 height: 34px;
 font-size: 13px;
 color: #fff;
-background-color: #1f9044;  /*verde oficial*/
+background-color: #ed1b21;
 padding-left: 190px;
 font-weight: 700;
 }
@@ -51,7 +51,7 @@ padding: 0 25px;
 height: 30px;
 font-size: 9px;
 color: #fff;
-background-color: #1f9044;  /*verde oficial*/
+background-color: #ed1b21;
 }
 /* LISTING */
 
@@ -219,7 +219,7 @@ text-align: left;
 font-weight: 700;
 }
 .color2 { 
-color: #16652f; /*verde*/
+color: #ed1b21;
 }
 .txt10 { 
 font-size: 10px;
@@ -237,7 +237,7 @@ padding-right:4px;
 font-size: 10px;
 }
 .titleBox { 
-color: #16652f; /*verde*/
+color: #ed1b21;
 text-transform: uppercase;
 }
 #contentButton { 
@@ -251,11 +251,11 @@ float: right;
 /*LINKS*/
 
 a.button:link, a.button:visited  { 
-	color: #16652f; /*verde*/
+	color: #ed1b21;
 	text-decoration: none; 
 	font-size: 18px;
-	background-color: #fff; /*blanco*/
-	border: double #16652f 2px;  /*verde oficial*/
+	background-color: #fff;
+	border: double #ed1b21 2px;
 	padding: 5px;
 	display:block;
 	text-align: center;
@@ -726,7 +726,7 @@ font-size: 11px;
 
 .input6{
 float: none;
-color: #16652f;  /*verde oficial*/
+color: #ed1b21;
 font-size: 14px;
 border: 1px solid #d8dadd;
 background-color: #fdfdfd;
@@ -762,7 +762,7 @@ a.button4:hover {
 .boxSearch{
 float: right;
 display: table;
-background: url(../lib/bg_search.gif) /*#ff6d04*/ top left no-repeat;
+background: url(../lib/bg_search.png) /*#ff6d04*/ top left no-repeat;
 padding-top: 5px;
 padding-left: 2px;
 width: 274px;
@@ -772,7 +772,7 @@ height: 38px;
 .input7{
 float: none;
 font-size: 14px;
-border: 1px solid #cdffdd;
+border: 1px solid #e2e1e1;
 background-color: #fff;
 height: 25px;
 width: 190px;
@@ -787,7 +787,7 @@ font-weight: 700;
 }
 
 a.down:link, a.down:visited  { 
-color: #16652f; /*verde oficial*/
+color: #ed1b21;
 font-size: 11px;
 background: url(../lib/bullet_down.png) right no-repeat;
 padding-right: 15px;
@@ -798,7 +798,7 @@ text-decoration: none;
 }
 
 a.up:link, a.up:visited  { 
-color: #16652f; /*verde oficial*/
+color: #ed1b21;
 font-size: 11px;
 background: url(../lib/bullet_up.png) no-repeat right;
 padding-right: 15px;
@@ -869,7 +869,7 @@ width: 40px;
 
 .boxAdd{
 float: left;
-border: 1px solid #16652f; /*verde oficial*/
+border: 1px solid #ed1b21;
 padding: 10px;
 margin-left: 25px;
 width: 520px;
@@ -880,7 +880,7 @@ float: right;
 }
 
 a.button5:link, a.button5:visited  { 
-	color: #fff; /*oficial*/
+	color: #fff;
 	text-decoration: none; 
 	font-size: 11px;
 	background-color: #eef0f1;
@@ -1030,12 +1030,12 @@ padding: 4px;
 
 /* 1 ABRIL */
 a.linkBold2:link, a.linkBold2:visited  { 
-color: #16652f; /*verde oficial*/
+color: #ed1b21;
 font-weight: 700;
 text-decoration: none;   
 }
 a.linkBold2:hover { 
-color: #1f9044; /*verde oficial*/
+color: #ed1b21;
 }
 
 a.deleteDay:link,a.deleteDay:visited,a.deleteDay:hover {
@@ -1059,7 +1059,7 @@ padding: 10px 0 20px 0;
 
 .dayBox textarea{
 float: left;
-color: #1f9044; /*verde oficial*/
+color: #ed1b21;
 font-size:  1em;
 font-family: "Arial", Tahoma, Verdana;
 border: solid 1px #d8dadd;
@@ -1093,7 +1093,7 @@ padding: 10px;
 
 .dayBox .titleAct{
 display: block;
-color: #16652f; /*verde oficial*/
+color: #ed1b21;
 font-size: 9px;
 margin-top: 10px;
 width: 100px;
@@ -1101,7 +1101,7 @@ width: 100px;
 
 .dayBox .titleAct0{
 display: block;
-color: #16652f; /*verde oficial*/
+color: #ed1b21;
 font-size: 9px;
 margin-top: 10px;
 width: 100px;
