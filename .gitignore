@@ -1,6 +1,7 @@
 #################
 ## SUBASTA
 #################
+*.cfg
 path.php
 admin/core/path.php
 Thumbs.db

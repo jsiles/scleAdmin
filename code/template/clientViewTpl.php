@@ -228,7 +228,7 @@ $regusers = $db->next_record();
 				
 				</td>
           <td width="75%" style="font-size:11px;">
-		  		<a href="clientList.php" class="button">Volver</a> 
+		  		<a href="clientList.php?tipUid=<?=$tipUid?>" class="button">Volver</a> 
 		  </td>
         </tr>
       </table></div>

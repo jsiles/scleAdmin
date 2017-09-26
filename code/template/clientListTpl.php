@@ -22,12 +22,12 @@ else $dateOrder=5;
 $search = admin::toSql(admin::getParam("search"),"Text");
 if (!$search || $search=='')
 {
-$_pagi_sql= "select cli_uid, cli_nit_ci, cli_socialreason, cli_user, cli_mainemail, cli_status, cli_phone, cli_status_main from mdl_client where 1=1 ".$categoria.$orderCode;
+$_pagi_sql= "select cli_uid, cli_nit_ci, cli_socialreason, cli_user, cli_mainemail, cli_status, cli_phone, cli_status_main from mdl_client where 1=1 and cli_type=$tipUid ".$categoria.$orderCode;
 //$nroReg=admin::getDBvalue("select count(cli_uid) from mdl_client where cli_delete=0");
 }
 else
 {
-$_pagi_sql= "select cli_uid, cli_nit_ci, cli_socialreason, cli_user, cli_mainemail, cli_status, cli_phone, cli_status_main from mdl_client where (cli_socialreason like '%".$search."%' or cli_nit_ci like '%".$search."%' or cli_user like '%".$search."%' or cli_mainemail like '%".$search."%') ".$categoria.$orderCode;
+$_pagi_sql= "select cli_uid, cli_nit_ci, cli_socialreason, cli_user, cli_mainemail, cli_status, cli_phone, cli_status_main from mdl_client where (cli_socialreason like '%".$search."%' or cli_nit_ci like '%".$search."%' or cli_user like '%".$search."%' or cli_mainemail like '%".$search."%') and cli_type=$tipUid ".$categoria.$orderCode;
 
 //$nroReg=admin::getDBvalue("select count(cli_uid) from mdl_client where (cli_socialreason like '%".$search."%' or cli_nit_ci like '%".$search."%' or cli_user like '%".$search."%' or cli_mainemail like '%".$search."%') ".$categoria);
 }
@@ -53,7 +53,7 @@ if ($nroReg>0)
         $moduleId=15;
         $valuePermit=admin::getDBvalue("select moa_status from sys_modules_options,sys_modules_access where mop_uid=moa_mop_uid and mop_status='ACTIVE'and mop_mod_uid=$moduleId and mop_lab_category='Crear' and moa_rol_uid=".$_SESSION['usr_rol']."");
 	if($valuePermit=='ACTIVE'){?>
-            <a href="<?=admin::modulesLink('clientNew')?>"><?=admin::modulesLabels('clientNew')?></a>
+            <a href="<?=admin::modulesLink($etiquetaCrear)?>?tipUid=<?=admin::getParam("tipUid")?>"><?=admin::modulesLabels($etiquetaCrear)?></a>
         <?php
         }
         ?>
@@ -141,10 +141,10 @@ while ($user_list = $pagDb->next_record())
         <td width="10%"><?=$cli_status_literal;?></td>        
         <td align="center" width="5%" height="5">
             <?php
-                $valuePermit=admin::getDBvalue("select moa_status from sys_modules_options,sys_modules_access where mop_uid=moa_mop_uid and mop_status='ACTIVE'and mop_mod_uid=14 and mop_lab_category='Ver' and moa_rol_uid=".$_SESSION['usr_rol']."");
+                $valuePermit=admin::getDBvalue("select moa_status from sys_modules_options,sys_modules_access where mop_uid=moa_mop_uid and mop_status='ACTIVE'and mop_mod_uid=$moduleListId and mop_lab_category='Ver' and moa_rol_uid=".$_SESSION['usr_rol']."");
                 if($valuePermit=='ACTIVE'){
             ?>
-    	<a href="clientView.php?cli_uid=<?=$cli_uid?>">
+    	<a href="clientView.php?cli_uid=<?=$cli_uid?>&tipUid=<?=$tipUid?>">
             <img src="lib/view_es.gif" border="0" title="<?=admin::labels('view')?>" alt="<?=admin::labels('view')?>">
 	</a>
             <?php
@@ -158,10 +158,10 @@ while ($user_list = $pagDb->next_record())
     </td>
 	<td align="center" width="5%" height="5">
             <?php
-            $valuePermit=admin::getDBvalue("select moa_status from sys_modules_options,sys_modules_access where mop_uid=moa_mop_uid and mop_status='ACTIVE'and mop_mod_uid=14 and mop_lab_category='Editar' and moa_rol_uid=".$_SESSION['usr_rol']."");
+            $valuePermit=admin::getDBvalue("select moa_status from sys_modules_options,sys_modules_access where mop_uid=moa_mop_uid and mop_status='ACTIVE'and mop_mod_uid=$moduleListId and mop_lab_category='Editar' and moa_rol_uid=".$_SESSION['usr_rol']."");
             if(($valuePermit=='ACTIVE')){
             ?>
-    	<a href="clientEdit.php?cli_uid=<?=$cli_uid?>">
+    	<a href="clientEdit.php?cli_uid=<?=$cli_uid?>&tipUid=<?=$tipUid?>">
 		<img src="lib/edit_es.gif" border="0" title="<?=admin::labels('edit')?>" alt="<?=admin::labels('edit')?>">
 	</a>
             <?php
@@ -175,7 +175,7 @@ while ($user_list = $pagDb->next_record())
     </td>
 	<td align="center" width="5%" height="5">
             <?php
-            $valuePermit=admin::getDBvalue("select moa_status from sys_modules_options,sys_modules_access where mop_uid=moa_mop_uid and mop_status='ACTIVE'and mop_mod_uid=14 and mop_lab_category='Eliminar' and moa_rol_uid=".$_SESSION['usr_rol']."");
+            $valuePermit=admin::getDBvalue("select moa_status from sys_modules_options,sys_modules_access where mop_uid=moa_mop_uid and mop_status='ACTIVE'and mop_mod_uid=$moduleListId and mop_lab_category='Eliminar' and moa_rol_uid=".$_SESSION['usr_rol']."");
             if(($valuePermit=='ACTIVE')){
             ?>
                 <a href="" onclick="removeList(<?=$cli_uid?>); return false;">
@@ -193,7 +193,7 @@ while ($user_list = $pagDb->next_record())
 	<td align="center" width="5%" height="5">
     <div id="status_<?=$cli_uid?>">
         <?php
-            $valuePermit=admin::getDBvalue("select moa_status from sys_modules_options,sys_modules_access where mop_uid=moa_mop_uid and mop_status='ACTIVE'and mop_mod_uid=14 and mop_lab_category='Estado' and moa_rol_uid=".$_SESSION['usr_rol']."");
+            $valuePermit=admin::getDBvalue("select moa_status from sys_modules_options,sys_modules_access where mop_uid=moa_mop_uid and mop_status='ACTIVE'and mop_mod_uid=$moduleListId and mop_lab_category='Estado' and moa_rol_uid=".$_SESSION['usr_rol']."");
             if(($valuePermit=='ACTIVE')&&($cli_status_main==0)){
             ?>
 	   <a href=""  onclick="clientCS('<?=$cli_uid?>','<?=$cli_status?>'); return false;">
@@ -212,8 +212,7 @@ while ($user_list = $pagDb->next_record())
     <td align="center" width="5%" height="5">
 	
                 <?php
-                $moduleId=14;
-                $valuePermit=admin::getDBvalue("select moa_status from sys_modules_options,sys_modules_access where mop_uid=moa_mop_uid and mop_status='ACTIVE'and mop_mod_uid=$moduleId and mop_lab_category='Aprobar' and moa_rol_uid=".$_SESSION['usr_rol']."");
+                $valuePermit=admin::getDBvalue("select moa_status from sys_modules_options,sys_modules_access where mop_uid=moa_mop_uid and mop_status='ACTIVE'and mop_mod_uid=$moduleListId and mop_lab_category='Aprobar' and moa_rol_uid=".$_SESSION['usr_rol']."");
                 if(($valuePermit=='ACTIVE')&&($cli_status_main==0)){
                 ?>
                     <a href="aprobarSubasta" onclick="aprobarSubasta('<?=$cli_uid?>');return false;">
@@ -232,8 +231,7 @@ while ($user_list = $pagDb->next_record())
         <td align="center" width="5%" height="5">
 	
                 <?php
-                $moduleId=14;
-                $valuePermit=admin::getDBvalue("select moa_status from sys_modules_options,sys_modules_access where mop_uid=moa_mop_uid and mop_status='ACTIVE'and mop_mod_uid=$moduleId and mop_lab_category='Rechazar' and moa_rol_uid=".$_SESSION['usr_rol']."");
+                $valuePermit=admin::getDBvalue("select moa_status from sys_modules_options,sys_modules_access where mop_uid=moa_mop_uid and mop_status='ACTIVE'and mop_mod_uid=$moduleListId and mop_lab_category='Rechazar' and moa_rol_uid=".$_SESSION['usr_rol']."");
                 if(($valuePermit=='ACTIVE')&&($cli_status_main==0)){
                 ?>
 
@@ -296,7 +294,7 @@ else
         $moduleId=15;
         $valuePermit=admin::getDBvalue("select moa_status from sys_modules_options,sys_modules_access where mop_uid=moa_mop_uid and mop_status='ACTIVE'and mop_mod_uid=$moduleId and mop_lab_category='Crear' and moa_rol_uid=".$_SESSION['usr_rol']."");
 	if($valuePermit=='ACTIVE'){?>
-            <a href="<?=admin::modulesLink('clientNew')?>"><?=admin::modulesLabels('clientNew')?></a>
+           <a href="<?=admin::modulesLink($etiquetaCrear)?>?tipUid=<?=admin::getParam("tipUid")?>"><?=admin::modulesLabels($etiquetaCrear)?></a>
         <?php
         }
         ?>
