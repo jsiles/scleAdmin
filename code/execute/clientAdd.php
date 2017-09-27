@@ -105,7 +105,7 @@ if($cli_exist==0){
 								0,
 								GETDATE(), $tipUid
 								)";
-       // echo $sql;die;
+       //echo $sql;die;
 	$db->query($sql);
 
 	$cli_uid = admin::getDBvalue("select cli_uid FROM mdl_client where cli_nit_ci='".$cli_nit_ci."' and cli_delete=0");
@@ -161,8 +161,8 @@ if ($validFile && $FILES['error']==0)
 	$sql = "UPDATE mdl_client SET cli_logo='".$nomIMG."' WHERE cli_uid=".$cli_uid;
 	$db->query($sql);
 	}
-}
+}else{die('Usuario ya existe');}
         $token=admin::getParam("token");		
 	
-header('Location: ../../clientList.php');
+header('Location: ../../clientList.php?tipUid='.$tipUid);
 ?>

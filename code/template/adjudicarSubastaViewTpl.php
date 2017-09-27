@@ -269,6 +269,10 @@ $prod = $db->next_record();
 
 </table>
 <div id="DIV_WAIT1" style="display:none;"><img border="0" src="lib/loading.gif"></div>
+<?php
+if($tipUid==2)
+{
+?>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
     <tr>
       <td width="77%" height="40"><span class="title">Proveedores habilitados</span></td>
@@ -525,7 +529,11 @@ while ($list = $db2->next_record())
 </table>
 <br>
 <br>
+<?php
+}
+?>
 <br />
+
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 <tr>
      <td width="77%" height="40"><span class="title">Informe Compra</span></td>
@@ -582,7 +590,7 @@ while ($list = $db2->next_record())
 	  	<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
 			<tr>
 				<td width="59%" align="center">
-                                    <a href="informeList.php" class="button" >Volver</a>
+                                    <a href="informeList.php?tipUid=<?=$tipUid?>" class="button" >Volver</a>
 				</td>
                               
         </tr>

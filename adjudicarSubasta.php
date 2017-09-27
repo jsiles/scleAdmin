@@ -1,6 +1,26 @@
 <?php
  include ("core/admin.php"); 
- admin::initialize('informes','informesView'); 
+$tipUid=  admin::getParam("tipUid");
+switch($tipUid){
+    case 2: $opcionMenu = "informes";
+            $opocionSubMenu ="informesList";
+            $etiquetaCrear = "informesNew";
+            $moduleListId=22;
+            $moduleCrearId=23;
+            break;
+    case 6: $opcionMenu = "informes2";
+            $opocionSubMenu ="informesList2";
+            $etiquetaCrear = "informesNew2";
+            $moduleListId=68;
+            $moduleCrearId=69;
+            break;    
+    default:$opcionMenu = "informes";
+            $opocionSubMenu ="informesList";
+            $moduleListId=22;
+            $moduleCrearId=23;
+            break; 
+}
+admin::initialize($opcionMenu, $opocionSubMenu); 
  ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">    
 <html>

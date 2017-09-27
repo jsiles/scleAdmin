@@ -256,10 +256,24 @@ if ($FILES2["name"] != '')
 	$db->query($sql);
 	}
 $token=admin::getParam("token");
-
-header('Location: ../../subastasNew2.php?pro_uid='.$pro_uid."&sub_uid=".$sub_uid."&tipUid=".admin::getParam("tipUid"));	
+if($sub_type=='COMPRA')
+{
+    header("Location: ../../subastasNew2.php?pro_uid=".$pro_uid."&sub_uid=".$sub_uid."&tipUid=".admin::getParam("tipUid"));	
+}else{
+    if($sub_modalidad!='TIEMPO')
+        header("Location: ../../ventasEdit2.php?pro_uid=".$pro_uid."&sub_uid=".$sub_uid."&tipUid=".admin::getParam("tipUid"));	
+    else
+        header("Location: ../../ventasList.php?tipUid=".admin::getParam("tipUid"));	
+}
 }else{
     $token=admin::getParam("token");
-    header('Location: ../../subastasNew.php?tipUid='.admin::getParam("tipUid"));	    
+    if($sub_type=='COMPRA')
+{
+
+    header("Location: ../../subastasNew.php?tipUid=".admin::getParam("tipUid"));	    
+}else{
+    
+    header("Location: ../../ventasNew.php?tipUid=".admin::getParam("tipUid"));	    
+}
 }
 ?>

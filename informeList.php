@@ -1,12 +1,26 @@
 <?php 
 include_once ("core/admin.php");
-admin::initialize('informes','informesList'); 
-$rol = $_SESSION["usr_rol"];
-if(($rol>3)&&($rol<5))
-{
-	$rolMax = admin::getDbValue("SELECT adj_monto FROM mdl_adjudicar WHERE adj_rol_uid=".$rol);
-	$valAdj = admin::getDbValue("SELECT adj_validacion FROM mdl_adjudicar WHERE adj_rol_uid=".$rol);
+$tipUid=  admin::getParam("tipUid");
+switch($tipUid){
+    case 2: $opcionMenu = "informes";
+            $opocionSubMenu ="informesList";
+            $etiquetaCrear = "informesNew";
+            $moduleListId=22;
+            $moduleCrearId=23;
+            break;
+    case 6: $opcionMenu = "informes2";
+            $opocionSubMenu ="informesList2";
+            $etiquetaCrear = "informesNew2";
+            $moduleListId=68;
+            $moduleCrearId=69;
+            break;    
+    default:$opcionMenu = "informes";
+            $opocionSubMenu ="informesList";
+            $moduleListId=22;
+            $moduleCrearId=23;
+            break; 
 }
+admin::initialize($opcionMenu, $opocionSubMenu);         
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">    
 <html>
@@ -102,7 +116,7 @@ function aprobarInf(id){
 						type: 'POST',
 						data: 'uid='+id,
 						 success: function() { 
-								window.location.href='./informeList.php';
+								window.location.href='./informeList.php?tipUid=<?=$tipUid?>';
 							}
 					});
 					 
@@ -129,7 +143,7 @@ function rechazarInf(id){
 						type: 'POST',
 						data: 'uid='+id,
 						 success: function() { 
-								window.location.href='./informeList.php';
+								window.location.href='./informeList.php?tipUid=<?=$tipUid?>';
 							}
 					});
 					 
@@ -155,7 +169,7 @@ function adjudicarSubasta(id){
 						type: 'POST',
 						data: 'uid='+id,
 						 success: function() { 
-								window.location.href='./informeList.php';
+								window.location.href='./informeList.php?tipUid=<?=$tipUid?>';
 							}
 					});
 					 

@@ -25,7 +25,7 @@
                            onblur="setClassInput(this,'OFF');document.getElementById('div_cli_nit_ci').style.display='none';"
                            onclick="setClassInput(this,'ON');document.getElementById('div_cli_nit_ci').style.display='none';" />&nbsp;
                     <?php
-                    if(SAP){
+                    if((SAP)&&($tipUid==1)){
                     ?>
                     <label style="color:#ff8a36">SAP</label>
                     <?php
@@ -46,7 +46,7 @@
             <td>
 <input name="cli_interno" type="text" class="input" id="cli_interno" size="60" onfocus="setClassInput(this,'ON');document.getElementById('div_cli_interno').style.display='none';" onblur="setClassInput(this,'OFF');document.getElementById('div_cli_interno').style.display='none';" onclick="setClassInput(this,'ON');document.getElementById('div_cli_interno').style.display='none';" /><br />
 <span id="div_cli_interno" style="" class="error">Codigo interno es obligatorio</span>			</td>
-            <td>&nbsp;</td>
+            <td><input name="tipUid" id="tipUid" value="<?=$tipUid?>" type="hidden">&nbsp;</td>
           </tr>
           
           <tr>
@@ -130,13 +130,20 @@
 <span id="div_cli_mainemail" style="" class="error">Email administrativo es obligatorio</span>			</td>
             <td>&nbsp;</td>
           </tr>
-          
+          <?php
+          if ($tipUid==1)
+          {
+          ?>
           <tr>
             <td>Email comercial:</td>
             <td>
 <input name="cli_commercialemail" type="text" class="input" id="cli_commercialemail" size="60" onfocus="setClassInput(this,'ON');document.getElementById('div_cli_commercialemail').style.display='none';" onblur="setClassInput(this,'OFF');document.getElementById('div_cli_commercialemail').style.display='none';" onclick="setClassInput(this,'ON');document.getElementById('div_cli_commercialemail').style.display='none';" /><br /><span id="div_cli_commercialemail" style="display:none;" class="error">Email comercial es obligatorio</span>			</td>
             <td>&nbsp;</td>
           </tr>
+          <?php
+          
+          }
+          ?>
           
           <tr>
             <td>CI Adm/legal:</td>
@@ -158,10 +165,20 @@
             <td>
 <input name="cli_legallastname" type="text" class="input" id="cli_legallastname" size="60" onfocus="setClassInput(this,'ON');document.getElementById('div_cli_legallastname').style.display='none';" onblur="setClassInput(this,'OFF');document.getElementById('div_cli_legallastname').style.display='none';" onclick="setClassInput(this,'ON');document.getElementById('div_cli_legallastname').style.display='none';" /><br />
 <span id="div_cli_legallastname" style="" class="error">Apellido Adm/legal es obligatorio</span>	</td>
-            <td><a id="l2a" href="#" class="small2" onclick="nal2(1);return false;">+ agregar Adm/legal (2)</a>
-            <a id="l2b" class="small3" style="display:none" href="#" class="small2" onclick="nal2(0);return false;">+ quitar Adm/legal (2)</a></td>
+            <td><?php
+          if ($tipUid==1)
+          {
+          ?><a id="l2a" href="#" class="small2" onclick="nal2(1);return false;">+ agregar Adm/legal (2)</a>
+            <a id="l2b" class="small3" style="display:none" href="#" class="small2" onclick="nal2(0);return false;">+ quitar Adm/legal (2)</a>
+            
+            
+          <?php } ?>
+            </td>
           </tr>
-          
+          <?php
+          if ($tipUid==1)
+          {
+          ?>
           <tr id="cal2" style="display:none">
             <td>CI Adm/legal (2):</td>
             <td>
@@ -218,7 +235,9 @@
 <input name="cli_commerciallastname" type="text" class="input" id="cli_commerciallastname" size="60" onfocus="setClassInput(this,'ON');document.getElementById('div_cli_commerciallastname').style.display='none';" onblur="setClassInput(this,'OFF');document.getElementById('div_cli_commerciallastname').style.display='none';" onclick="setClassInput(this,'ON');document.getElementById('div_cli_commerciallastname').style.display='none';" /><br /><span id="div_cli_commerciallastname" style="display:none;" class="error">Apellido comercial es obligatorio</span>			</td>
             <td>&nbsp;</td>
           </tr>
-          
+          <?php 
+          }
+          ?>
           
         </table></td>
         <td width="50%" valign="top">
@@ -294,20 +313,23 @@
              </td>
             <td width="7%">&nbsp;</td>
           </tr>
-          
+          <?php
+          if ($tipUid==1)
+          {
+          ?>
           <tr>
             <td width="29%">Forma de pago al proveedor:</td>
             <td width="64%">
             
             <select name="cli_pts_uid" class="txt10" onchange="ptsClient('<?=admin::getParam("token")?>'); return false;" id="cli_pts_uid">
-                <? 
+                <?php 
 				$sql = "select pts_uid, pts_type from mdl_paymenttosupplier where pts_delete=0";
 					$db2->query($sql);
 					while ($content=$db2->next_record())
 					{
 				?>
             	    <option value="<?=$content["pts_uid"]?>" ><?=$content["pts_type"]?></option>	
-              	<? 
+              	<?php 
 					}
 				?>
 			</select>
@@ -355,7 +377,9 @@
 					</td>
             <td width="7%">&nbsp;</td>
           </tr>
-          
+          <?php
+          }
+          ?>
           <tr>
             <td width="16%"><?=admin::labels('photo');?>:</td>
             <td width="84%">

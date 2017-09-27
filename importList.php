@@ -2,45 +2,18 @@
 include_once ("core/admin.php");
 $tipUid=  admin::getParam("tipUid");
 switch($tipUid){
-    case 1: $opcionMenu = "subastaRavParametros";
-            $opocionSubMenu ="subastasRavList";
-            $etiquetaCrear = "subastasRavNew";
-            $moduleListId=8;
-            $moduleCrearId=9;
+    case 1: $opcionMenu = "import";
+            $opocionSubMenu ="importList";
+            $etiquetaCrear = "importNew";
+            $moduleListId=65;
+            $moduleCrearId=66;
             break;
-    case 2: $opcionMenu = "subastaRavInforme";
-            $opocionSubMenu ="subastasRavInfList";
-            $etiquetaCrear = "subastasRavInfNew";
-            $moduleListId=11;
-            $moduleCrearId=12;
-            break;    
-    case 3: $opcionMenu = "ravSolicitud";
-            $opocionSubMenu ="ravSolicitudList";
-            $etiquetaCrear = "ravSolicitudNew";
-            $moduleListId=32;
-            $moduleCrearId=33;
-            break;    
-    case 4: $opcionMenu = "ravOrden";
-            $opocionSubMenu ="ravOrdenList";
-            $etiquetaCrear = "ravOrdenNew";
-            $moduleListId=35;
-            $moduleCrearId=36; 
-            break;
-    case 5: $opcionMenu = "subastaRavParametros2";
-            $opocionSubMenu ="subastasRavList2";
-            $etiquetaCrear = "subastasRavNew2";
-            $moduleListId=59;
-            $moduleCrearId=60; 
-            break;
-    case 6: $opcionMenu = "subastaRavInforme2";
-            $opocionSubMenu ="subastasRavInfList2";
-            $etiquetaCrear = "subastasRavInfNew2";
-            $moduleListId=75;
-            $moduleCrearId=76;
-            break;    
     default :
-            $opcionMenu = "subastaRavParametros";
-            $opocionSubMenu ="subastasRavList";
+            $opcionMenu = "import";
+            $opocionSubMenu ="importList";
+            $etiquetaCrear = "importNew";
+            $moduleListId=65;
+            $moduleCrearId=66;
          
 
 }
@@ -130,7 +103,7 @@ function removeList(id){
 <tr><td valign="top"><?php include_once("skin/header.php");?>
 </td></tr>
   <tr>
-    <td valign="top" id="content"><?php include_once("code/template/subastasRavListTpl.php"); ?></td>
+    <td valign="top" id="content"><?php include_once("code/template/importListTpl.php"); ?></td>
   </tr>
 <tr><td>
   <?php include("skin/footer.php"); ?>

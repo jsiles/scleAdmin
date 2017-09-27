@@ -2,46 +2,18 @@
 include_once ("core/admin.php");
 $tipUid=  admin::getParam("tipUid");
 switch($tipUid){
-    case 1: $opcionMenu = "subastaRavParametros";
-            $opocionSubMenu ="subastasRavList";
-            $etiquetaCrear = "subastasRavNew";
-            $moduleListId=8;
-            $moduleCrearId=9;
+    case 1: $opcionMenu = "import";
+            $opocionSubMenu ="importNew";
+            $etiquetaCrear = "importNew";
+            $moduleListId=65;
+            $moduleCrearId=66;
             break;
-    case 2: $opcionMenu = "subastaRavInforme";
-            $opocionSubMenu ="subastasRavInfList";
-            $etiquetaCrear = "subastasRavInfNew";
-            $moduleListId=11;
-            $moduleCrearId=12;
-            break;    
-    case 3: $opcionMenu = "ravSolicitud";
-            $opocionSubMenu ="ravSolicitudList";
-            $etiquetaCrear = "ravSolicitudNew";
-            $moduleListId=32;
-            $moduleCrearId=33;
-            break;    
-    case 4: $opcionMenu = "ravOrden";
-            $opocionSubMenu ="ravOrdenList";
-            $etiquetaCrear = "ravOrdenNew";
-            $moduleListId=35;
-            $moduleCrearId=36; 
-            break;
-    case 5: $opcionMenu = "subastaRavParametros2";
-            $opocionSubMenu ="subastasRavList2";
-            $etiquetaCrear = "subastasRavNew2";
-            $moduleListId=59;
-            $moduleCrearId=60; 
-            break;
-    case 6: $opcionMenu = "subastaRavInforme2";
-            $opocionSubMenu ="subastasRavInfList2";
-            $etiquetaCrear = "subastasRavInfNew2";
-            $moduleListId=75;
-            $moduleCrearId=76;
-            break;    
     default :
-            $opcionMenu = "subastaRavParametros";
-            $opocionSubMenu ="subastasRavList";
-         
+            $opcionMenu = "import";
+            $opocionSubMenu ="importNew";
+            $etiquetaCrear = "importNew";
+            $moduleListId=65;
+            $moduleCrearId=66;
 
 }
 admin::initialize($opcionMenu, $opocionSubMenu); 
@@ -62,13 +34,22 @@ admin::initialize($opcionMenu, $opocionSubMenu);
 <meta name="rating" content="General">
 <meta http-equiv="Content-Type" content="text/html; ISO-8859-1">
 <script type="text/javascript">var SERVER='<?=$domain?>'; </script>
-<script type="text/javascript" src="js/jquery.js"></script>
+<!--<script type="text/javascript" src="js/jquery.js"></script>-->
 <script language="javascript" type="text/javascript" src="js/ajaxlib.js?version=<?=VERSION?>"></script>
 <script type="text/javascript" src="js/interface.js"></script>
 <!--BEGINIMPROMTU-->
 <link rel="stylesheet" type="text/css" href="css/impromptu.css">
 <script type="text/javascript" src="js/jquery.Impromptu.js"></script>
 <!--ENDIMPROMTU--> 
+<!--Begin jqueryUpload-->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="jfile/css/style.css">
+<link rel="stylesheet" href="jfile/css/jquery.fileupload.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="jfile/js/vendor/jquery.ui.widget.js"></script>
+<script src="jfile/js/jquery.iframe-transport.js"></script>
+<script src="jfile/js/jquery.fileupload.js"></script>
+<!--End jqueryUpload-->
 <script type="text/javascript">      
 // ELIMINA LOS REGISTROS DE LA CATEGORIA PRINCIPAL
 function removeListCat(id){
@@ -108,11 +89,11 @@ function removeList(id){
 										   
 			if(v){
 				var uid = m.find('#list').val();
-				  $('#list_'+id).fadeOut(500, function(){ $(this).remove(); });
+				  $('#sub_'+id).fadeOut(500, function(){ $(this).remove(); });
 					  $.ajax({
-						url: 'code/execute/subastasRavDel.php',
+						url: 'code/execute/subastasDel.php',
 						type: 'POST',
-						data: 'rav_uid='+id
+						data: 'sub_uid='+id
 					});
 				/********BeginResetColorDelete*************/  
 				//	  resetOrderRemove(id);  
@@ -123,6 +104,32 @@ function removeList(id){
 		}
 	});
 }
+$(function () {
+    'use strict';
+    // Change this to the location of your server-side upload handler:
+    var url = window.location.hostname === 'scle.com' ?
+                '//scle.com/' : 'jfile/server/php/';
+                
+    $('#fileupload').fileupload({
+        url: url,
+        dataType: 'json',
+        done: function (e, data) {
+            $.each(data.result.files, function (index, file) {
+                $('<p/>').text(file.name).appendTo('#files');
+                $('#imp_file').val(file.name);
+            });
+        },
+        progressall: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            $('#progress .progress-bar').css(
+                'width',
+                progress + '%'
+            );
+        }
+    }).prop('disabled', !$.support.fileInput)
+        .parent().addClass($.support.fileInput ? undefined : 'disabled');
+});
+
 </script>
 </head>
 <body>
@@ -130,7 +137,7 @@ function removeList(id){
 <tr><td valign="top"><?php include_once("skin/header.php");?>
 </td></tr>
   <tr>
-    <td valign="top" id="content"><?php include_once("code/template/subastasRavListTpl.php"); ?></td>
+    <td valign="top" id="content"><?php include_once("code/template/importNewTpl.php"); ?></td>
   </tr>
 <tr><td>
   <?php include("skin/footer.php"); ?>

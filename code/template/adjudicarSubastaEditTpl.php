@@ -306,6 +306,10 @@ function valForm(){
 
 </table>
 <div id="DIV_WAIT1" style="display:none;"><img border="0" src="lib/loading.gif"></div>
+<?php
+if($tipUid==2)
+{
+?>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
     <tr>
       <td width="77%" height="40"><span class="title">Proveedores habilitados</span></td>
@@ -553,6 +557,9 @@ while ($list = $db2->next_record())
 </table>
 <br>
 <br>
+<?php
+}
+?>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   
 <tr><td><br /></td></tr>
@@ -605,7 +612,7 @@ while ($list = $db2->next_record())
             <td width="12%" style="color:#16652f">Observaciones:</td>
             <td><textarea id="observaciones" rows="4" cols="45" name="observaciones"  onfocus="setClassTextarea(this,'ON');document.getElementById('div_observaciones').style.display='none';" onblur="setClassTextarea(this,'OFF');document.getElementById('div_observaciones').style.display='none';" onclick="setClassTextarea(this,'ON');document.getElementById('div_observaciones').style.display='none';"><?=$informe["sua_observaciones"]?></textarea>
             <br /><span id="div_observaciones" style="display:none; padding-left:5px; padding-right:5px;" class="error">* Campo requerido</span>
-            <input name="sua_uid" value="<?=$informe["sua_uid"]?>" type="hidden"></td>
+            <input name="sua_uid" value="<?=$informe["sua_uid"]?>" type="hidden"><input name="tipUid" id="tipUid" type="hidden" value="<?=$tipUid?>"></td>
         </tr>
     </table>
     </div>

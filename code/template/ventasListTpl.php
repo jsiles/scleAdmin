@@ -2,12 +2,12 @@
 define (SYS_LANG,$lang);
 $maxLine=20;
 $order=0; 
-$search2 = admin::toSql(admin::getParam("search2"),"Text");
+$search2 = admin::toSql(admin::getParam("search2"),"String");
 $timeNow= date("Y-m-d H:i:s");//sub_finish<>0
 //echo $timeNow;
 if ($search2!='')
 {
-	$Where=" and (sub_description like '%".$search2."%' or pro_name like '%".$search2."%')";
+	$Where="and (sub_description like '%".$search2."%' or pro_name like '%".$search2."%')";
 }
 
 
@@ -19,13 +19,13 @@ if($tipUid==2) {
      * 2 Informe
      * 3 Solicitud Compra
      * 4 Aprobacion Compra
-     * 
+     * 5 Proceso Venta
      */
     $Where.=" and sub_finish=0 ";
 }
 
     $rol=admin::getSession("usr_rol");
-    $unidadHabilitada =admin::dbFillArray("select raa_uni_uid,rav_uid from mdl_rav,mdl_rav_access where rav_uid=raa_rav_uid and rav_tipologia=1 and rav_delete=0 and rav_rol_uid=$rol");
+    $unidadHabilitada =admin::dbFillArray("select raa_uni_uid,rav_uid from mdl_rav,mdl_rav_access where rav_uid=raa_rav_uid and rav_tipologia=5 and rav_delete=0 and rav_rol_uid=$rol");
    // print_r($unidadHabilitada);
     if(is_array($unidadHabilitada)){
         $k=0;
@@ -39,18 +39,16 @@ if($tipUid==2) {
             }
             $k++;
         }
-        //if($tipUid==2) 
-        $Where .=" and suu_uni_uid in ($unidadHabUid) ";
+        if($tipUid==2) $Where .=" and suu_uni_uid in ($unidadHabUid) ";
     }else{
-         //if($tipUid==2) 
-         $Where .=" and suu_uni_uid=-1 ";
+         if($tipUid==2) $Where .=" and suu_uni_uid=-1 ";
     }
     
 $qsearch="select sub_mount_base, sub_modalidad, sub_moneda, pro_uid, pro_name, pca_name, sub_status, sub_uid, "
         . "sub_type, iif('$timeNow'>sub_deadtime,'concluida',iif('$timeNow'>sub_hour_end, 'subastandose', 'aprobada')) as deadtime, "
         . "sub_finish as estado "
         . "from mdl_product, mdl_subasta, mdl_pro_category, mdl_subasta_unidad "
-        . "WHERE sub_uid=pro_sub_uid and pca_uid=sub_pca_uid and sub_delete=0 and sub_mode='SUBASTA' and sub_uid=suu_sub_uid and sub_type='COMPRA' "
+        . "WHERE sub_uid=pro_sub_uid and pca_uid=sub_pca_uid and sub_delete=0 and sub_mode='SUBASTA' and sub_uid=suu_sub_uid and sub_type='VENTA' "
         . " $Where ";
 
 $GroupBy =" GROUP BY sub_mount_base, sub_modalidad, sub_moneda, pro_uid, pro_name, pca_name, sub_status, sub_uid, "
@@ -60,9 +58,8 @@ $GroupBy =" GROUP BY sub_mount_base, sub_modalidad, sub_moneda, pro_uid, pro_nam
 //echo $qsearch;
 
 $order= admin::toSql(admin::getParam("order"),"Number");
-if(!isset($order)) $order=0;
-/*if ($order) admin::setSession("order",$order);
-else $order=admin::getSession("order");*/
+if ($order) admin::setSession("order",$order);
+else $order=admin::getSession("order");
 
 if ($order==0) {$orderCode=' order by pro_uid desc'; $uidClass='down'; $nameClass='up'; $linClass='up';}
 elseif ($order==1) {$orderCode='  order by pro_uid asc'; $uidClass='up'; $nameClass='up'; $linClass='up';}
@@ -119,7 +116,7 @@ if ($nroReg>0)
 	<td width="90%" height="40"></td>
     <td>
         <div class="boxSearch">
-        <form  method="post" name="frmSubastasSearch" action="subastasList.php" >
+        <form name="frmSubastasSearch" action="ventasList.php" >
         <table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
          <tr>
           <td>
@@ -127,7 +124,6 @@ if ($nroReg>0)
           </td>
           <td>
           <input name="Buscar" id="Buscar" type="image" src="lib/buscar.png" />
-           <input type="hidden" name="token" value="<?=admin::getParam("token")?>" />
            <input type="hidden" name="tipUid" value="<?=admin::getParam("tipUid")?>" />
           </td>
          </tr>
@@ -140,12 +136,11 @@ if ($nroReg>0)
       <td colspan="2" width="100%">
   <table width="100%" border="0">
 	<tr>
-            <td width="10%"><a href="subastasList.php?order=<?=$uidOrder?><?=$searchURL?>&tipUid=<?=admin::getParam("tipUid")?>" class="<?=$uidClass;?>"><?=admin::labels('code');?>:</a></td>
-        <td width="10%"><a href="subastasList.php?order=<?=$nameOrder?><?=$searchURL?>&tipUid=<?=admin::getParam("tipUid")?>" class="<?=$nameClass;?>"><?=admin::labels('name');?>:</a></td>
-        <td width="10%"><a href="subastasList.php?order=<?=$linOrder?><?=$searchURL?>&tipUid=<?=admin::getParam("tipUid")?>" class="<?=$linClass;?>"><?=admin::labels('category');?>:</a></td>
+	<td width="10%"><a href="ventasList.php?order=<?=$uidOrder?><?=$searchURL?>" class="<?=$uidClass;?>"><?=admin::labels('code');?>:</a></td>
+        <td width="10%"><a href="ventasList.php?order=<?=$nameOrder?><?=$searchURL?>" class="<?=$nameClass;?>"><?=admin::labels('name');?>:</a></td>
+        <td width="10%"><a href="ventasList.php?order=<?=$linOrder?><?=$searchURL?>" class="<?=$linClass;?>"><?=admin::labels('category');?>:</a></td>
         <td width="10%"><span class="txt11 color2">Estado:</span></td>
         <td width="10%"><span class="txt11 color2">Unidad Solicitante</span></td>
-        <td width="5%" align="center"><span class="txt11 color2">Monto</span></td>
         <td width="5%">&nbsp;</td>		
 	<td width="5%">&nbsp;</td>
 	<td width="5%">&nbsp;</td>
@@ -189,7 +184,7 @@ while ($subasta_list = $pagDb->next_record())
             $countBids=admin::getDBvalue("SELECT count(*) FROM mdl_bid where bid_sub_uid='".$sub_uid."' and bid_cli_uid!=0");
         
         }
-       $monedaLit =admin::getDbValue("select cur_description from mdl_currency where cur_uid=$sub_moneda");
+       
         
         if(($deadtime=='subastandose')&&($sub_finish==1)) $sub_finish=2;
         if(($countBids==0)&&($sub_finish==3)) $sub_finish=7;
@@ -219,7 +214,7 @@ while ($subasta_list = $pagDb->next_record())
     		$sub_estado  ='SUBASTANDOSE';
     		break;
     	case  3:
-    		$sub_estado  ='PENDIENTE INFORME';
+    		$sub_estado  ='CONCLUIDO';
     		break;
     	case  4:
     		$sub_estado  ='INFORME';
@@ -268,11 +263,10 @@ while ($subasta_list = $pagDb->next_record())
     <table class="list" width="100%" style="">
 	<tr>
 		<td width="10%" ><span <?=$dest?>><?=admin::toHtml($sub_uid)?></span></td>
-        <td width="10%" ><span <?=$dest?>><?=$pro_name?></span></td>
-        <td width="10%" ><span <?=$dest?>><?=$pca_name?></span></td>
+        <td width="10%" ><span <?=$dest?>><?=ucfirst(strtolower(trim(admin::toHtml($pro_name))))?></span></td>
+        <td width="10%" ><span <?=$dest?>><?=ucwords(strtolower(trim(admin::toHtml($pca_name))))?></span></td>
         <td width="10%" ><span><?=$sub_estado?></span></td>
 	<td align="left" width="10%" height="5"><span><?=$rav_unidad?></span>
-        <td width="5%" align="right"><span><?=admin::numberFormat($sub_monto)." ".$monedaLit?></span></td>
          <?php
 		 
 		/* if ($countBids>0){
@@ -290,7 +284,7 @@ while ($subasta_list = $pagDb->next_record())
                 $valuePermit=admin::getDBvalue("select moa_status from sys_modules_options,sys_modules_access where mop_uid=moa_mop_uid and mop_status='ACTIVE'and mop_mod_uid=$moduleListId and mop_lab_category='Ver' and moa_rol_uid=".$_SESSION['usr_rol']."");
                 if($valuePermit=='ACTIVE'){
             ?>
-        <a href="subastasView.php?pro_uid=<?=$pro_uid?>&sub_uid=<?=$sub_uid?>&tipUid=<?=$tipUid?>">
+        <a href="ventasView.php?pro_uid=<?=$pro_uid?>&sub_uid=<?=$sub_uid?>&tipUid=<?=$tipUid?>">
             <img src="lib/view_es.gif" border="0" title="<?=admin::labels('view')?>" alt="<?=admin::labels('view')?>">
 	</a>
             <?php
@@ -314,7 +308,7 @@ while ($subasta_list = $pagDb->next_record())
             $valuePermit=admin::getDBvalue("select moa_status from sys_modules_options,sys_modules_access where mop_uid=moa_mop_uid and mop_status='ACTIVE'and mop_mod_uid=$moduleListId and mop_lab_category='Editar' and moa_rol_uid=".$_SESSION['usr_rol']."");
             if($valuePermit=='ACTIVE'){
             ?>
-		<a href="subastasEdit.php?pro_uid=<?=$pro_uid?>&sub_uid=<?=$sub_uid?>&tipUid=<?=$tipUid?>">
+		<a href="ventasEdit.php?pro_uid=<?=$pro_uid?>&sub_uid=<?=$sub_uid?>&tipUid=<?=$tipUid?>">
 		<img src="<?=admin::labels('edit','linkImage')?>" border="0" title="<?=admin::labels('edit')?>" alt="<?=admin::labels('edit')?>">
 		</a>
                 <?php
@@ -394,7 +388,7 @@ while ($subasta_list = $pagDb->next_record())
 		<img src="lib/aprobar_off.png" border="0" title="APROBAR" alt="APROBAR">
     <?php }
 	else{
-            $rolAplica =admin::validaRav($sub_uid,admin::getSession("usr_rol"),1,$sub_moneda, $sub_monto, $unidadUid);
+            $rolAplica =admin::validaRav($sub_uid,admin::getSession("usr_rol"),5,$sub_moneda, $sub_monto, $unidadUid);
             if($rolAplica==1)
             {
             ?>

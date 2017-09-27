@@ -59,7 +59,7 @@ admin::initialize($opcionMenu, $opocionSubMenu);
 <script type="text/javascript" src="js/jquery.Impromptu.js"></script>
 <!--ENDIMPROMTU--> 
 <?php
-if(SAP){
+if((SAP)&&($tipUid==1)){
     
 ?>
 <script type="text/javascript">

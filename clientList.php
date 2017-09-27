@@ -115,7 +115,7 @@ function aprobarSubasta(id){
 						type: 'POST',
 						data: 'uid='+id,
 						 success: function() { 
-								window.location.href='./clientList.php';
+								window.location.href='./clientList.php?tipUid=<?=$tipUid?>';
 							}
 					});
 					 
@@ -142,7 +142,7 @@ function rechazarSubasta(id){
 						type: 'POST',
 						data: 'uid='+id,
 						 success: function() { 
-								window.location.href='./clientList.php';
+								window.location.href='./clientList.php?tipUid=<?=$tipUid?>';
 							}
 					});
 					 

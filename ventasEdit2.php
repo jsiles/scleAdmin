@@ -1,26 +1,28 @@
 <?php
  include ("core/admin.php"); 
- $tipUid=  admin::getParam("tipUid");
+$tipUid=  admin::getParam("tipUid");
 switch($tipUid){
-    case 2: $opcionMenu = "informes";
-            $opocionSubMenu ="informesList";
-            $etiquetaCrear = "informesNew";
-            $moduleListId=22;
-            $moduleCrearId=23;
+    case 1: $opcionMenu = "ventas";
+            $opocionSubMenu ="ventasEdit";
+            $etiquetaCrear = "ventasNew";
+            $moduleListId=54;
+            $moduleCrearId=55;
             break;
-    case 6: $opcionMenu = "informes2";
-            $opocionSubMenu ="informesList2";
-            $etiquetaCrear = "informesNew2";
-            $moduleListId=68;
-            $moduleCrearId=69;
+    case 2: $opcionMenu = "parametrizaciones2";
+            $opocionSubMenu ="parametrizaciones2Edit";
+            $etiquetaCrear = "parametrizaciones2New";
+            $moduleListId=57;
+            $moduleCrearId=57;
             break;    
-    default:$opcionMenu = "informes";
-            $opocionSubMenu ="informesList";
-            $moduleListId=22;
-            $moduleCrearId=23;
-            break; 
+    default :
+            $opcionMenu = "ventas";
+            $opocionSubMenu ="ventasEdit";
+            $etiquetaCrear = "ventasNew";
+            $moduleListId=54;
+            $moduleCrearId=55;
+            break;
 }
-admin::initialize($opcionMenu, $opocionSubMenu); 
+admin::initialize($opcionMenu, $opocionSubMenu);  
  ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">    
 <html>
@@ -37,9 +39,11 @@ admin::initialize($opcionMenu, $opocionSubMenu);
 <meta name="copyright" content="Software propietario de DEVZONE">
 <meta name="rating" content="General">
 <META HTTP-EQUIV="Content-Type" content="text/html; ISO-8859-1">
+<script type="text/javascript">var SERVER='<?=$domain?>'; </script>
 <script language="javascript" type="text/javascript" src="js/jquery-1.3.2.js"></script>
 <script language="javascript" type="text/javascript" src="js/ajaxlib.js?version=<?=VERSION?>"></script>
 <script type="text/javascript" src="js/subastas.js?version=<?=VERSION?>"></script>
+
 <!-- PROMPT -->
 <!--<script language="javascript" type="text/javascript" src="js/jquery.js"></script>-->
 <script language="javascript" type="text/javascript" src="js/jquery.Impromptu.js"></script>
@@ -100,9 +104,9 @@ function removeList(id){
 				var uid = m.find('#list').val();
 				  $('#'+id).fadeOut(500, function(){ $(this).remove(); });
 					  $.ajax({
-						url: 'code/execute/incotermDel.php',
+						url: 'code/execute/productDel.php',
 						type: 'POST',
-						data: 'uid='+id+''
+						data: 'uid='+id+'&token=<?=admin::getParam("token")?>'
 					});
 				   
 				 }
@@ -150,7 +154,7 @@ function removeList(id){
 <tr><td valign="top"><?php include_once("skin/header.php");?>
 </td></tr>
   <tr>
-    <td valign="top" id="content"><?php include_once("code/template/adjudicarSubastaViewTpl.php"); ?></td>
+    <td valign="top" id="content"><?php include_once("code/template/ventasEditTpl2.php"); ?></td>
   </tr>
 <tr><td>
   <?php include("skin/footer.php"); ?>

@@ -1,27 +1,29 @@
 <?php
  include ("core/admin.php"); 
- $tipUid=  admin::getParam("tipUid");
+$tipUid=  admin::getParam("tipUid");
 switch($tipUid){
-    case 2: $opcionMenu = "informes";
-            $opocionSubMenu ="informesList";
-            $etiquetaCrear = "informesNew";
-            $moduleListId=22;
-            $moduleCrearId=23;
+    case 1: $opcionMenu = "ventas";
+            $opocionSubMenu ="ventasNew";
+            $etiquetaCrear = "ventasNew";
+            $moduleListId=54;
+            $moduleCrearId=55;
             break;
-    case 6: $opcionMenu = "informes2";
-            $opocionSubMenu ="informesList2";
-            $etiquetaCrear = "informesNew2";
-            $moduleListId=68;
-            $moduleCrearId=69;
+    case 2: $opcionMenu = "parametrizaciones2";
+            $opocionSubMenu ="parametrizaciones2New";
+            $etiquetaCrear = "parametrizaciones2New";
+            $moduleListId=57;
+            $moduleCrearId=57;
             break;    
-    default:$opcionMenu = "informes";
-            $opocionSubMenu ="informesList";
-            $moduleListId=22;
-            $moduleCrearId=23;
-            break; 
+    default :
+            $opcionMenu = "ventas";
+            $opocionSubMenu ="ventasNew";
+            $etiquetaCrear = "ventasNew";
+            $moduleListId=54;
+            $moduleCrearId=55;
+            break;
 }
-admin::initialize($opcionMenu, $opocionSubMenu); 
- ?>
+admin::initialize($opcionMenu, $opocionSubMenu);   
+?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">    
 <html>
 <head>
@@ -37,79 +39,43 @@ admin::initialize($opcionMenu, $opocionSubMenu);
 <meta name="copyright" content="Software propietario de DEVZONE">
 <meta name="rating" content="General">
 <META HTTP-EQUIV="Content-Type" content="text/html; ISO-8859-1">
+<script type="text/javascript">var SERVER='<?=$domain?>'; </script>
+
 <script language="javascript" type="text/javascript" src="js/jquery-1.3.2.js"></script>
 <script language="javascript" type="text/javascript" src="js/ajaxlib.js?version=<?=VERSION?>"></script>
-<script type="text/javascript" src="js/subastas.js?version=<?=VERSION?>"></script>
-<!-- PROMPT -->
-<!--<script language="javascript" type="text/javascript" src="js/jquery.js"></script>-->
-<script language="javascript" type="text/javascript" src="js/jquery.Impromptu.js"></script>
 <script src="js/ui.core.js" type="text/javascript"></script>
 <script src="js/ui.sortable.js" type="text/javascript"></script>
 <script type="text/javascript" src="js/interface.js"></script>
+<script type="text/javascript" src="js/subastas.js?version=<?=VERSION?>"></script>
+
+<!--BEGINIMPROMTU-->
+<link rel="stylesheet" type="text/css" href="css/impromptu.css">
+<script type="text/javascript" src="js/jquery.Impromptu.js"></script>
+<!--ENDIMPROMTU--> 
+
 <!-- TOOLTIPS DE ACRONYM -->
 <script language="javascript" type="text/javascript" src="js/addEvent.js"></script>
 <script language="javascript" type="text/javascript" src="js/sweetTitles.js"></script>
 <link rel="stylesheet" href="css/sweetTitles.css" type="text/css" />
 <!-- FIN -->
-<!--BEGINIMPROMTU-->
-<link rel="stylesheet" type="text/css" href="css/impromptu.css" />
-<script type="text/javascript" src="js/jquery.Impromptu.js"></script>
 
-<!--ENDIMPROMTU--> 
 <!-- GROW de los Text areas -->
 <script type="text/javascript">
-function removeImg(id){
-	var txt = '<?=admin::labels('imagequestion');?>?<br><input type="hidden" id="list" name="list" value="'+ id +'" />';
-	$.prompt(txt,{
-		show:'fadeIn' ,
-		opacity:0,
-		buttons:{Eliminar:true, Cancelar:false},
-		callback: function(v,m){
-										   
-			if(v){
-				var uid = id; /* m.find('#list').val(); */
-
-				  $('#image_edit_'+uid).fadeOut(1, function(){ $(this).remove(); });
-				  
-					  $.ajax({
-						url: 'code/execute/subastaImageDel.php',
-						type: 'POST',
-						data: 'uid='+uid
-					});
-					document.getElementById('image_add_'+uid).innerHTML = '<input type="file" name="pro_image" id="pro_image" size="31" class="input">';
-					$('#image_add_'+uid).fadeIn(700);
+function grow() {
+	// Opera isn't just broken. It's really twisted.
+	if (this.scrollHeight > this.clientHeight && !window.opera)
+		{
+		while(this.scrollHeight > this.clientHeight)
+			{
+			this.rows += 1;
 			}
-			else{}
-			
 		}
-	});
-}	
-
-</script>
-<script type="text/javascript">      
-// ELIMINA LOS REGISTROS DE LA CATEGORIA PRINCIPAL
-function removeList(id){
-	var txt = '<?=admin::labels('delete','sure')?>?<br /><input type="hidden" id="list" name="list" value="'+ id +'" />';
-	$.prompt(txt,{
-		show:'fadeIn' ,
-		opacity:0,
-		buttons:{Eliminar:true, Cancelar:false},
-		callback: function(v,m){
-										   
-			if(v){
-				var uid = m.find('#list').val();
-				  $('#'+id).fadeOut(500, function(){ $(this).remove(); });
-					  $.ajax({
-						url: 'code/execute/incotermDel.php',
-						type: 'POST',
-						data: 'uid='+id+''
-					});
-				   
-				 }
-			else {}
-		}
-	});
-}
+	}
+function init() {
+	if (!document.getElementById)
+		return;
+	}
+window.onload = init;
 </script>
 <script type="text/javascript">
 		$(function() {
@@ -150,7 +116,7 @@ function removeList(id){
 <tr><td valign="top"><?php include_once("skin/header.php");?>
 </td></tr>
   <tr>
-    <td valign="top" id="content"><?php include_once("code/template/adjudicarSubastaViewTpl.php"); ?></td>
+    <td valign="top" id="content"><?php include_once("code/template/ventasNewTpl.php"); ?></td>
   </tr>
 <tr><td>
   <?php include("skin/footer.php"); ?>

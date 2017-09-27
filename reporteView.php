@@ -1,7 +1,26 @@
 <?php 
 include_once ("core/admin.php");
-admin::initialize('reportesParametros','reporteView'); 
-$rol = admin::getSession("usr_rol");
+ $tipUid=  admin::getParam("tipUid");
+switch($tipUid){
+    case 1: $opcionMenu = "reportesParametros";
+            $opocionSubMenu ="reporteList";
+            $etiquetaCrear = "reporteList";
+            $moduleListId=71;
+            $moduleCrearId=71;
+            break;
+    case 2: $opcionMenu = "reportesParametros2";
+            $opocionSubMenu ="reporteList2";
+            $etiquetaCrear = "reporteList2";
+            $moduleListId=71;
+            $moduleCrearId=71;
+            break;    
+    default:$opcionMenu = "reportesParametros";
+            $opocionSubMenu ="reporteList";
+            $moduleListId=71;
+            $moduleCrearId=71;
+            break; 
+}
+admin::initialize($opcionMenu, $opocionSubMenu); 
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">    
 <html>

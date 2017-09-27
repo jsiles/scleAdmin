@@ -1,69 +1,15 @@
 <?php
-$pro_uid = admin::toSql(admin::getParam("pro_uid"),"Text");
+$pro_uid = admin::toSql($_GET["pro_uid"],"String");
 $sub_uid=admin::getParam("sub_uid");
-$sql = "SELECT * FROM mdl_product, mdl_subasta, mdl_pro_category WHERE sub_uid=pro_sub_uid and pca_uid=sub_pca_uid and sub_status='ACTIVE' and sub_uid='".$sub_uid."'";
+if (!$pro_uid) header('Location: ../../subastasList.php?token='.$token);
+$sql = "SELECT * FROM mdl_product, mdl_subasta, mdl_pro_category WHERE sub_uid=pro_sub_uid and pca_uid=sub_pca_uid and sub_status='ACTIVE' and pro_uid='".$pro_uid."'";
 $db->query($sql);
 $prod = $db->next_record();
 
 ?>
-<script>
-function isNumeric(n) {
-  return !isNaN(parseFloat(n)) && isFinite(n);
-}
-function valForm(){
-    sw=true;
-        document.getElementById('div_monto').style.display='none';
-        document.getElementById('div_ahorro').style.display='none';
-        document.getElementById('div_observaciones').style.display='none';
-       
-    if (document.getElementById('monto').value==''){
-		document.getElementById('monto').className='inputError';
-		document.getElementById('div_monto').style.display='';
-		//document.getElementById('div_monto').innerHTML = "* El Monto es necesario!";
-		sw=false;
-	}
-	else
-	{
-            if (!isNumeric(document.getElementById('monto').value)){
-                                document.getElementById('monto').className='inputError';
-                                document.getElementById('div_monto').style.display='';
-                                document.getElementById('div_monto').innerHTML = "Solo Numeros";
-                                sw=false;
-		}
-            }
-    if (document.getElementById('ahorro').value==''){
-		document.getElementById('ahorro').className='inputError';
-		document.getElementById('div_ahorro').style.display='';
-		//document.getElementById('div_ahorro').innerHTML = "El Ahorro es necesario!";
-		sw=false;
-	}
-	else
-	{
-            if (!isNumeric(document.getElementById('ahorro').value)){
-			document.getElementById('ahorro').className='inputError';
-			document.getElementById('div_ahorro').style.display='';
-			document.getElementById('div_ahorro').innerHTML = "Solo Numeros";
-			sw=false;
-		}
-            }
- 
-        
-        if (document.getElementById('observaciones').value=='')
-		{
-		document.getElementById('observaciones').className='textError';
-		document.getElementById('div_observaciones').style.display='';
-		sw=false;
-		}        
-                                
-	if (sw) 
-		{
-		document.frmsubasta.submit();
-		}
-	
-}
-</script>
 <br />
 <div id="div_wait" style="display:none;"><img border="0" src="lib/loading.gif"></div>
+<form name="frmsubasta" method="post" action="code/execute/subastasUpd.php?token=<?=admin::getParam("token")?>" enctype="multipart/form-data" >
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 	<tr>
 		<td width="77%" height="40">
@@ -82,6 +28,12 @@ function valForm(){
 			<tr>
 			<td colspan="2" class="titleBox"><?=admin::labels('data');?> B&aacute;sicos:</td>
 			</tr>
+                        <tr>
+                            <td width="29%">Nro de Solicitud:</td>
+                            <td width="64%"><?=$prod["sub_sol_uid"]?>
+                                <br /><span id="div_sol_uid" style="display:none; padding-left:5px; padding-right:5px;" class="error">Campo requerido</span>
+                            </td>
+                        </tr>
             <tr>
 				<td><?=admin::labels('name');?>:</td>
 				<td><?=$prod["pro_name"]?>
@@ -111,7 +63,7 @@ function valForm(){
 			</tr>
             <tr>
 				<td><?=admin::labels('labels','quantity');?>:</td>
-				<td><?=$prod["pro_quantity"]?>
+                                <td><?=admin::numberFormat($prod["pro_quantity"])?>
 				</td>
 			</tr>
              <tr>
@@ -199,6 +151,25 @@ function valForm(){
             <td valign="top"><?=admin::labels('status');?></td>
             <td><?php if ('ACTIVE'==$prod["sub_status"]) echo "Activo"; else echo "Inactivo";?></td>
           </tr>
+          
+          <?php
+        $elaborado= admin::getDbValue("select concat(a.usr_firstname, ' ', a.usr_lastname) FROM sys_users a, mdl_subasta b where a.usr_uid=b.sub_usr_uid and b.sub_uid=".$prod["sub_uid"]);
+        
+        $aprobado = admin::getDbValue("select concat(a.usr_firstname, ' ', a.usr_lastname) FROM sys_users a, mdl_subasta_aprobar b where a.usr_uid=b.sup_user_uid and b.sup_sub_uid=".$prod["sub_uid"]);
+        ?>
+        
+        <tr>
+            <td valign="top">Proceso elaborado por:</td>
+            <td><?=$elaborado?></td>
+                       <td width="7%">&nbsp;</td>
+        </tr>
+        
+        <tr>
+            <td valign="top">Proceso aprobado por:</td>
+            <td><?=$aprobado?></td>
+                       <td width="7%">&nbsp;</td>
+        </tr>
+        
         </table>
 
 		<!--TABLA IZQUIERDA END-->
@@ -254,35 +225,44 @@ function valForm(){
 				</tr>  
               <tr id="tr_montobase" style="display:">
 				<td>Monto Referencial:</td>
-                                <td><?=admin::numberFormat($prod["sub_mount_base"])?>
+				<td><?=admin::numberFormat($prod["sub_mount_base"])?>
                 <?=admin::getDbValue("select cur_description from mdl_currency where cur_uid=".$prod["sub_moneda"])?>
 				</td>
 			</tr>
-                         <?php
+            <?php
                         if($prod["sub_modalidad"]!="PRECIO")
                         {
                         ?>
-            <tr id="tr_unidadmejora" style="display:">
+                        <tr id="tr_unidadmejora" style="display:">
 				<td>Unidad de mejora:</td>
-				<td><?=$prod["sub_mount_unidad"]?>
+                                <td><?=admin::numberFormat($prod["sub_mount_unidad"])?>
 				</td>
 			</tr>
             <tr id="tr_numeroruedas" style="display:">
                 <td>N&uacute;mero de ruedas:</td>
 				<td><?=$prod["sub_wheels"]?></td>
 			</tr>
-                        <?php
-                        }
-                        ?>
+                        <?php } ?>
 			<tr>
 				<td>Tiempo l&iacute;mite de mejora en min.:</td>
 				<td><?=$prod["sub_tiempo"]?>
 				</td>
 			</tr>	
+                        <?php
+                        $xhoras =  admin::getDbValue("select nop_tiempo from mdl_notificacion_previa where nop_sub_uid=".$prod["sub_uid"]);
+                        ?>
+                        <tr>
+				<td>Notificaci&oacute;n N horas antes:</td>
+				<td><?=$xhoras?>
+				
+				</td>
+			</tr>
+
 		<tr><td colspan="2">
-                    <?php 
-                    $uidTpl=$prod["sub_uid"];
-                                  include("./code/execute/listadoOfertas.php");include("./code/execute/cuadroResumen.php");?>
+         <?php $uidTpl=$prod["sub_uid"];
+                                  include("./code/execute/listadoOfertas.php");
+                                  include("./code/execute/cuadroResumen.php");
+                                  ?>
         </td></tr>	
    </table>
 		<!--TABLA DERECHA END-->
@@ -293,13 +273,11 @@ function valForm(){
     </tr>
 
 </table>
+</form>
 <div id="DIV_WAIT1" style="display:none;"><img border="0" src="lib/loading.gif"></div>
-<?php
-if($tipUid==2)
-{
-?>
+<br />
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
-    <tr>
+   <!-- <tr>
       <td width="77%" height="40"><span class="title">Proveedores habilitados</span></td>
     <td width="23%" height="40">&nbsp;</td>
   </tr>
@@ -311,6 +289,10 @@ if($tipUid==2)
 if ($nroReg>0)
 	{
 	?> 
+   <tr>
+      <td width="77%" height="40"><span class="title"><?=admin::labels('list','dpflist')?></span></td>
+    <td width="23%" height="40">&nbsp;</td>
+  </tr>
   <tr>
     <td colspan="2" id="contentListing">
     <div class="row0">
@@ -318,8 +300,12 @@ if ($nroReg>0)
 	<tr><td width="12%" style="color:#16652f">Proveedor</td>
     <td width="12%" style="color:#16652f">Lugar de entrega</td>
     <td width="12%" style="color:#16652f">Medio de transporte</td>
-    <td width="12%" style="color:#16652f">Incoterm</td>
+    <td width="12%" style="color:#16652f">Incoterm</td><?php
+    if($prod["sub_type"]!='VENTA'){
+    ?>
+   
     <td width="12%" style="color:#16652f">Factor de ajuste</td>
+    <?php } ?>
 	<td align="center" width="12%" height="5">&nbsp;</td>
     <td align="center" width="12%" height="5">&nbsp;</td>
 	</tr>
@@ -355,11 +341,16 @@ while ($list = $db2->next_record())
     <td width="12%"><?=($inc_lugar_entrega)?></td>
     <td width="12%"><?=($tra_name)?></td>
     <td width="12%"><?=($inl_name)?></td>
+    <?php
+    if($prod["sub_type"]!='VENTA'){
+    ?>
+   
     <td width="12%"><?=round($inc_ajuste,2)?>%</td>
+    <?php
+    }
+        ?>
 	<td align="center" width="12%" height="5">
-		<!--<a href="#" onclick="showTab('list_<?=$inc_uid?>');showTab('Add_<?=$inc_uid?>'); return false;">
-		<img src="lib/edit_es.gif" border="0" title="<?=admin::labels('edit')?>" alt="<?=admin::labels('edit')?>">
-		</a>-->
+		
 	</td>
 	<td align="center" width="12%" height="5">
 		<img src="lib/delete_off_es.gif" border="0" title="<?=admin::labels('delete')?>" alt="<?=admin::labels('delete')?>">
@@ -369,7 +360,7 @@ while ($list = $db2->next_record())
 	</div>
     </div>
     <div id="Add_<?=$inc_uid?>" class="<?=$class2?>" style="display:none">
-        <form name="frmIncotermUpd<?=$inc_uid?>" id="frmIncotermUpd<?=$inc_uid?>" action="code/execute/IncotermUpd.php"  method="POST" enctype="multipart/form-data" >
+    <form name="frmIncotermUpd<?=$inc_uid?>" id="frmIncotermUpd<?=$inc_uid?>" action="code/execute/IncotermUpd.php"  enctype="multipart/form-data" >
 <table class="list" width="100%">
 	<tr><td width="12%">
     			<input name="cli_name<?=$cli_uid?>" id="cli_name<?=$cli_uid?>" onkeyup="lookup(this.value,<?=$cli_uid?>);" type="text" size="15" value="<?=$cli_name?>" />
@@ -405,12 +396,19 @@ while ($list = $db2->next_record())
                     ?>
 				</select>
                 </td>
+                <?php
+    if($prod["sub_type"]!='VENTA'){
+    ?>
+   
     <td width="12%"><input name="inc_ajuste2" id="inc_ajuste2" type="text" size="9" value="<?=round($inc_ajuste,2)?>"/></td>
+    <?php }
+   ?> 
 	<td align="center" width="12%" height="5">
 		<a href="#" onclick="editListDpf('<?=$inc_uid?>');return false;">
 		<img src="lib/save_es.gif" border="0" title="<?=admin::labels('edit')?>" alt="<?=admin::labels('edit')?>">
 		</a>
 	</td>
+        
 	<td align="center" width="12%" height="5">
 		<a href="#" onclick="showTab('list_<?=$inc_uid?>');showTab('Add_<?=$inc_uid?>'); return false;">
 		<img src="lib/cancel_es.gif" border="0" title="<?=admin::labels('delete')?>" alt="<?=admin::labels('delete')?>">
@@ -428,11 +426,11 @@ while ($list = $db2->next_record())
  ?>
 </div> 
     </td>
-    </tr>
+    </tr>-->
     <?php 	} 
 else
 	{ ?>
-    <tr>
+   <!-- <tr>
     <td colspan="2"><br /></td>
     </tr>
   <tr>
@@ -449,7 +447,7 @@ else
 </div>
 </td></tr></table>
 </td>
-</tr>
+</tr>-->
 <?php 	} ?>
 <?php
    $sSQL= "SELECT * FROM mdl_xitem WHERE xit_delete=0 and xit_sub_uid='".$sub_uid."' order by xit_uid asc";
@@ -472,9 +470,11 @@ if ($nroReg>0)
     <td width="12%" style="color:#16652f">Producto</td>
     <td width="12%" style="color:#16652f">Descripci&oacute;n</td>
     <td width="12%" style="color:#16652f">Imagen</td>
-    <td width="12%" style="color:#16652f">Precio base</td>
-    <td width="12%" style="color:#16652f">Unidad de mejora</td>
-	<td width="12%" style="color:#16652f">Proveedor</td>
+    <td width="12%" style="color:#16652f">Precio Referencial</td>
+     <?php
+    if($prod["sub_modalidad"]!="PRECIO"){
+    ?><td width="12%" style="color:#16652f">Unidad de mejora</td>
+    <?php } ?>	<!--<td width="12%" style="color:#16652f">Proveedor</td>-->
 	<td align="center" width="12%" height="5">&nbsp;</td>
 	</tr>
 	</table>
@@ -500,12 +500,14 @@ while ($list = $db2->next_record())
 <table class="list" width="100%">
 	<tr>
     
-    <td width="12%"><?=($fldproduct)?></td>
-    <td width="12%"><?=($flddescription)?></td>
+    <td width="12%"><?=$fldproduct?></td>
+    <td width="12%"><?=$flddescription?></td>
     <td width="12%"><img src="<?=PATH_DOMAIN."/img/subasta/thumb2_".($fldimage)?>"  border="0"> </td>
-    <td width="12%" align="center"><?=admin::numberFormat($fldprice,2)?></td>
-	<td width="12%" align="center"><?=$fldunidad?></td>
-	<td width="12%"><?php
+    <td width="12%"><?=admin::numberFormat($fldprice,2)?></td>
+	 <?php
+    if($prod["sub_modalidad"]!="PRECIO"){
+    ?><td width="12%" align="center"><?=$fldunidad?></td>
+    <?php } ?>	<!--<td width="12%"><?php
     $db3->query("select clx_cli_uid from mdl_clixitem where clx_delete=0 and clx_xit_uid=$flduid ");
 	
 	while ($user = $db3->next_record())
@@ -515,7 +517,7 @@ while ($list = $db2->next_record())
 		echo $cli_name."<br>";
 	}
 	
-	?></td>
+	?></td>-->
     	<td align="center" width="12%" height="5">
 		<img src="lib/delete_off_es.gif" border="0" title="<?=admin::labels('delete')?>" alt="<?=admin::labels('delete')?>">
 	</td>
@@ -532,58 +534,6 @@ while ($list = $db2->next_record())
     </tr>
     <?php 	} 
 ?>
-</table>
-<br>
-<br>
-<?php
-}
-?>
-<form name="frmsubasta" method="post" action="code/execute/adjudicarSubasta.php?sub_uid=<?=$prod["sub_uid"]?>" enctype="multipart/form-data" >
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
-<tr><td><br /></td></tr>
-<tr>
-     <td width="77%" height="40"><span class="title">Informe</span></td>
-     <td width="23%" height="40">&nbsp;</td>
-</tr>
-<tr>
-    <td colspan="2" id="contentListing">
-    <div class="row0">
-    <table class="list" width="100%">
-	<!--<tr>
-            <td width="12%" style="color:#16652f">Elaborado por:</td>
-            <td><input id="elaborado" name="elaborado" value="<?=$_SESSION["usr_firstname"] ." ".$_SESSION["usr_lastname"]?>" onfocus="setClassInput(this,'ON');document.getElementById('div_elaborado').style.display='none';" onblur="setClassInput(this,'OFF');document.getElementById('div_elaborado').style.display='none';" onclick="setClassInput(this,'ON');document.getElementById('div_elaborado').style.display='none';">
-            <br /><span id="div_elaborado" style="display:none; padding-left:5px; padding-right:5px;" class="error">* Campo requerido</span>
-            </td>
-        </tr>
-        <tr>
-            <td width="12%" style="color:#16652f">Aprobado por:</td>
-            <td><input id="aprobado" name="aprobado" onfocus="setClassInput(this,'ON');document.getElementById('div_aprobado').style.display='none';" onblur="setClassInput(this,'OFF');document.getElementById('div_aprobado').style.display='none';" onclick="setClassInput(this,'ON');document.getElementById('div_aprobado').style.display='none';">
-            <br /><span id="div_aprobado" style="display:none; padding-left:5px; padding-right:5px;" class="error">* Campo requerido</span>
-            </td>
-        </tr>-->
-        <tr>
-            <td width="12%" style="color:#16652f">Monto total adjudicar:</td>
-            <td><input id="monto" name="monto" onfocus="setClassInput(this,'ON');document.getElementById('div_monto').style.display='none';" onblur="setClassInput(this,'OFF');document.getElementById('div_monto').style.display='none';" onclick="setClassInput(this,'ON');document.getElementById('div_monto').style.display='none';">
-            <br /><span id="div_monto" style="display:none; padding-left:5px; padding-right:5px;" class="error">* Campo requerido</span>
-            </td>
-        </tr>
-        <tr>
-            <td width="12%" style="color:#16652f">Ahorro econ&oacute;mico:</td>
-            <td><input id="ahorro" name="ahorro" onfocus="setClassInput(this,'ON');document.getElementById('div_ahorro').style.display='none';" onblur="setClassInput(this,'OFF');document.getElementById('div_ahorro').style.display='none';" onclick="setClassInput(this,'ON');document.getElementById('div_ahorro').style.display='none';">
-            <br /><span id="div_ahorro" style="display:none; padding-left:5px; padding-right:5px;" class="error">* Campo requerido</span>
-            </td>
-        </tr>
-        <tr>
-            <td width="12%" style="color:#16652f">Observaciones:</td>
-            <td><textarea id="observaciones" rows="4" cols="45" name="observaciones"  onfocus="setClassTextarea(this,'ON');document.getElementById('div_observaciones').style.display='none';" onblur="setClassTextarea(this,'OFF');document.getElementById('div_observaciones').style.display='none';" onclick="setClassTextarea(this,'ON');document.getElementById('div_observaciones').style.display='none';"></textarea>
-            <br /><span id="div_observaciones" style="display:none; padding-left:5px; padding-right:5px;" class="error">* Campo requerido</span>
-            <input name="tipUid" id="tipUid" type="hidden" value="<?=$tipUid?>"></td>
-            
-        </tr>
-    </table>
-    </div>
-    </td>
-</tr>
 <tr>
 <td colspan="2">
 <br />
@@ -591,15 +541,11 @@ while ($list = $db2->next_record())
 	  	<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
 			<tr>
 				<td width="59%" align="center">
-                                    <a href="#" class="button" onclick="valForm();" >Informe</a>
+				<a href="ventasList.php?token=<?=admin::getParam("token")?>&tipUid=<?=$tipUid?>" class="button" >Volver</a>
 				</td>
-                                <td width="41%" style="font-size:11px;">
-                                    o <a href="informeList.php" >Cancelar</a> 
-                                </td>
+          
         </tr>
-      </table>
-</div>
+      </table></div>
 <br /><br /><br /><br /><br />
 </td></tr>
 </table>
-</form>

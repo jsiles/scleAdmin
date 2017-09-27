@@ -45,7 +45,7 @@ $regusers = $db->next_record();
             </div>
             
             </td>
-            <td width="7%">&nbsp;</td>
+            <td width="7%"><input name="tipUid" id="tipUid" value="<?=$tipUid?>" type="hidden">&nbsp;</td>
           </tr>
           
           <tr>
@@ -60,7 +60,7 @@ $regusers = $db->next_record();
             <td width="64%">
             <div id="div_cli_lec_uid_select">
             <select name="cli_lec_uid" class="txt10" id="cli_lec_uid">
-                <? 
+                <?php 
 				$sql = "select lec_uid, lec_name from mdl_legalclassification where lec_delete=0";
 					$db2->query($sql);
 					while ($content=$db2->next_record())
@@ -68,7 +68,7 @@ $regusers = $db->next_record();
 						($content["lec_uid"]==$regusers["cli_lec_uid"])?$selected="selected":$selected=""; 
 				?>
             	    <option value="<?=$content["lec_uid"]?>" <?=$selected?>><?=$content["lec_name"]?></option>	
-              	<? 
+              	<?php 
 					}
 				?>
 			</select>
@@ -86,7 +86,7 @@ $regusers = $db->next_record();
             <td>
             <div id="div_cli_cov_uid_select">
             <select name="cli_cov_uid" class="txt10" id="cli_cov_uid">
-                <? 
+                <?php
 				$sql = "select cov_uid, cov_name from mdl_coverage where cov_delete=0";
 					$db2->query($sql);
 					while ($content=$db2->next_record())
@@ -94,7 +94,7 @@ $regusers = $db->next_record();
 						($content["cov_uid"]==$regusers["cli_cov_uid"])?$selected="selected":$selected="";
 				?>
             	    <option value="<?=$content["cov_uid"]?>" <?=$selected?>><?=$content["cov_name"]?></option>	
-              	<? 
+              	<?php 
 					}
 				?>
 			</select>
@@ -135,14 +135,19 @@ $regusers = $db->next_record();
 <input name="cli_mainemail" type="text" class="input" id="cli_mainemail" size="60" onfocus="setClassInput(this,'ON');document.getElementById('div_cli_mainemail').style.display='none';" onblur="setClassInput(this,'OFF');document.getElementById('div_cli_mainemail').style.display='none';" onclick="setClassInput(this,'ON');document.getElementById('div_cli_mainemail').style.display='none';" value="<?=$regusers["cli_mainemail"]?>" /><br /><span id="div_cli_mainemail" style="display:none;" class="error">Email administrativo es necesario</span>			</td>
             <td width="7%">&nbsp;</td>
           </tr>
-          
+          <?php
+          if($tipUid==1)
+          {
+          ?>
           <tr>
             <td width="29%">Email comercial:</td>
             <td width="64%">
 <input name="cli_commercialemail" type="text" class="input" id="cli_commercialemail" size="60" onfocus="setClassInput(this,'ON');document.getElementById('div_cli_commercialemail').style.display='none';" onblur="setClassInput(this,'OFF');document.getElementById('div_cli_commercialemail').style.display='none';" onclick="setClassInput(this,'ON');document.getElementById('div_cli_commercialemail').style.display='none';" value="<?=$regusers["cli_commercialemail"]?>" /><br /><span id="div_cli_commercialemail" style="display:none;" class="error">Email comercial es necesario</span>			</td>
             <td width="7%">&nbsp;</td>
           </tr>
-          
+          <?php
+          }
+          ?>
           <tr>
             <td>CI Adm/legal:</td>
             <td>
@@ -163,7 +168,10 @@ $regusers = $db->next_record();
 <input name="cli_legallastname" type="text" class="input" id="cli_legallastname" size="60" onfocus="setClassInput(this,'ON');document.getElementById('div_cli_legallastname').style.display='none';" onblur="setClassInput(this,'OFF');document.getElementById('div_cli_legallastname').style.display='none';" onclick="setClassInput(this,'ON');document.getElementById('div_cli_legallastname').style.display='none';" value="<?=$regusers["cli_legallastname"]?>" /><br /><span id="div_cli_legallastname" style="display:none;" class="error">Apellido Adm/legal es necesario</span>			</td>
             <td width="7%">&nbsp;</td>
           </tr>
-          
+          <?php
+          if($tipUid==1)
+          {
+          ?>
           <tr id="cal2" style="display:none">
             <td>CI Adm/legal (2):</td>
             <td>
@@ -219,7 +227,9 @@ $regusers = $db->next_record();
 <input name="cli_commerciallastname" type="text" class="input" id="cli_commerciallastname" size="60" onfocus="setClassInput(this,'ON');document.getElementById('div_cli_commerciallastname').style.display='none';" onblur="setClassInput(this,'OFF');document.getElementById('div_cli_commerciallastname').style.display='none';" onclick="setClassInput(this,'ON');document.getElementById('div_cli_commerciallastname').style.display='none';" value="<?=$regusers["cli_commerciallastname"]?>" /><br /><span id="div_cli_commerciallastname" style="display:none;" class="error">Apellido comercial es necesario</span>			</td>
             <td width="7%">&nbsp;</td>
           </tr>
-          
+          <?php
+          }
+          ?>
           
         </table></td>
         <td width="50%" valign="top">
@@ -305,7 +315,10 @@ $regusers = $db->next_record();
             </td>
             <td width="7%">&nbsp;</td>
           </tr>
-          
+          <?php
+          if($tipUid==1)
+          {
+          ?>
           <tr>
             <td width="29%">Forma de pago al proveedor:</td>
             <td width="64%">
@@ -395,7 +408,9 @@ $sql2 = "select w.wtp_uid, w.wtp_name,  d.wde_description from mdl_waytopay w, m
 					</td>
             <td width="7%">&nbsp;</td>
           </tr>
-          
+          <?php
+          }
+          ?>
           <tr>
             <td width="16%"><?=admin::labels('photo');?>:</td>
             <td width="84%">

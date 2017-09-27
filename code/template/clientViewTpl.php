@@ -72,13 +72,23 @@ $regusers = $db->next_record();
             <td width="64%"><?=$regusers["cli_mainemail"]?></td>
             <td width="7%">&nbsp;</td>
           </tr>
-          
+          <?php
+          if ($tipUid==1)
+          {
+          ?>
           <tr>
             <td width="29%">Email comercial:</td>
             <td width="64%"><?=$regusers["cli_commercialemail"]?></td>
             <td width="7%">&nbsp;</td>
           </tr>
-          
+          <?php
+          }
+          ?>
+          <tr>
+            <td width="29%">CI Adm/legal:</td>
+            <td width="64%"><?=$regusers["cli_legal_ci"]?></td>
+            <td>&nbsp;</td>
+          </tr>
           <tr>
             <td width="29%">Nombre Adm/legal:</td>
             <td width="64%"><?=$regusers["cli_legalname"]?></td>
@@ -90,7 +100,10 @@ $regusers = $db->next_record();
             <td width="64%"><?=$regusers["cli_legallastname"]?></td>
             <td width="7%">&nbsp;</td>
           </tr>
-          
+          <?php
+          if ($tipUid==1)
+          {
+          ?>
           <tr>
             <td width="29%">Nombre Adm/legal (2):</td>
             <td width="64%"><?=$regusers["cli_legalname2"]?></td>
@@ -126,7 +139,7 @@ $regusers = $db->next_record();
             <td width="64%"><?=$regusers["cli_commerciallastname"]?></td>
             <td width="7%">&nbsp;</td>
           </tr>
-          
+          <?php } ?>
           
         </table></td>
         <td width="50%" valign="top">
@@ -143,7 +156,10 @@ $regusers = $db->next_record();
             <td width="64%">***************</td>
             <td width="7%">&nbsp;</td>
           </tr>
-          
+          <?php
+          if ($tipUid==1)
+          {
+          ?>
           <tr>
             <td width="29%">Forma de pago al proveedor:</td>
             <td width="64%">
@@ -191,7 +207,9 @@ $regusers = $db->next_record();
 					</td>
             <td width="7%">&nbsp;</td>
           </tr>
-          
+          <?php
+          }
+          ?>
           <tr>
             <td width="16%"><?=admin::labels('photo');?>:</td>
             <td width="84%">

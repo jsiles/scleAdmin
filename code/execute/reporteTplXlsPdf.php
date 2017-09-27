@@ -1,6 +1,26 @@
 <?php
 include_once("../../core/admin.php");
-admin::initialize('reportesParametros','reporteList',false);
+ $tipUid=  admin::getParam("tipUid");
+switch($tipUid){
+    case 1: $opcionMenu = "reportesParametros";
+            $opocionSubMenu ="reporteList";
+            $etiquetaCrear = "reporteList";
+            $moduleListId=71;
+            $moduleCrearId=71;
+            break;
+    case 2: $opcionMenu = "reportesParametros2";
+            $opocionSubMenu ="reporteList2";
+            $etiquetaCrear = "reporteList2";
+            $moduleListId=71;
+            $moduleCrearId=71;
+            break;    
+    default:$opcionMenu = "reportesParametros";
+            $opocionSubMenu ="reporteList";
+            $moduleListId=71;
+            $moduleCrearId=71;
+            break; 
+}
+admin::initialize($opcionMenu, $opocionSubMenu);
 $pro_uid =admin::toSql(admin::getParam("pro"),"Number");
 $formato =admin::toSql(admin::getParam("type"),"Text");
 
@@ -56,6 +76,7 @@ $html= '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://w
 $html.='<tr><td width="21%">Unidad de mejora:</td><td width="21%" align="left">'.$sub_mount_unidad.'</td><td width="6%"></td><td width="21%"></td><td width="21%"></td></tr>';
                         }       
 $html.='<tr><td><br /><br /></td><td><br /><br a/></td></tr>
+
 <tr><td colspan="5"><h2>3: Proveedores habilitados</h2></td></tr>
 <tr><td><br /></td><td><br /></td></tr>
 <tr><td colspan="5">
@@ -89,6 +110,7 @@ while ($secPart = $db2->next_record())
  }   
 $html.=	'</table>
 </td></tr>
+
 </table>
 </body>
 </html>

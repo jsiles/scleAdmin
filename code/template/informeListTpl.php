@@ -26,8 +26,9 @@ if ($search2!='')
 }
 
 $rol=admin::getSession("usr_rol");
-    $unidadHabilitada =admin::dbFillArray("select raa_uni_uid,rav_uid from mdl_rav,mdl_rav_access where rav_uid=raa_rav_uid and rav_tipologia=2 and rav_delete=0 and rav_rol_uid=$rol");
-   // print_r($unidadHabilitada);
+
+    $unidadHabilitada =admin::dbFillArray("select raa_uni_uid,rav_uid from mdl_rav,mdl_rav_access where rav_uid=raa_rav_uid and rav_tipologia=$tipUid and rav_delete=0 and rav_rol_uid=$rol");
+    //print_r($unidadHabilitada);
     if(is_array($unidadHabilitada)){
         $k=0;
         $unidadHabUid="";
@@ -44,14 +45,13 @@ $rol=admin::getSession("usr_rol");
     }else{
         $Where .=" and suu_uni_uid=-1 ";
     }
-
+if($tipUid==6) $modalidad="VENTA"; else $modalidad="COMPRA"; 
 $qsearch="SELECT pro_uid, pro_name, pca_name, sub_status, sub_uid, "
         . "sub_type, iif('$timeNow'>sub_deadtime,'concluida','subastandose') as deadtime, "
         . "sub_finish as estado, sub_mount_base, sub_modalidad, sub_moneda "
         . "FROM mdl_product, mdl_subasta, mdl_pro_category, mdl_subasta_unidad "
-        . "WHERE sub_uid=pro_sub_uid and pca_uid=sub_pca_uid and sub_delete=0 and sub_mode='SUBASTA' and sub_finish =3 and sub_uid=suu_sub_uid "
+        . "WHERE sub_uid=pro_sub_uid and pca_uid=sub_pca_uid and sub_delete=0 and sub_mode='SUBASTA' and sub_finish =3 and sub_uid=suu_sub_uid and sub_type='".$modalidad."' "
         . " $Where ";
-
 
 
 
@@ -117,7 +117,6 @@ if ($nroReg>0)
           <td>
           <input name="Buscar" id="Buscar" type="image" src="lib/buscar.png" />
            <input type="hidden" name="qfiltro" id="qfiltro" value="1"/>
-           <input type="hidden" name="token" value="<?=admin::getParam("token")?>" />
            <input type="hidden" name="tipUid" value="<?=admin::getParam("tipUid")?>" />
           </td>
          </tr>
@@ -262,10 +261,10 @@ while ($subasta_list = $pagDb->next_record())
         <td align="center" width="5%" height="5">
     		 <?php
                 $existInf =  admin::getDbValue("select sua_uid from mdl_subasta_informe where sua_sub_uid=$sub_uid");
-                $valuePermit=admin::getDBvalue("select moa_status from sys_modules_options,sys_modules_access where mop_uid=moa_mop_uid and mop_status='ACTIVE'and mop_mod_uid=22 and mop_lab_category='Ver' and moa_rol_uid=".$_SESSION['usr_rol']."");
+                $valuePermit=admin::getDBvalue("select moa_status from sys_modules_options,sys_modules_access where mop_uid=moa_mop_uid and mop_status='ACTIVE'and mop_mod_uid=$moduleListId and mop_lab_category='Ver' and moa_rol_uid=".$_SESSION['usr_rol']."");
                 if(($valuePermit=='ACTIVE')&&($existInf!=null)){
             ?>
-        <a href="adjudicarSubastaView.php?sub_uid=<?=$sub_uid?>&sua_uid=<?=$existInf?>">
+        <a href="adjudicarSubastaView.php?sub_uid=<?=$sub_uid?>&sua_uid=<?=$existInf?>&tipUid=<?=$tipUid?>">
             <img src="lib/view_es.gif" border="0" title="<?=admin::labels('view')?>" alt="<?=admin::labels('view')?>">
 	</a>
             <?php
@@ -278,10 +277,10 @@ while ($subasta_list = $pagDb->next_record())
         </td>
 	<td align="center" width="5%" height="5">
             <?php
-            $valuePermit=admin::getDBvalue("select moa_status from sys_modules_options,sys_modules_access where mop_uid=moa_mop_uid and mop_status='ACTIVE'and mop_mod_uid=22 and mop_lab_category='Editar' and moa_rol_uid=".$_SESSION['usr_rol']."");
+            $valuePermit=admin::getDBvalue("select moa_status from sys_modules_options,sys_modules_access where mop_uid=moa_mop_uid and mop_status='ACTIVE'and mop_mod_uid=$moduleListId and mop_lab_category='Editar' and moa_rol_uid=".$_SESSION['usr_rol']."");
             if(($valuePermit=='ACTIVE')&&($existInf!=null)){
             ?>
-		<a href="adjudicarSubastaEdit.php?sub_uid=<?=$sub_uid?>&sua_uid=<?=$existInf?>">
+		<a href="adjudicarSubastaEdit.php?sub_uid=<?=$sub_uid?>&sua_uid=<?=$existInf?>&tipUid=<?=$tipUid?>">
 		<img src="<?=admin::labels('edit','linkImage')?>" border="0" title="<?=admin::labels('edit')?>" alt="<?=admin::labels('edit')?>">
 		</a>
                 <?php
@@ -298,11 +297,11 @@ while ($subasta_list = $pagDb->next_record())
 	<td align="center" width="5%" height="5">
 	
                 <?php
-                $valuePermit=admin::getDBvalue("select moa_status from sys_modules_options,sys_modules_access where mop_uid=moa_mop_uid and mop_status='ACTIVE'and mop_mod_uid=23 and mop_lab_category='Crear' and moa_rol_uid=".$_SESSION['usr_rol']."");
+                $valuePermit=admin::getDBvalue("select moa_status from sys_modules_options,sys_modules_access where mop_uid=moa_mop_uid and mop_status='ACTIVE'and mop_mod_uid=$moduleCrearId and mop_lab_category='Crear' and moa_rol_uid=".$_SESSION['usr_rol']."");
                 //echo "<br>"."select moa_status from sys_modules_options,sys_modules_access where mop_uid=moa_mop_uid and mop_status='ACTIVE'and mop_mod_uid=2 and mop_lab_category='Crear' and moa_rol_uid=".$_SESSION['usr_rol'];
                 if(($valuePermit=='ACTIVE')&&($existInf==null)){
                 ?>
-                    <a href="adjudicarSubasta.php?pro_uid=<?=$pro_uid?>&sub_uid=<?=$sub_uid?>">
+                    <a href="adjudicarSubasta.php?pro_uid=<?=$pro_uid?>&sub_uid=<?=$sub_uid?>&tipUid=<?=$tipUid?>">
                         <img src="lib/crear_on_es.png" border="0" title="Crear" alt="Crear">
                     </a>
                 <?php
@@ -319,13 +318,13 @@ while ($subasta_list = $pagDb->next_record())
 	<?php
         // if(strlen(admin::getParam("debug"))>0) $debug=true; else $debug=false;
          //echo "DEBUG:".$debug;
-        $rolAplica =admin::validaRav($sub_uid,admin::getSession("usr_rol"),2,$sub_moneda, $sub_monto, $unidadUid);
+        $rolAplica =admin::validaRav($sub_uid,admin::getSession("usr_rol"),$tipUid,$sub_moneda, $sub_monto, $unidadUid);
          
             if($rolAplica)
             {
             ?>
                 <?php
-                $valuePermit=admin::getDBvalue("select moa_status from sys_modules_options,sys_modules_access where mop_uid=moa_mop_uid and mop_status='ACTIVE'and mop_mod_uid=22 and mop_lab_category='Aprobar' and moa_rol_uid=".$_SESSION['usr_rol']."");
+                $valuePermit=admin::getDBvalue("select moa_status from sys_modules_options,sys_modules_access where mop_uid=moa_mop_uid and mop_status='ACTIVE'and mop_mod_uid=$moduleListId and mop_lab_category='Aprobar' and moa_rol_uid=".$_SESSION['usr_rol']."");
                 if(($valuePermit=='ACTIVE')&&($existInf!=null)){
                 ?>
                     <a href="aprobarSubasta" onclick="aprobarInf('<?=$sub_uid?>','<?=$existInf?>');return false;">
@@ -353,7 +352,7 @@ while ($subasta_list = $pagDb->next_record())
             {
             ?>
                 <?php
-                $valuePermit=admin::getDBvalue("select moa_status from sys_modules_options,sys_modules_access where mop_uid=moa_mop_uid and mop_status='ACTIVE'and mop_mod_uid=22 and mop_lab_category='Rechazar' and moa_rol_uid=".$_SESSION['usr_rol']."");
+                $valuePermit=admin::getDBvalue("select moa_status from sys_modules_options,sys_modules_access where mop_uid=moa_mop_uid and mop_status='ACTIVE'and mop_mod_uid=$moduleListId and mop_lab_category='Rechazar' and moa_rol_uid=".$_SESSION['usr_rol']."");
                 if(($valuePermit=='ACTIVE')&&($existInf!=null)){
                 ?>
 

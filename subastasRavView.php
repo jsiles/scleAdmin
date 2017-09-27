@@ -26,11 +26,24 @@ switch($tipUid){
             $moduleListId=35;
             $moduleCrearId=36;
             break;            
+    case 5: $opcionMenu = "subastaRavParametros2";
+            $opocionSubMenu ="subastasRavView2";
+            $etiquetaCrear = "subastasRavNew2";
+            $moduleListId=59;
+            $moduleCrearId=60; 
+            break;
+    case 6: $opcionMenu = "subastaRavInforme2";
+            $opocionSubMenu ="subastasRavInfView2";
+            $etiquetaCrear = "subastasRavInfNew2";
+            $moduleListId=75;
+            $moduleCrearId=76;
+            break;    
     default :
             $opcionMenu = "subastaRavParametros";
             $opocionSubMenu ="subastasRavEdit";
             $moduleListId=8;
             $moduleCrearId=9;
+            break;
 }
 admin::initialize($opcionMenu, $opocionSubMenu); 
 ?>

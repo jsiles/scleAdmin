@@ -10,11 +10,6 @@ function verifyClient()
 	document.getElementById('div_cli_interno').style.display='none';
 	document.getElementById('div_cli_legalname').style.display='none';
 	document.getElementById('div_cli_legallastname').style.display='none';
-	
-	if(document.getElementById('cli_pts_uid').value==4){
-		document.getElementById('div_cli_pts_description8').style.display='none';
-		document.getElementById('div_cli_pts_description9').style.display='none';
-	}
 
 	if (document.getElementById('cli_nit_ci').value==''){
 		document.getElementById('cli_nit_ci').className='inputError';
@@ -82,19 +77,6 @@ function verifyClient()
 		sw=false;
 	}
 
-	if(document.getElementById('cli_pts_uid').value==4){
-		if (document.getElementById('cli_pts_description8').value==''){
-			document.getElementById('cli_pts_description8').className='inputError';
-			document.getElementById('div_cli_pts_description8').style.display='';
-			sw=false;
-		}
-		if (document.getElementById('cli_pts_description9').value==''){
-			document.getElementById('cli_pts_description9').className='inputError';
-			document.getElementById('div_cli_pts_description9').style.display='';
-			sw=false;
-		}
-	}
-
 	if (sw){
 		document.frmClient.submit();
 	}
@@ -131,11 +113,6 @@ function verifyClientEdit()
 			sw=false;
 		} 
             }
-	if(document.getElementById('cli_pts_uid').value==4){
-		document.getElementById('div_cli_pts_description8').style.display='none';
-		document.getElementById('div_cli_pts_description9').style.display='none';
-	}
-
 	if (document.getElementById('cli_nit_ci').value==''){
 		document.getElementById('cli_nit_ci').className='inputError';
 		document.getElementById('div_cli_nit_ci').style.display='';
@@ -188,18 +165,6 @@ function verifyClientEdit()
 		sw=false;
 	}
 
-	if(document.getElementById('cli_pts_uid').value==4){
-		if (document.getElementById('cli_pts_description8').value==''){
-			document.getElementById('cli_pts_description8').className='inputError';
-			document.getElementById('div_cli_pts_description8').style.display='';
-			sw=false;
-		}
-		if (document.getElementById('cli_pts_description9').value==''){
-			document.getElementById('cli_pts_description9').className='inputError';
-			document.getElementById('div_cli_pts_description9').style.display='';
-			sw=false;
-		}
-	}
 
 	if (sw){
 		document.frmClient.submit();
