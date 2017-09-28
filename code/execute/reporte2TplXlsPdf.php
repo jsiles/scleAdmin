@@ -1,12 +1,32 @@
 <?php
 include_once("../../core/admin.php");
-admin::initialize('reportesParametros','reporteList',false);
+ $tipUid=  admin::getParam("tipUid");
+switch($tipUid){
+    case 1: $opcionMenu = "reportesInformes";
+            $opocionSubMenu ="reporteListInf";
+            $etiquetaCrear = "reporteListInf";
+            $moduleListId=73;
+            $moduleCrearId=73;
+            break;
+    case 2: $opcionMenu = "reportesInformes2";
+            $opocionSubMenu ="reporteListInf2";
+            $etiquetaCrear = "reporteListInf2";
+            $moduleListId=73;
+            $moduleCrearId=73;
+            break;    
+    default:$opcionMenu = "reportesInformes";
+            $opocionSubMenu ="reporteListInf";
+            $moduleListId=73;
+            $moduleCrearId=73;
+            break; 
+}
+admin::initialize($opcionMenu, $opocionSubMenu); 
 $pro_uid =admin::toSql(admin::getParam("pro"),"Number");
 $formato =admin::toSql(admin::getParam("type"),"Text");
-
+if($tipUid==1) $modalidad="COMPRA"; else $modalidad="VENTA";
 $sql ="SELECT sub_sol_uid, pro_name,pca_name,pro_description,pro_quantity,pro_unidad,sub_status, sub_modalidad, sub_type, sub_hour_end, sub_mount_base, sub_mount_unidad, sub_tiempo, sub_uid 
 FROM mdl_subasta, mdl_product,mdl_pro_category
-WHERE sub_uid=pro_sub_uid and pca_uid=sub_pca_uid and sub_status='ACTIVE' and sub_uid='".$pro_uid."'";
+WHERE sub_uid=pro_sub_uid and pca_uid=sub_pca_uid and sub_status='ACTIVE' and sub_uid='".$pro_uid."' and sub_type='".$modalidad."' ";
 $db->query($sql);
 while ($firstPart = $db->next_record())
 { 
@@ -67,7 +87,10 @@ $html= '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://w
                         {
 $html.='<tr><td width="21%">Unidad de mejora:</td><td width="21%" align="left">'.$sub_mount_unidad.'</td><td width="6%"></td><td width="21%"></td><td width="21%"></td></tr>';
                         }
-$html.='<tr><td><br /><br /></td><td><br /><br a/></td></tr>
+$html.='<tr><td><br /><br /></td><td><br /><br a/></td></tr>';
+if($tipUid==1)
+{
+$html.='
 <tr><td colspan="5"><h2>3: Proveedores habilitados</h2></td></tr>
 <tr><td><br /></td><td><br /></td></tr>
 <tr><td colspan="5">
@@ -96,7 +119,9 @@ while ($secPart = $db2->next_record())
              $html.= '</tr>';
  }   
 $html.=	'</table>
-</td></tr>
+</td></tr>';
+}
+$html.='
 <tr>
     <td colspan="5"><h2>4: Cuadro de Ofertas</h2></td>
 </tr>

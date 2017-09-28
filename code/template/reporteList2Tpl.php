@@ -15,12 +15,12 @@ if ($search2!="")
 	$Where = " and (pro_name like '%" .$search2. "%' or pro_uid like '%" .$search2. "%') ";
 	
 }
-    
+    if($tipUid==1) $modalidad="COMPRA"; else$modalidad="VENTA";
 $qsearch= " select distinct pro_uid, pro_name, pca_name, sub_status, sub_uid, sub_type, "
         . " sub_finish as estado "
         . " from mdl_product, mdl_subasta, mdl_pro_category, mdl_subasta_aprobar, mdl_subasta_informe "
         . " WHERE sub_uid=pro_sub_uid and sup_sub_uid = sub_uid and sua_sub_uid = sub_uid and sup_status='ACTIVE' "
-        . " and sua_status='ACTIVE' and pca_uid=sub_pca_uid and sub_delete=0 and sub_mode='SUBASTA' $Where ";
+        . " and sua_status='ACTIVE' and pca_uid=sub_pca_uid and sub_delete=0 and sub_mode='SUBASTA' and sub_type='$modalidad' $Where ";
 
 $order= admin::toSql(admin::getParam("order"),"Number");
 if ($order) admin::setSession("order",$order);
@@ -157,10 +157,10 @@ while ($subasta_list = $pagDb->next_record())
 	</td>-->
         <td width="20%">
                    <?php
-                $valuePermit=admin::getDBvalue("select moa_status from sys_modules_options,sys_modules_access where mop_uid=moa_mop_uid and mop_status='ACTIVE'and mop_mod_uid=27 and mop_lab_category='Ver' and moa_rol_uid=".$_SESSION['usr_rol']."");
+                $valuePermit=admin::getDBvalue("select moa_status from sys_modules_options,sys_modules_access where mop_uid=moa_mop_uid and mop_status='ACTIVE'and mop_mod_uid=$moduleListId and mop_lab_category='Ver' and moa_rol_uid=".$_SESSION['usr_rol']."");
                 if($valuePermit=='ACTIVE'){
             ?>
-    	<a href="reporteView2.php?sub_uid=<?=$sub_uid?>">
+    	<a href="reporteView2.php?sub_uid=<?=$sub_uid?>&tipUid=<?=$tipUid?>">
             <img src="lib/view_es.gif" border="0" title="<?=admin::labels('view')?>" alt="<?=admin::labels('view')?>">
 	</a>
             <?php

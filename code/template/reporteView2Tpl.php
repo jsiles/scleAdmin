@@ -1,5 +1,6 @@
 <?php
 $sub_uid =  admin::getParam("sub_uid");
+if($tipUid==1) $modalidad="COMPRA"; else $modalidad="VENTA";
 ?>
 <br />
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -7,8 +8,8 @@ $sub_uid =  admin::getParam("sub_uid");
             
         </td></tr>
   <tr>
-      <td width="77%" height="40"><span class="title">Ver Reporte</span>&nbsp;<a href="code/execute/reporte2TplXlsPdf.php?pro=<?=$sub_uid?>&type=xls">
-              <img src="lib/ext/excel.png" border="0" alt="Excel" title="Excel" /></a>&nbsp;<a href="code/execute/reporte2TplXlsPdf.php?pro=<?=$sub_uid?>&type=pdf"><img src="lib/ext/acrobat.png" border="0" alt="Excel" title="Excel" /></a>
+      <td width="77%" height="40"><span class="title">Ver Reporte</span>&nbsp;<a href="code/execute/reporte2TplXlsPdf.php?pro=<?=$sub_uid?>&type=xls&tipUid=<?=$tipUid?>">
+              <img src="lib/ext/excel.png" border="0" alt="Excel" title="Excel" /></a>&nbsp;<a href="code/execute/reporte2TplXlsPdf.php?pro=<?=$sub_uid?>&type=pdf&tipUid=<?=$tipUid?>"><img src="lib/ext/acrobat.png" border="0" alt="Excel" title="Excel" /></a>
     </td>
     <td width="23%" height="40">&nbsp;</td>
   </tr>
@@ -35,7 +36,7 @@ $sub_uid =admin::toSql(admin::getParam("sub_uid"),"Number");
 
 $sql ="SELECT sub_sol_uid, pro_name,pca_name,pro_description,pro_quantity,pro_unidad,sub_status, sub_modalidad, sub_type, sub_hour_end, sub_mount_base, sub_mount_unidad, sub_tiempo, sub_uid 
 FROM mdl_subasta, mdl_product,mdl_pro_category
-WHERE sub_uid=pro_sub_uid and pca_uid=sub_pca_uid and sub_status='ACTIVE' and sub_uid='".$sub_uid."'";
+WHERE sub_uid=pro_sub_uid and pca_uid=sub_pca_uid and sub_status='ACTIVE' and sub_uid='".$sub_uid."' and sub_type='".$modalidad."' ";
 $db->query($sql);
 while ($firstPart = $db->next_record())
 { 
@@ -159,6 +160,10 @@ $montoAdjudicacion=admin::getDBvalue("SELECT sua_monto FROM mdl_subasta_informe 
 <tr>
     <td colspan="5"><br /><br /></td>
 </tr>
+<?php
+if($tipUid==1)
+{
+    ?>
 <tr>
     <td colspan="5"><h2>3: Proveedores habilitados</h2></td>
 </tr>
@@ -203,7 +208,8 @@ while ($secPart = $db2->next_record())
     <?php } ?>
         </tr>
         <?php
- } 
+ }
+} 
 ?>
         </table>
 </td>
@@ -426,7 +432,7 @@ if($sub_modalidad!="TIEMPO"){
 	  	<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
 			<tr>
 				<td width="59%" align="center">
-                                    <a href="reporteList2.php" class="button" >Volver</a> 
+                                    <a href="reporteList2.php?tipUid=<?=$tipUid?>" class="button" >Volver</a> 
 				</td>
         </tr>
       </table>
