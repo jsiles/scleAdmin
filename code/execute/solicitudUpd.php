@@ -21,7 +21,7 @@ $sql = "update mdl_solicitud_compra set
                                  sol_status='$sol_status'
                                  where sol_uid=$solUid ";
 //echo $sql;die;
-	$db->query($sql);
+if($db->query($sql)){
 
         
 $FILES2 = $_FILES ['sol_document'];
@@ -50,6 +50,11 @@ if(is_array($cli_uid)){
        $sql="insert into mdl_solicitud_proveedor (sop_sol_uid, sop_cli_uid, sop_date, sop_delete) values($solUid, $value, GETDATE(), 0)";
        $db->query($sql);
    }
+}
+}else{
+    
+    echo "Error al guardar los datos, intente nuevamente.Error:". $sql;die;    
+    
 }
 //die;
 

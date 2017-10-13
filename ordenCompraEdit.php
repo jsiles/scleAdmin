@@ -7,12 +7,32 @@ switch($tipUid){
             $etiquetaCrear = "ordComprasNew";
             $moduleListId=43;
             $moduleCrearId=44;
+            $solTipo=1;
+            $ravTipologia=4;
             break;
     case 2: $opcionMenu = "aprOrdCompras";
             $opocionSubMenu ="aprOrdComprasEdit";
             $etiquetaCrear = "aprComprasNew";
             $moduleListId=46;
             $moduleCrearId=46;
+            $solTipo=1;
+            $ravTipologia=4;
+            break;    
+    case 3: $opcionMenu = "ordComprasV";
+            $opocionSubMenu ="ordComprasEditV";
+            $etiquetaCrear = "ordComprasNewV";
+            $moduleListId=89;
+            $moduleCrearId=90;
+            $solTipo=2;
+            $ravTipologia=8;
+            break;
+    case 4: $opcionMenu = "aprOrdComprasV";
+            $opocionSubMenu ="aprOrdComprasEditV";
+            $etiquetaCrear = "aprOrdComprasNewV";
+            $moduleListId=92;
+            $moduleCrearId=92;
+            $solTipo=2;
+            $ravTipologia=8;
             break;    
     default :
             $opcionMenu = "ordCompras";
@@ -20,6 +40,8 @@ switch($tipUid){
             $etiquetaCrear = "ordComprasNew";
             $moduleListId=43;
             $moduleCrearId=44;
+            $solTipo=1;
+            $ravTipologia=4;
             break;
 }
 
@@ -82,6 +104,11 @@ function removeList(id){
 		}
 	});
 }
+
+<?php
+if($solTipo==1)
+{
+?>
       $(function() {
     $( ".proveedor" ).autocomplete({
         source: 'code/execute/searchProv.php',
@@ -102,6 +129,30 @@ function removeList(id){
     }
     })
  })
+ <?php
+}else{
+?>
+      $(function() {
+    $( ".proveedor" ).autocomplete({
+        source: 'code/execute/searchEmp.php',
+        select: function(event, ui) {
+        /*$(".proveedor").attr('name', 'sol_cli_uid['+ui.item.value+']');
+        $(".proveedor").attr('id', ui.item.value);
+        $(".proveedor").attr('class', 'input3');*/
+        $("#inputProveedor").append('<input name="orc_cli_uid" id="orc_cli_uid" checked type="checkbox" class="input3" value="'+ui.item.value+'" size="20" /><label>'+ui.item.label+'</label><br>  ');
+        $("#busqueda").hide();
+        return false; // Prevent the widget from inserting the value.
+        
+    },
+    focus: function(event, ui) {
+        $(".proveedor").val('');
+        return false; // Prevent the widget from inserting the value.
+    }
+    })
+ })
+<?php    
+}
+?>
 </script>
 </head>
 <body>

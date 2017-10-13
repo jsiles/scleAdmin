@@ -21,7 +21,7 @@ if($db->query($sSQL)) $oc=$db->next_record();
       <tr>
         <td width="50%" valign="top"><table width="100%" border="0" cellpadding="5" cellspacing="5" class="box">
          <tr>
-            <td colspan="3" class="titleBox">Datos Orden Compra</td>
+            <td colspan="3" class="titleBox">Datos Orden</td>
             <td><input name="tipUid" type="hidden" value="<?=$tipUid?>" class="input"></td>
             <td><input name="orc_uid" type="hidden" value="<?=$orc_uid?>" class="input"></td>
          </tr>
@@ -35,7 +35,7 @@ if($db->query($sSQL)) $oc=$db->next_record();
             
         </tr>
         <tr>
-            <td width="5%" >Nro Orden de Compra:</td>    
+            <td width="5%" >Nro Orden:</td>    
             <td width="20%" ><input name="orc_nro_oc" id="orc_nro_oc" value="<?=$oc["orc_nro_oc"]?>" class="input">
             <br /><span id="div_orc_nro_oc" style="display:none; padding-left:5px; padding-right:5px;" class="error"><?=admin::labels('required');?></span>
             </td>

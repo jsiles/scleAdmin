@@ -500,6 +500,7 @@ class admin{
 		$rs->query($sql);
                 //self::doLog($sql);
                 //print_r($rs);die;
+                //echo $sMenu." - ". $sSubMenu."<br>";
         if ($row = $rs->next_record()){
         	if ( $row["suv_status"] === "0") {
         		/*begin autenticated */
@@ -524,7 +525,7 @@ class admin{
                                                         
                                                         }//die('No tiene permisos');
                                                         }else{
-                                                            //echo $indexMenu." ... " .$sMenu;
+                                                           // echo $indexMenu." ... " .$sMenu;
                                                             ///ACA DEBEMOS VER Q SE HACE PARA LOS Q NO TIENEN PERMISO
                                                             if((!self::verifyModulePermission($indexMenu))&&($sMenu!="todos"))
                                                             {
@@ -677,10 +678,10 @@ class admin{
         $sqldat = "select * from sys_modules where mod_status='ACTIVE' and mod_parent=0 and mod_language='".$lang."' order by mod_position";
         $rs->query($sqldat);
         while ($row = $rs->next_record()){
-          //print_r($row);
+         // print_r($row);
 				if (admin::verifyModulePermission($row['mod_uid']))
 					{
-					 //echo "....".$row['mod_uid']."-";die;
+					 //echo "....".$row['mod_uid']."-".$row['mod_index']."-".$indexMenu;
                                          $mod_uid = admin::getDbValue("select mod_uid from sys_modules where mod_parent=".$row['mod_uid']." and mod_index='".$row['mod_index']."'");
                                          $urlModule =$row['mod_index'];
                                                if (strlen(strstr($urlModule,"?"))>0) {
@@ -726,6 +727,7 @@ class admin{
 	        while ($row = $rs->next_record()){
 					$params = (!empty(self::getParam("con_parent")) ? "con_parent=".admin::toSql(safeHtml(self::getParam("con_parent")),"Number")."&mod_uid=".$row['mod_uid'] : "mod_uid=".$row['mod_uid']);
                                         $urlSubModule =$row['mod_index'];
+                                        //echo $urlSubModule;
                                                 if(strpos($urlSubModule, '?')!==FALSE){
                                                     $urlSubModule=$urlSubModule."&";
                                                 }else{

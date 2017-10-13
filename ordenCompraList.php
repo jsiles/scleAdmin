@@ -7,12 +7,32 @@ switch($tipUid){
             $etiquetaCrear = "ordComprasNew";
             $moduleListId=43;
             $moduleCrearId=44;
+            $solTipo=1;
+            $ravTipologia=4;
             break;
     case 2: $opcionMenu = "aprOrdCompras";
             $opocionSubMenu ="aprOrdComprasList";
             $etiquetaCrear = "aprOrdComprasNew";
             $moduleListId=46;
             $moduleCrearId=46;
+            $solTipo=1;
+            $ravTipologia=4;
+            break;    
+    case 3: $opcionMenu = "ordComprasV";
+            $opocionSubMenu ="ordComprasListV";
+            $etiquetaCrear = "ordComprasNewV";
+            $moduleListId=89;
+            $moduleCrearId=90;
+            $solTipo=2;
+            $ravTipologia=8;
+            break;
+    case 4: $opcionMenu = "aprOrdComprasV";
+            $opocionSubMenu ="aprOrdComprasListV";
+            $etiquetaCrear = "aprOrdComprasNewV";
+            $moduleListId=92;
+            $moduleCrearId=92;
+            $solTipo=2;
+            $ravTipologia=8;
             break;    
     default :
             $opcionMenu = "ordCompras";
@@ -20,6 +40,8 @@ switch($tipUid){
             $etiquetaCrear = "ordComprasNew";
             $moduleListId=43;
             $moduleCrearId=44;
+            $solTipo=1;
+            $ravTipologia=4;
             break;
 }
 admin::initialize($opcionMenu, $opocionSubMenu); 

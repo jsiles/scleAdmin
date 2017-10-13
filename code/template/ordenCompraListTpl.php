@@ -4,14 +4,14 @@ if ($lang!='es') $urlLangAux=$lang.'/';
 else $urlLangAux='';
 
 $search = admin::toSql(admin::getParam("search"),"Text");
-if ($tipUid==2) $aprSel=" and orc_estado=0 ";
+if (($tipUid==2)||($tipUid==4)) $aprSel=" and orc_estado=0 ";
 if ($search!='')
 {
     $Where= " and ((cli_socialreason like '%$search%')or(orc_date like '%$search%'))";
 }
 
 $rol=admin::getSession("usr_rol");
-    $unidadHabilitada =admin::dbFillArray("select raa_uni_uid,rav_uid from mdl_rav,mdl_rav_access where rav_uid=raa_rav_uid and rav_tipologia=4 and rav_delete=0 and rav_rol_uid=$rol");
+    $unidadHabilitada =admin::dbFillArray("select raa_uni_uid,rav_uid from mdl_rav,mdl_rav_access where rav_uid=raa_rav_uid and rav_tipologia=$ravTipologia and rav_delete=0 and rav_rol_uid=$rol");
     //print_r($unidadHabilitada);
     if(is_array($unidadHabilitada)){
         $k=0;
@@ -34,7 +34,7 @@ $rol=admin::getSession("usr_rol");
     }
 
 
-$_pagi_sql= "select * from mdl_orden_compra,mdl_client, mdl_orden_unidad where orc_uid=oru_orc_uid and orc_cli_uid=cli_uid and  orc_delete=0 $Where $aprSel ";
+$_pagi_sql= "select * from mdl_orden_compra,mdl_client, mdl_orden_unidad where orc_uid=oru_orc_uid and orc_cli_uid=cli_uid and orc_type=$solTipo and orc_delete=0 $Where $aprSel ";
 
 
 $order= admin::toSql(admin::getParam("order"),"Number");

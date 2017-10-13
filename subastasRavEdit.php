@@ -38,6 +38,18 @@ switch($tipUid){
             $moduleListId=75;
             $moduleCrearId=76;
             break;    
+    case 7: $opcionMenu = "ravSolicitudV";
+            $opocionSubMenu ="ravSolicitudListV";
+            $etiquetaCrear = "ravSolicitudNewV";
+            $moduleListId=78;
+            $moduleCrearId=79;
+            break;    
+    case 8: $opcionMenu = "ravOrdenV";
+            $opocionSubMenu ="ravOrdenListV";
+            $etiquetaCrear = "ravOrdenNewV";
+            $moduleListId=81;
+            $moduleCrearId=82; 
+            break;        
     default :
             $opcionMenu = "subastaRavParametros";
             $opocionSubMenu ="subastasRavEdit";

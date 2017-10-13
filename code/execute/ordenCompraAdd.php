@@ -5,6 +5,8 @@ include_once("../../core/images.php");
 include_once("../../core/thumb.php");
 admin::initialize('ordCompras','ordenCompraAdd'); 
 $tipUid=  admin::getParam("tipUid");
+if(($tipUid!=1)&&($tipUid!=2)) $type=2;
+else $type=1;
 $token= admin::getParam("token");
 $orc_uid =admin::getDbValue("select max(orc_uid) from mdl_orden_compra");
 if(!$orc_uid) $orc_uid=0;
@@ -34,7 +36,8 @@ $sql = "insert into mdl_orden_compra
                                  orc_datetime,
                                  orc_estado,
                                  orc_status,
-                                 orc_delete
+                                 orc_delete,
+                                 orc_type
 					)
 			values	(
                                  $orc_uid,
@@ -50,9 +53,9 @@ $sql = "insert into mdl_orden_compra
                                  GETDATE(),
                                  0,
                                  '$orc_status',
-                                 0)";
+                                 0, $type)";
 //echo $sql;die;	
-$db->query($sql);
+if($db->query($sql)){
 
 $rav_uni_uid=  admin::getParam("rav_uni_uid", "strip");
 //if(is_array($rav_uni_uid)){
@@ -73,6 +76,9 @@ if ($FILES2["name"] != '')
 	$sql = "UPDATE mdl_orden_compra SET orc_document='".$nomDOC."' WHERE orc_uid=$orc_uid";
 	$db->query($sql);
 	}
-
+}else{
+    echo "Error al guardar los datos, intente nuevamente.Error:". $sql;die;    
+    
+}
 header('Location: ../../ordenCompraList.php?tipUid='.$tipUid);	
 ?>

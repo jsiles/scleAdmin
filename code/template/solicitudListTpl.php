@@ -12,7 +12,7 @@ if ($search || $search!='')
     $where .= " or CONVERT(VARCHAR(25), sol_date, 126) like '%$search%' )";
             
 }
-if($tipUid==2) { 
+if(($tipUid==2)||($tipUid==4)) { 
     /*
      * RAV tipologia 
      * 1 Proceso Compra
@@ -25,7 +25,7 @@ if($tipUid==2) {
 }
 
     $rol=admin::getSession("usr_rol");
-    $unidadHabilitada =admin::dbFillArray("select raa_uni_uid,rav_uid from mdl_rav,mdl_rav_access where rav_uid=raa_rav_uid and rav_tipologia=3 and rav_delete=0 and rav_rol_uid=$rol");
+    $unidadHabilitada =admin::dbFillArray("select raa_uni_uid,rav_uid from mdl_rav,mdl_rav_access where rav_uid=raa_rav_uid and rav_tipologia=$ravTipologia and rav_delete=0 and rav_rol_uid=$rol");
     //echo "select rav_uid,raa_uni_uid from mdl_rav,mdl_rav_access where rav_uid=raa_rav_uid and rav_tipologia=3 and rav_delete=0 and rav_rol_uid=$rol";
     //print_r($unidadHabilitada);
     if(is_array($unidadHabilitada)){
@@ -73,7 +73,7 @@ else $estOrder=6;
     
     
     
-$_pagi_sql= "select * from mdl_solicitud_compra, mdl_solicitud_unidad where sol_uid=sou_sol_uid and sol_delete=0 ". $where;
+$_pagi_sql= "select * from mdl_solicitud_compra, mdl_solicitud_unidad where sol_uid=sou_sol_uid and sol_delete=0 and sol_type=$solTipo ". $where;
 
 $_pagi_sql.=$orderCode;
 

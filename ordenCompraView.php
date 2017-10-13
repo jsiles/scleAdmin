@@ -14,6 +14,18 @@ switch($tipUid){
             $moduleListId=46;
             $moduleCrearId=46;
             break;    
+    case 3: $opcionMenu = "ordComprasV";
+            $opocionSubMenu ="ordComprasViewV";
+            $etiquetaCrear = "ordComprasNewV";
+            $moduleListId=89;
+            $moduleCrearId=90;
+            break;
+    case 4: $opcionMenu = "aprOrdComprasV";
+            $opocionSubMenu ="aprOrdComprasViewV";
+            $etiquetaCrear = "aprOrdComprasNewV";
+            $moduleListId=92;
+            $moduleCrearId=92;
+            break;    
     default :
             $opcionMenu = "ordCompras";
             $opocionSubMenu ="ordComprasView";

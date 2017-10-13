@@ -208,12 +208,12 @@ $html.='
 				while ($content=$db2->next_record())
 				{
 
-                                    if($subType=="COMPRA") $sqlType="min(bid_mountxfac)";else $sqlType="max(bid_mountxfac)"; 
-                                    $montoWin =admin::getDbValue("select ".$sqlType." from mdl_biditem where bid_xit_uid =". $content["bid_xit_uid"]." group by bid_xit_uid");
+                                    if($sub_type=="COMPRA") $sqlType="min(bid_mountxfac)";else $sqlType="max(bid_mountxfac)"; 
+                                    $montoWin =admin::getDbValue("select ".$sqlType." from mdl_biditem where bid_xit_uid =". $content["bid_xit_uid"]);
                                     if(!isset($montoWin)) $montoWin=0;
                                     $montoBase =  admin::getDBvalue("SELECT xit_price from mdl_xitem where xit_uid=".$content["bid_xit_uid"]." and xit_delete=0");
                                     $descrip = admin::getDBvalue("SELECT xit_description from mdl_xitem where xit_uid=".$content["bid_xit_uid"]." and xit_delete=0");
-                                    if(($subType=="COMPRA")) { $montoBen = $montoBase-$montoWin;} else {$montoBen =$montoWin-$montoBase;}
+                                    if(($sub_type=="COMPRA")) { $montoBen = $montoBase-$montoWin;} else {$montoBen =$montoWin-$montoBase;}
                                     $subTotalMontoBase+=$montoBase;
                                     $subTotalMontoWin+=$montoWin;
                                     $subTotalMontoBeneficio+=$montoBen;

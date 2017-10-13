@@ -7,8 +7,39 @@ switch($tipUid){
             $etiquetaCrear = "solComprasNew";
             $moduleListId=38;
             $moduleCrearId=39;
+            $solTipo=1;
             break;
-    case 2: $opcionMenu = "subastaRavInforme";
+    case 2: $opcionMenu = "aprCompras";
+            $opocionSubMenu ="aprComprasNew";
+            $etiquetaCrear = "aprComprasNew";
+            $moduleListId=41;
+            $moduleCrearId=42;
+            $solTipo=1;
+            break;    
+    case 3: $opcionMenu = "solComprasV";
+            $opocionSubMenu ="solComprasNewV";
+            $etiquetaCrear = "solComprasNewV";
+            $moduleListId=84;
+            $moduleCrearId=85;
+            $solTipo=2;
+            break;
+    case 4: $opcionMenu = "aprComprasV";
+            $opocionSubMenu ="aprComprasNewV";
+            $etiquetaCrear = "aprComprasNewV";
+            $moduleListId=87;
+            $moduleCrearId=87;
+            $solTipo=2;
+            break;    
+        
+    default :
+            $opcionMenu = "solCompras";
+            $opocionSubMenu ="solComprasList";
+            $etiquetaCrear = "solComprasNew";
+            $moduleListId=14;
+            $moduleCrearId=15; 
+            break;
+        
+        /*    case 2: $opcionMenu = "subastaRavInforme";
             $opocionSubMenu ="subastasRavInfList";
             $etiquetaCrear = "subastasRavInfNew";
             $moduleListId=11;
@@ -25,14 +56,7 @@ switch($tipUid){
             $etiquetaCrear = "ravOrdenNew";
             $moduleListId=35;
             $moduleCrearId=36; 
-            break;
-    default :
-            $opcionMenu = "solCompras";
-            $opocionSubMenu ="solComprasList";
-            $etiquetaCrear = "solComprasNew";
-            $moduleListId=14;
-            $moduleCrearId=15; 
-            break;
+            break;*/
 }
 admin::initialize($opcionMenu, $opocionSubMenu); 
 ?>

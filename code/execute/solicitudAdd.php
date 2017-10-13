@@ -5,6 +5,8 @@ include_once("../../core/images.php");
 include_once("../../core/thumb.php");
 admin::initialize('solCompras','solicitudAdd'); 
 $tipUid=  admin::getParam("tipUid");
+if(($tipUid!=1)&&($tipUid!=2)) $type=2;
+else $type=1;
 $token= admin::getParam("token");
 $solObservaciones=  admin::getParam("sol_observaciones");
 $rav_uni_uid =admin::getParam("rav_uni_uid", "strip");
@@ -29,6 +31,7 @@ $sql = "insert into mdl_solicitud_compra
                                  sol_apr_uid,
                                  sol_apr_date,
                                  sol_imp_date,
+                                 sol_type,
                                  sol_estado,
                                  sol_status,
                                  sol_delete
@@ -44,14 +47,15 @@ $sql = "insert into mdl_solicitud_compra
                                  0,
                                  GETDATE(),
                                  GETDATE(),
+                                 $type,
                                  0,
                                  '$sol_status',
                                  0
 				)";
 //echo $sql;//die;
-	$db->query($sql);
-
-$db->query("update mdl_solicitud_material set som_delete=1 where som_sol_uid=$solUid");
+if($db->query($sql))
+{
+   $db->query("delete mdl_solicitud_material where som_sol_uid=$solUid");
         
 $FILES2 = $_FILES ['sol_document'];
 if ($FILES2["name"] != '')
@@ -80,6 +84,12 @@ if(is_array($cli_uid)){
        $db->query($sql);
    }
 }
+    
+}else {
+echo "Error al guardar los datos, intente nuevamente.Error:". $sql;die;    
+}
+
+
 //die;
 header('Location: ../../solicitudNew2.php?sol_uid='.$solUid."&tipUid=".$tipUid);	
 ?>

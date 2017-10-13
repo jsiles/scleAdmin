@@ -17,7 +17,7 @@ $usuario =  admin::getDbValue("select concat(usr_firstname,' ',usr_lastname) fro
       <tr>
         <td width="50%" valign="top"><table width="100%" border="0" cellpadding="5" cellspacing="5" class="box">
          <tr>
-            <td colspan="3" class="titleBox">Datos Orden Compra</td>
+            <td colspan="3" class="titleBox">Datos Orden</td>
             <td><input name="tipUid" type="hidden" value="<?=$tipUid?>" class="input"></td>
          </tr>
           
@@ -30,7 +30,7 @@ $usuario =  admin::getDbValue("select concat(usr_firstname,' ',usr_lastname) fro
             
         </tr>
         <tr>
-            <td width="5%" >Nro Orden de Compra:</td>    
+            <td width="5%" >Nro Orden:</td>    
             <td width="20%" ><input name="orc_nro_oc" id="orc_nro_oc" value="" class="input">
             <br /><span id="div_orc_nro_oc" style="display:none; padding-left:5px; padding-right:5px;" class="error">Campo Obligatorio</span>
             </td>
@@ -123,7 +123,10 @@ $usuario =  admin::getDbValue("select concat(usr_firstname,' ',usr_lastname) fro
             </td>
             <td width="7%">&nbsp;</td>
         </tr>
-
+<?php 
+if($solTipo==1)
+{
+       ?>
         <tr>
             <td width="5%" >Proveedores:</td>
             <td width="20%"><!--<select name="orc_cli_uid" id="orc_cli_uid" class="input">
@@ -152,6 +155,41 @@ $usuario =  admin::getDbValue("select concat(usr_firstname,' ',usr_lastname) fro
             </td>
                        <td width="7%">&nbsp;</td>
         </tr>
+<?php
+}else{
+?>
+  <tr>
+            <td width="5%" >Empleado:</td>
+            <td width="20%"><!--<select name="orc_cli_uid" id="orc_cli_uid" class="input">
+         <?php
+        $arrayClient = admin::dbFillArray("select cli_uid, cli_socialreason as name from mdl_client where cli_delete=0 ");
+        if(is_array($arrayClient))
+        {
+            foreach($arrayClient as $value=>$name)
+            {
+            ?>
+                    <option value="<?=$value?>"><?=$name?></option>>
+        <?php
+            }
+        }
+        
+        ?>
+                </select>-->
+                <div id="inputProveedor"></div>
+                <br><br>
+                <div id="busqueda">
+                    
+                    <input name="buscar" type="text" class="input3 proveedor" value="" size="20" /> <br /><label style="color:#ff8a36">Buscar por Nit o Razon Social</label>
+                <br><br>
+                </div>
+                <br /><span id="div_orc_cli_uid" style="display:none; padding-left:5px; padding-right:5px;" class="error"><?=admin::labels('required');?></span>
+            </td>
+                       <td width="7%">&nbsp;</td>
+        </tr>
+        
+        <?php
+}
+?>
         <tr>
             <td width="5%" >Elaborado por:</td>
             <td width="20%" ><input name="orc_aprobado" type="text" value="<?=$usuario?>" class="input">

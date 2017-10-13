@@ -7,12 +7,32 @@ switch($tipUid){
             $etiquetaCrear = "solComprasNew";
             $moduleListId=38;
             $moduleCrearId=39;
+            $solTipo=1;
+            $ravTipologia=3;
             break;
     case 2: $opcionMenu = "aprCompras";
             $opocionSubMenu ="aprComprasList";
             $etiquetaCrear = "aprComprasNew";
             $moduleListId=41;
             $moduleCrearId=42;
+            $solTipo=1;
+            $ravTipologia=3;
+            break;    
+    case 3: $opcionMenu = "solComprasV";
+            $opocionSubMenu ="solComprasListV";
+            $etiquetaCrear = "solComprasNewV";
+            $moduleListId=84;
+            $moduleCrearId=85;
+            $solTipo=2;
+            $ravTipologia=7;
+            break;
+    case 4: $opcionMenu = "aprComprasV";
+            $opocionSubMenu ="aprComprasListV";
+            $etiquetaCrear = "aprComprasNewV";
+            $moduleListId=87;
+            $moduleCrearId=87;
+            $solTipo=2;
+            $ravTipologia=7;
             break;    
     default :
             $opcionMenu = "solCompras";
@@ -20,6 +40,8 @@ switch($tipUid){
             $etiquetaCrear = "solComprasNew";
             $moduleListId=38;
             $moduleCrearId=39;
+            $solTipo=1;
+            $ravTipologia=3;
             break;
 }
 //if($_SESSION["usr_uid"]==14) admin::doLog ("Antes de ingresar");
