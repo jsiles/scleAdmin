@@ -47,6 +47,7 @@ while ($firstPart = $db->next_record())
 	$sub_status=$firstPart['sub_status'];
 	$sub_modalidad=$firstPart['sub_modalidad'];
 	$sub_type=$firstPart['sub_type'];
+        $subType=$sub_type;
 	$sub_hour_end=explode(" ", $firstPart['sub_hour_end']);
 	$sub_mount_base=$firstPart['sub_mount_base'];
 	$sub_mount_unidad=$firstPart['sub_mount_unidad'];
