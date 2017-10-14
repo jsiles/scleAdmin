@@ -57,7 +57,7 @@ $pagDb=new DBmysql;
 $msg="";
 
 
-define("SAP", true); 
+define("SAP", false); 
 if(SAP){
 $dbSAP = new DBmysql("SAP", DBHOST,DBUSER, DBPASSWORD);	
 }	
