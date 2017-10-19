@@ -80,7 +80,7 @@ font-family: Arial, Helvetica, sans-serif;
   height: 1%; /*For IE*/
   font-size: 12px;
     z-index:1000;
-	 border-right: solid 1px #a61317;
+	 border-right: solid 1px #fff;/* 1px #a61317 BORDE JS*/
 	 background-color: #f3373b;
 	  padding-bottom: 6px;    /*quitar*/ 
 	  /*background-image: url(../lib/bg_menu.gif);*/
