@@ -47,12 +47,12 @@ $notEdit=$db->next_record();
         </tr>
       	<tr>
             <td width="5%" >Asunto:</td>
-            <td width="20%"><input id="not_subject" disabled="disabled" name="not_subject" class="input3" size="100" maxlength="100" value="<?=$notEdit["not_subject"]?>" /></td>
+            <td width="20%"><?=$notEdit["not_subject"]?></td>
             <td width="7%">&nbsp;</td>
         </tr>
       	<tr>
             <td width="5%" >Cuerpo:</td>
-            <td width="20%"><textarea cols="100" disabled="disabled" class="textarea" rows="20" name="not_template"><?=admin::toHtml($notEdit["not_template"])?></textarea></td>
+            <td width="20%"><?=$notEdit["not_template"]?></td>
             <td width="7%">&nbsp;</td>
         </tr>
       <!--	<tr>

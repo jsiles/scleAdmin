@@ -127,6 +127,7 @@ function changeLanguageHeader(status)
 	}
 function moreMinusContent(ID)
 	{
+            //alert(ID);
 	if (document.getElementById('div_more_'+ID).style.display=='')
 		{
 		document.getElementById('div_minus_'+ID).style.display='';

@@ -528,7 +528,7 @@ background-color: #fff;
 font-size: 11px;
 padding: 0px;
 background-color: #fff;
-    cursor: move;
+   /* cursor: move;*/
     position: relative;
 }
 
