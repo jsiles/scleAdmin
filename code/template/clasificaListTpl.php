@@ -124,7 +124,7 @@ else { ?>
 		<img src="lib/edit_off_<?=$lang?>.gif" border="0" title="<?=admin::labels('edit')?>" alt="<?=admin::labels('edit')?>">
 		</span>-->
 		<span id="div_edit_on_<?=$con_uid?>" style="display:<?=$stylebuttonOn?>;">
-		<a href="clasificaEdit.php?con_uid=<?=$con_uid?><?=$wys?>&token=<?=admin::getParam("token");?>">
+		<a href="clasificaEdit.php?con_uid=<?=$con_uid?>">
 		<img src="lib/edit_es.gif" border="0" title="<?=admin::labels('edit')?>" alt="<?=admin::labels('edit')?>">
 		</a>
 		</span>
@@ -136,7 +136,7 @@ else { ?>
 		</a>		
 	
 	</td>
-	<td align="center" width="14%" height="5"> 
+	<!--<td align="center" width="14%" height="5"> 
 	<div id="status_<?=$con_uid?>">
 	  
            
@@ -146,7 +146,7 @@ else { ?>
             
 	
 	</div>
-	</td>
+	</td>-->
 		</tr>
 	</table>
 <?php
@@ -248,7 +248,7 @@ while ($regSubContent=$db2->next_record()){
         <img src="lib/edit_off_<?=$lang?>.gif" border="0" title="<?=admin::labels('edit')?>" alt="<?=admin::labels('edit')?>">
         </span>-->
         <span id="div_edit_on_<?=$con_uid1?>" style="display:<?=$stylebuttonOn?>;">
-        <a href="clasificaEdit.php?con_uid=<?=$con_uid1?><?=$wys?>&token=<?=admin::getParam("token");?>">
+        <a href="clasificaEdit.php?con_uid=<?=$con_uid1?>">
         <img src="lib/edit_es.gif" border="0" title="<?=admin::labels('edit')?>" alt="<?=admin::labels('edit')?>">
         </a>
         </span>
@@ -261,13 +261,14 @@ while ($regSubContent=$db2->next_record()){
 		        <img src="lib/delete_es.gif" border="0" title="<?=admin::labels('delete')?>" alt="<?=admin::labels('delete')?>">
 		        </a>
 	        </td>
-	        <td align="center" width="14%" height="5">
+	        <!--<td align="center" width="14%" height="5">
 	        <div id="status_<?=$con_uid1?>">
 	           <a href="javascript:void(0);" onclick="contentCS('<?=$con_uid1?>','<?=$cont_status1?>');">
 		        <img src="<?=admin::labels($labels_content1,'linkImage')?>" border="0" title="<?=admin::labels($labels_content1)?>" alt="<?=admin::labels($labels_content1)?>">
 		        </a>
 	        </div>	
-	        </td></tr>
+	        </td>-->
+         </tr>
             </table>
 
 <?php
@@ -341,17 +342,18 @@ while ($regSubSubContent=$db3->next_record()){
         </span>
         </td>
 	<td align="center" width="11%" height="5">
-	<a href="clasificaEdit.php?con_uid=<?=$con_uid2?>&token=<?=admin::getParam("token");?>"><img src="lib/edit_es.gif" border="0" alt="<?=admin::labels('edit')?>" title="<?=admin::labels('edit')?>"></a></td>            
+	<a href="clasificaEdit.php?con_uid=<?=$con_uid2?>"><img src="lib/edit_es.gif" border="0" alt="<?=admin::labels('edit')?>" title="<?=admin::labels('edit')?>"></a></td>            
 	<td align="center" width="13%" height="5">
 		<a href="removeList" onclick="removeList(<?=$con_uid2?>);return false;">
 		<img src="lib/delete_es.gif" border="0" title="<?=admin::labels('delete')?>" alt="<?=admin::labels('delete')?>">		</a>	</td>
-	<td align="center" width="14%" height="5">
+	<!--<td align="center" width="14%" height="5">
 	<div id="status_<?=$con_uid2?>">
 	   <a href="javascript:contentCS('<?=$con_uid2?>','<?=$cont_status2?>');">
 		<img src="<?=admin::labels($labels_content2,'linkImage')?>" border="0" title="<?=admin::labels($labels_content)?>" alt="<?=admin::labels($labels_content)?>">
 	   </a>
 	</div>    
-	</td></tr>
+	</td>-->
+ </tr>
 	</table>
 	</div> 
     <?php    
@@ -387,17 +389,18 @@ while ($regSubSubContent=$db4->next_record()){
         </span>
         </td>
 	<td align="center" width="11%" height="5">
-	<a href="clasificaEdit.php?con_uid=<?=$con_uid3?>&token=<?=admin::getParam("token");?>"><img src="lib/edit_es.gif" border="0" alt="<?=admin::labels('edit')?>" title="<?=admin::labels('edit')?>"></a></td>            
+	<a href="clasificaEdit.php?con_uid=<?=$con_uid3?>"><img src="lib/edit_es.gif" border="0" alt="<?=admin::labels('edit')?>" title="<?=admin::labels('edit')?>"></a></td>            
 	<td align="center" width="13%" height="5">
 		<a href="removeList" onclick="removeList(<?=$con_uid3?>);return false;">
 		<img src="lib/delete_es.gif" border="0" title="<?=admin::labels('delete')?>" alt="<?=admin::labels('delete')?>">		</a>	</td>
-	<td align="center" width="14%" height="5">
+	<!--<td align="center" width="14%" height="5">
 	<div id="status_<?=$con_uid3?>">
 	   <a href="javascript:contentCS('<?=$con_uid3?>','<?=$cont_status2?>');">
 		<img src="<?=admin::labels($labels_content2,'linkImage')?>" border="0" title="<?=admin::labels($labels_content)?>" alt="<?=admin::labels($labels_content)?>">
 	   </a>
 	</div>    
-	</td></tr>
+	</td>-->
+        </tr>
 	</table>
 	</div>     
         

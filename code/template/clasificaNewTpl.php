@@ -89,7 +89,7 @@
                         </tr>
                       
 
-                        <tr>
+                        <!--<tr>
                           <td><?=admin::labels('status');?>:</td>
                           <td>
                                       <select name="cla_status" class="listMenu" id="cla_status" tabindex="3">
@@ -97,7 +97,7 @@
                               <option value="INACTIVE"><?=admin::labels('inactive');?></option>
                                       </select>
                                       <span id="div_cla_status" style="display:none;" class="error"></span>			</td>
-                        </tr>
+                        </tr>-->
                     </table>
                     <br />
         </td>

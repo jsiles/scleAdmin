@@ -12,7 +12,7 @@ $cla_title=admin::getParam("cla_title");
 $cla_level0=admin::getParam("cla_level0");
 $cla_level1=admin::getParam("cla_level1");
 $cla_level2=admin::getParam("cla_level2");
-$cla_status = admin::getParam("cla_status");
+$cla_status = 'ACTIVE';
 $parent=0;
     if($cla_level0==0) $level=1; else {
         $parent=$cla_level0;

@@ -1,227 +1,166 @@
 <?php
-$con_uid = admin::toSql(admin::getParam("con_uid"),"Number");
-$sql =  "select * from mdl_contents 
-            left join mdl_contents_languages on (con_uid=col_con_uid) 
-            where col_language='".$lang."' AND con_uid=".$con_uid;
-$db->query($sql);
-$content = $db->next_record();
-$parent = admin::getDbValue("select con_parent from mdl_contents where con_uid=".$content["con_parent"]);
+$cla_uid=admin::getParam("con_uid");
+$sSQL="select * from mdl_classifier where cla_uid=$cla_uid";
+$db->query($sSQL);
+$clasifica=$db->next_record();
 
-$nivel=admin::getDbValue("select con_level from mdl_contents where con_uid=".admin::toSql(admin::getParam("con_uid"),"Number"));
-//echo $nivel;
 ?>
 <br />
-<form name="frmContent" method="post" action="code/execute/contentUpd.php?token=<?=admin::getParam("token")?>" onsubmit="return false;" enctype="multipart/form-data">
-<input type="hidden" name="con_parent_ant" value="<?=$content["con_parent"]?>" />
-<input type="hidden" name="con_position" value="<?=$content["con_position"]?>" />
-<input type="hidden" name="con_uid" value="<?=$content["con_uid"]?>" />
-<input type="hidden" name="parent" value="<?=$parent?>" />
+<form name="frmClasificador" id="frmClasificador" method="post" action="code/execute/clasificaAdd.php" enctype="multipart/form-data">
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
-    <td width="77%" height="40"><span class="title"><?=admin::labels('contents','edit');?></span></td>
+    <td width="77%" height="40"><span class="title">Crear Clasificador</span></td>
     <td width="23%" height="40">&nbsp;</td>
   </tr>
   <tr>
     <td colspan="2" id="contentListing"><table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tr>
-        <td width="54%" valign="top"><table width="98%" border="0" cellpadding="5" cellspacing="5" class="box">
-          <tr>
-            <td colspan="3" class="titleBox"><?=admin::labels('contents','data');?></td>
-            </tr>
-          <tr>
-            <td width="29%"><?=admin::labels('contents','name');?>:</td>
-            <td width="64%">
-<input name="col_title" type="text" class="input" id="col_title" tabindex="1" onfocus="setClassInput(this,'ON');document.getElementById('div_col_title').style.display='none';" onblur="setClassInput(this,'OFF');document.getElementById('div_col_title').style.display='none';" onclick="setClassInput(this,'ON');document.getElementById('div_col_title').style.display='none';" value="<?=$content["col_title"]?>" size="50"/>
-<br />
-<span id="div_col_title" style="display:none; padding-left:5px; padding-right:5px;" class="error">Nombre del contenido es necesario</span>			</td>
-          </tr>
-          <tr style="display:<?=$_GET["wys"]=="off" ? "none":""?>">
-            <td><?=admin::labels('contents','in');?>: </td>
-            <td>
-			<?php
-            if ($nivel==2)
-            {
-            $sql= "select * from mdl_contents where con_uid=".$content["con_parent"];
-            $db->query($sql);
-            $contenparent = $db->next_record();
-            $con_parentuid = $contenparent["con_parent"];
-            $sw=true;
-            }
-            else
-            {
-                $sw=false;
-                $con_parentuid = $content["con_parent"];
-            }
-            
-               $sql = "select * 
-                        from mdl_contents 
-                        left join mdl_contents_languages on (con_uid=col_con_uid) 
-                        where col_language='" . $lang . "'  and 
-							  con_uid<>" . $con_uid  . " and 
-							  con_delete<>1 
-                        and con_parent=0 order by con_position";
-               $db->query($sql);                                
-                //echo $sql;
-                ($content["con_parent"]==0)?$selected="selected":$selected="";
-                 //echo $content["con_parent"].$selected;
-                ?>
-				<select name="con_parent" class="listMenu" id="con_parent"  tabindex="2">	<!--onchange="subList(this);"-->			
-				<option value="0" <?=$selected?>><?=admin::labels('principal');?></option>
-				<?
-				while ($category = $db->next_record())
-				{ 
-                    ($category["con_uid"]==$con_parentuid)?$selecte2="selected":$selecte2=""; 
-                   //echo $category["con_uid"].$con_parentuid.$selecte2; 
-                    ?>
-				<option value="<?=$category["con_uid"]?>" <?=$selecte2?>><?=$category["col_title"]?></option>
-				<? } ?>
-            </select>
-			<span id="div_con_parent" style="display:none;" class="error"></span>            </td>
-          </tr>
-          <tr>
-            <td></td>
-            <td><div style="display:none">
-<? if ($sw)
-    {
+        <td width="54%" valign="top">
+		
+		<table width="98%" border="0" cellpadding="5" cellspacing="5" class="box">
+                        <tr>
+                            <td colspan="3" class="titleBox"><?=admin::labels('contents','data');?></td>
+                        </tr>
+                        <tr>
+                          <td width="29%">C&oacute;digo Clasificador:</td>
+                          <td width="64%">
+                              <input name="cla_codigo" value="<?=$clasifica["cla_uid"]?>" type="text" class="input" id="cla_codigo" tabindex="1" onfocus="setClassInput(this,'ON');document.getElementById('div_cla_codigo').style.display='none';" onblur="setClassInput(this,'OFF');document.getElementById('div_cla_codigo').style.display='none';" onclick="setClassInput(this,'ON');document.getElementById('div_cla_codigo').style.display='none';" size="10" />
+                                <br /><span id="div_cla_codigo" style="display:none; padding-left:5px; padding-right:5px;" class="error">Campo requerido</span>			</td>
+                        </tr>
+                        <tr>
+                          <td width="29%">Etiqueta Clasificador:</td>
+                          <td width="64%">
+                                <input name="cla_title" value="<?=$clasifica["cla_title"]?>" type="text" class="input" id="cla_title" tabindex="2" onfocus="setClassInput(this,'ON');document.getElementById('div_cla_title').style.display='none';" onblur="setClassInput(this,'OFF');document.getElementById('div_cla_title').style.display='none';" onclick="setClassInput(this,'ON');document.getElementById('div_cla_title').style.display='none';" size="50" />
+                                <br /><span id="div_cla_title" style="display:none; padding-left:5px; padding-right:5px;" class="error">Campo requerido</span>			</td>
+                        </tr>
+                        <?php
+                           $level =$clasifica["cla_level"];
+                           switch ($level)
+                           {
+                               case 2: $parent0=$clasifica["cla_parent"];
+                                       $parent1=0;
+                                   break;
+                               case 3: $parent0=admin::getDbValue("select cla_parent from mdl_classifier where cla_parent=".$clasifica["cla_parent"]);
+                                       $parent1= $clasifica["cla_parent"];
+                                   break;
+                               default :
+                                   $parent0=0;
+                                   $parent1=0;
+                                   $parent2=0;
+                                   break;
+                               
+                           }
+                        ?>
+                        <tr>
+                            <td>Nivel 1: </td>
+                            <td>
+                                <select name="cla_level0" class="listMenu" id="cla_level0"  tabindex="2">
+                                    <!--onchange="subList(this);"-->		
+                                          <?php 
+                                          $sql = "select * from mdl_classifier where cla_delete=0 and cla_parent=0 order by cla_position";
+                                          $db->query($sql)				
+                                          ?>
+                                          <option value="0" selected="selected">No Aplica</option>
+                                          <?php
+                                          while ($category = $db->next_record())
+                                          { 
+                                              if(($parent0!=0)&&($parent0==$category["cla_uid"])) $sel="selected";
+                                              else $sel="";
+                                              ?>
+                                          <option value="<?=$category["cla_uid"]?>" <?=$sel?>><?=$category["cla_title"]?></option>
+                                          <?php
+                                          } 
+                                          ?>
+                                </select>
+                                <span id="div_cla_level0" style="display:none;" class="error"></span>            </td>
+                        </tr>
+                        <tr>
+                            <td>Nivel 2: </td>
+                            <td>
+                                <select name="cla_level1" class="listMenu" id="cla_level1"  tabindex="2">
+                                    <!--onchange="subList(this);"-->		
+                                          <?php 
+                                          $sql = "select * from mdl_classifier where cla_delete=0 and cla_parent!=0 and cla_level=2 order by cla_position";
+                                          $db->query($sql)				
+                                          ?>
+                                          <option value="0" selected="selected">No Aplica</option>
+                                          <?php
+                                          while ($category = $db->next_record())
+                                          { 
+                                              if(($parent1!=0)&&($parent1==$category["cla_uid"])) $sel="selected";
+                                              else $sel="";
+                                              ?>
+                                          <option value="<?=$category["cla_uid"]?>" <?=$sel?>><?=$category["cla_title"]?></option>
+                                          <?php
+                                          } 
+                                          ?>
+                                </select>
+                                <span id="div_cla_level1" style="display:none;" class="error"></span>            </td>
+                        </tr>
+                        <tr>
+                            <td>Nivel 3: </td>
+                            <td>
+                                <select name="cla_level2" class="listMenu" id="cla_level2"  tabindex="2">
+                                    <!--onchange="subList(this);"-->		
+                                          <?php 
+                                          $sql = "select * from mdl_classifier where cla_delete=0 and cla_parent!=0 and cla_level=3 order by cla_position";
+                                          $db->query($sql)				
+                                          ?>
+                                          <option value="0" selected="selected">No Aplica</option>
+                                          <?php
+                                          while ($category = $db->next_record())
+                                          { 
+                                              if(($parent2!=0)&&($parent2==$category["cla_uid"])) $sel="selected";
+                                              else $sel="";
+                                              ?>
+                                          <option value="<?=$category["cla_uid"]?>" <?=$sel?>><?=$category["cla_title"]?></option>
+                                          <?php
+                                          } 
+                                          ?>
+                                </select>
+                                <span id="div_cla_level2" style="display:none;" class="error"></span>            </td>
+                        </tr>
+                      
 
-    ?>            
-            <span id="div_con_parent2" style="diplay:">
-    <? 
-//                  echo  $con_parentuid . $content["con_parent"] ;
-                  $sql="select * 
-                        from mdl_contents 
-                        left join mdl_contents_languages on (con_uid=col_con_uid) 
-                        where col_language='" . $lang . "' and 
-							  con_parent=". $con_parentuid ."
-                        order by con_position";
-                    $db->query($sql);
-                    $count = $db->numrows();
-                    if ($count>0)
-                    {
-                    ?>
-                    <select id="con_parent2" name="con_parent2" class="listMenu" tabindex="3"> 
-                    <option value="0"><?=admin::labels('select');?></option>
-                    <?
-                    while ($list = $db->next_record())
-                    {
-                       $key = $list["con_uid"];
-                       $value = $list["col_title"];
-                       if ($key==$content["con_parent"])  $option = "<option value=\"$key\" selected>$value</option>";
-                       else $option = "<option value=\"$key\">$value</option>";
-                       echo $option;
-                       
-                    }
-                    ?>
-                    </select> 
-                    <?
-                    }
-                    ?>
-            </span>
-            
- <?
-    }
-    else
-    {
- ?>
-            <span id="div_con_parent2" style="diplay:none"></span>
- <?    
-     }
- ?>
- </div>
- </td>
-
-          </tr>
-          
-          <?php  //include_once("load_image.php");?> 
-          
-          <tr>
-            <td><?=admin::labels('status');?>:</td>
-            <td>
-
-			<select name="col_status" class="listMenu" id="col_status" tabindex="4">
-            	<option value="ACTIVE" <? if ($content["col_status"]=="ACTIVE") echo "selected"; ?>><?=admin::labels('active');?></option>
-              	<option value="INACTIVE" <? if ($content["col_status"]=="INACTIVE") echo "selected"; ?>><?=admin::labels('inactive');?></option>
-			</select>
-			<span id="div_col_status" style="display:none;" class="error"></span>			</td>
-          </tr>
-         
-          
-          
-        </table> 
-        <br />
-    <? include_once("load_massUpload.php");?>
-    </td>
-        <td width="46%" valign="top"><table width="100%" border="0" align="right" cellpadding="5" cellspacing="5" class="box">
-          <tr>
-            <td colspan="3" class="titleBox"><?=admin::labels('seo');?></td>
-          </tr>
-          <tr>
-            <td width="22%"><?=admin::labels('seo','metatitle');?>:</td>
-            <td width="71%"><input name="col_metatitle" type="text" class="input" id="col_metatitle" tabindex="5"  onfocus="setClassInput(this,'ON');" onblur="setClassInput(this,'OFF');" onclick="setClassInput(this,'ON');" value="<?=$content["col_metatitle"]?>" size="46"/>
-			<span id="div_col_metatitle" style="display:none;" class="error"></span>			</td>
-          </tr>
-          <tr>
-            <td valign="top"><?=admin::labels('seo','metadescription');?>:</td>
-            <td>
-			<textarea name="col_metadescription" cols="33" rows="3" class="textarea" id="col_metadescription" tabindex="6"  onfocus="setClassTextarea(this,'ON');" onblur="setClassTextarea(this,'OFF');" onclick="setClassTextarea(this,'ON');" onkeydown="growTextarea(this);"><?=$content["col_metadescription"]?></textarea>			
-			<span id="div_col_metadescription" style="display:none;" class="error"></span>			</td>
-          </tr>
-          <tr>
-            <td valign="top"><?=admin::labels('seo','metakeywords');?>: </td>
-            <td><textarea name="col_metakeyword" cols="33" rows="3" class="textarea" id="col_metakeyword" tabindex="7"  onfocus="setClassTextarea(this,'ON');" onblur="setClassTextarea(this,'OFF');" onclick="setClassTextarea(this,'ON');" onkeydown="growTextarea(this);"><?=$content["col_metakeyword"]?></textarea>
-			<span id="div_col_metakeyword" style="display:none;" class="error"></span>			</td>
-          </tr>
-          
-        </table> </td>
+                        <!--<tr>
+                          <td><?=admin::labels('status');?>:</td>
+                          <td>
+                                      <select name="cla_status" class="listMenu" id="cla_status" tabindex="3">
+                              <option selected="selected" value="ACTIVE"><?=admin::labels('active');?></option>
+                              <option value="INACTIVE"><?=admin::labels('inactive');?></option>
+                                      </select>
+                                      <span id="div_cla_status" style="display:none;" class="error"></span>			</td>
+                        </tr>-->
+                    </table>
+                    <br />
+        </td>
+        <td width="46%" valign="top">
+            &nbsp;
+		</td>
       </tr>
     </table></td>
     </tr>
 </table>
       <br />
-	  <?
-	if ($_REQUEST["wys"]!="off")
-		{
-		?>
-      <table width="100%" border="0" cellspacing="0" cellpadding="0">
-        <tr>
-          <td width="100%" valign="top" id="contentWysiwyg"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-			    <tr>
-                <td align="center" valign="top" height="3px;"></td>
-              </tr>
-              <tr>
-                <td align="center" valign="top"><?
-		
-			include("spaw/spaw.inc.php");
-			$spaw1 = new SpawEditor("col_content",$content["col_content"]); 
-			$spaw1->show(); 
-			?></td>
-              </tr>
-              <tr>
-                <td align="center" valign="top" height="3px;"></td>
-              </tr>          
-          </table></td>
-        </tr>
-      </table>
-  <? } ?>
-	  </form>
+   
+	 
       <br />
       <br />
       <div id="contentButton">
 	  	<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
 			<tr>
 				<td width="59%" align="center">
-				<a href="javascript:verifyContent();" class="button" tabindex="8">
-				<?=admin::labels('update');?>
+                                    <a href="#" onclick="frmClasificador.submit();" class="button" tabindex="7">
+				<?=admin::labels('public');?>
 				</a> 
 				</td>
           <td width="41%" style="font-size:11px;">
-		  		<?=admin::labels('or');?> <a href="contentList.php?token=<?=admin::getParam("token")?>" tabindex="9"><?=admin::labels('cancel');?></a> 
+		  		<?=admin::labels('or');?> <a href="clasificaList.php?token=<?=admin::getParam("token")?>" tabindex="8" ><?=admin::labels('cancel');?></a> 
 		  </td>
         </tr>
       </table></div>
+      
+       </form>
       <br /><br />
 <br />
 <br />
-
-      <br />
-      <br />
