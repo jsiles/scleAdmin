@@ -14,8 +14,18 @@ if ($nroReg>0)
 <br>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
    <tr>
-      <td width="77%" height="40"><span class="title"><?=admin::labels('contents','title')?></span></td>
-    <td width="23%" height="40" align="right"><a href="contentNew.php?token=<?=admin::getParam("token")?>"><?=admin::labels('contents','create');?></a></td>
+      <td width="77%" height="40"><span class="title"><?=admin::modulesLabels()?></span></td>
+    <td width="23%" height="40" align="right">
+     <?php
+        $moduleId=95;
+        $valuePermit=admin::getDBvalue("select moa_status from sys_modules_options,sys_modules_access where mop_uid=moa_mop_uid and mop_status='ACTIVE'and mop_mod_uid=$moduleId and mop_lab_category='Crear' and moa_rol_uid=".$_SESSION['usr_rol']."");
+	if($valuePermit=='ACTIVE'){?>
+            <a href="<?=admin::modulesLink($etiquetaCrear)?>?tipUid=<?=admin::getParam("tipUid")?>"><?=admin::modulesLabels($etiquetaCrear)?></a>
+        <?php
+        }
+        ?>
+            &nbsp;  
+    </td>
   </tr>
   <tr>
     <td colspan="2" id="contentListing">
@@ -94,14 +104,14 @@ else { ?>
 		
 		 
 		?>
-		<span id="div_view_off_<?=$con_uid?>" style="display:<?=$stylebuttonOff?>;">
+		<span id="div_view_off_<?=$con_uid?>" style="">
 		<img src="lib/view_off_es.gif" border="0" title="<?=admin::labels('view')?>" alt="<?=admin::labels('view')?>">
 		</span>
-		<span id="div_view_on_<?=$con_uid?>" style="display:<?=$stylebuttonOn?>;">
+		<!--<span id="div_view_on_<?=$con_uid?>" style="display:<?=$stylebuttonOn?>;">
 		<a href="../<?=$urlLangAux.$regContent["col_url"]?>/<?=$nextUrl?>" target="_blank">
 		<img src="lib/view_es.gif" border="0" title="<?=admin::labels('view')?>" alt="<?=admin::labels('view')?>">
 		</a>
-		</span>
+		</span>-->
 	</td>
 	<td align="center" width="12%" height="5">
 	<?php 
@@ -109,35 +119,32 @@ else { ?>
 		$stylebuttonOn = "";  
 		$stylebuttonOff = "none";
 
-	$wys = $nrmreg ||  $con_uid==4  ? "&wys=off" : "";
 		?>
-		<span id="div_edit_off_<?=$con_uid?>" style="display:<?=$stylebuttonOff?>;">
+		<!--<span id="div_edit_off_<?=$con_uid?>" style="display:<?=$stylebuttonOff?>;">
 		<img src="lib/edit_off_<?=$lang?>.gif" border="0" title="<?=admin::labels('edit')?>" alt="<?=admin::labels('edit')?>">
-		</span>
+		</span>-->
 		<span id="div_edit_on_<?=$con_uid?>" style="display:<?=$stylebuttonOn?>;">
-		<a href="contentEdit.php?con_uid=<?=$con_uid?><?=$wys?>&token=<?=admin::getParam("token");?>">
+		<a href="clasificaEdit.php?con_uid=<?=$con_uid?><?=$wys?>&token=<?=admin::getParam("token");?>">
 		<img src="lib/edit_es.gif" border="0" title="<?=admin::labels('edit')?>" alt="<?=admin::labels('edit')?>">
 		</a>
 		</span>
 	</td>
 	<td align="center" width="12%" height="5">
-	<?php 
-	if ( $con_uid!=4 && !$nrmreg ) 
-		{ ?>
-		<a href="removeList" onclick="removeList(<?=$con_uid?>,<?=$con_uid?>,1);return false;">		
+	
+		<a href="removeList" onclick="removeList(<?=$con_uid?>);return false;">		
 			<img src="lib/delete_es.gif" border="0" title="<?=admin::labels('delete')?>" alt="<?=admin::labels('delete')?>">
 		</a>		
-	<?php 	} 
-	else
-		{ ?>		
-		<img src="lib/delete_off_<?=$lang?>.gif" border="0">
-	<?php	} ?>
+	
 	</td>
-	<td align="center" width="14%" height="5">
+	<td align="center" width="14%" height="5"> 
 	<div id="status_<?=$con_uid?>">
-	   <a href="javascript:void(0);" onclick="contentCS('<?=$con_uid?>','<?=$cont_status?>');">
-		<img src="<?=admin::labels($labels_content,'linkImage')?>" border="0" title="<?=admin::labels($labels_content)?>" alt="<?=admin::labels($labels_content)?>">
+	  
+           
+                <a href="javascript:void(0);" onclick="contentCS('<?=$con_uid?>','<?=$cont_status?>');">
+                    <img src="<?=admin::labels($labels_content,'linkImage')?>" border="0" title="<?=admin::labels($labels_content)?>" alt="<?=admin::labels($labels_content)?>">
 		</a>
+            
+	
 	</div>
 	</td>
 		</tr>
@@ -216,19 +223,19 @@ while ($regSubContent=$db2->next_record()){
         $stylebuttonOff = "none";
     }
         ?>
-        <span id="div_view_off_<?=$con_uid1?>" style="display:<?=$stylebuttonOff?>;">
+        <span id="div_view_off_<?=$con_uid1?>" style="">
         <img src="lib/view_off_es.gif" border="0" title="<?=admin::labels('view')?>" alt="<?=admin::labels('view')?>">
         </span>
-        <span id="div_view_on_<?=$con_uid1?>" style="display:<?=$stylebuttonOn?>;">
+        <!--<span id="div_view_on_<?=$con_uid1?>" style="display:<?=$stylebuttonOn?>;">
         <a href="../<?=$urlLangAux.$regContent["col_url"]?>/<?=$regSubContent["col_url"]?>/" target="_blank">
         <img src="lib/view_es.gif" border="0" title="<?=admin::labels('view')?>" alt="<?=admin::labels('view')?>">
         </a>
-        </span>
+        </span>-->
     </td>
 <td align="center" width="12%" height="5">
     <?php 
     if ($nrmreg1>0) { 
-        $stylebuttonOn = "none";
+        $stylebuttonOn = "";
         $stylebuttonOff = "";
     }
     else{ 
@@ -237,11 +244,11 @@ while ($regSubContent=$db2->next_record()){
     }
   
         ?>
-        <span id="div_edit_off_<?=$con_uid1?>" style="display:<?=$stylebuttonOff?>;">
+        <!--<span id="div_edit_off_<?=$con_uid1?>" style="display:<?=$stylebuttonOff?>;">
         <img src="lib/edit_off_<?=$lang?>.gif" border="0" title="<?=admin::labels('edit')?>" alt="<?=admin::labels('edit')?>">
-        </span>
+        </span>-->
         <span id="div_edit_on_<?=$con_uid1?>" style="display:<?=$stylebuttonOn?>;">
-        <a href="contentEdit.php?con_uid=<?=$con_uid1?><?=$wys?>&token=<?=admin::getParam("token");?>">
+        <a href="clasificaEdit.php?con_uid=<?=$con_uid1?><?=$wys?>&token=<?=admin::getParam("token");?>">
         <img src="lib/edit_es.gif" border="0" title="<?=admin::labels('edit')?>" alt="<?=admin::labels('edit')?>">
         </a>
         </span>
@@ -250,7 +257,7 @@ while ($regSubContent=$db2->next_record()){
             
 			        
 	        <td align="center" width="12%" height="5">
-		          <a href="removeList" onclick="removeList(<?=$con_uid1?>,<?=$con_uid?>,2);return false;">  
+		          <a href="removeList" onclick="removeList(<?=$con_uid1?>);return false;">  
 		        <img src="lib/delete_es.gif" border="0" title="<?=admin::labels('delete')?>" alt="<?=admin::labels('delete')?>">
 		        </a>
 	        </td>
@@ -293,10 +300,13 @@ while ($regSubSubContent=$db3->next_record()){
 /**************Begin 4to NIVEL****************************/ 
     $sSQL="select cla_uid, cla_parent, cla_level, cla_title, cla_status  from mdl_classifier where cla_parent=$con_uid2 and cla_delete=0";
     $nrmreg2 = $db4->numrows($sSQL);
+    //echo $nrmreg2."-->";
     $db4->query($sSQL);
     
     $l=0;
-    if ($nrmreg2>0) { ?>
+    if ($nrmreg2>0) { 
+        
+        ?>
                         <span id="div_more_<?=$con_uid2?>">
                             <a href="treeList_<?=$con_uid2?>" onclick="moreMinusSubList(<?=$con_uid2?>); return false;">
                                 <img src="lib/buttons/more.gif" border="0" alt="<?=admin::labels('more_on')?>" title="<?=admin::labels('more_on')?>">
@@ -312,13 +322,13 @@ while ($regSubSubContent=$db3->next_record()){
                         </span>&nbsp;         
                     
         <?php
-        $swSubmenu1=true;                              
+        $swSubmenu2=true;                              
         }
     else {
         ?>
                     <span><img src="lib/buttons/more_off.gif" title="<?=admin::labels('more_off')?>" alt="<?=admin::labels('more_off')?>"></span>&nbsp;
         <?php
-        $swSubmenu1=false;
+        $swSubmenu2=false;
         } 
 /**************End 3er NIVEL****************************/
 /**************Begin 4to NIVEL****************************/
@@ -326,11 +336,14 @@ while ($regSubSubContent=$db3->next_record()){
 	<?=admin::toHtml($title2)?>
             </li>
 	</td><td align="center" width="13%" height="5">
-	<a href="<?=SERVER.$urlLangAux.admin::urlsFriendly($title)."/".admin::urlsFriendly($title1)."/".admin::urlsFriendly($title2)."/"?>" target="_blank"><img src="lib/view_es.gif" border="0" alt="<?=admin::labels('view')?>" title="<?=admin::labels('view')?>"></a></td>
+	<span id="div_view_off_<?=$con_uid1?>" style="">
+        <img src="lib/view_off_es.gif" border="0" title="<?=admin::labels('view')?>" alt="<?=admin::labels('view')?>">
+        </span>
+        </td>
 	<td align="center" width="11%" height="5">
-	<a href="contentEdit.php?con_uid=<?=$con_uid2?>&token=<?=admin::getParam("token");?>"><img src="lib/edit_es.gif" border="0" alt="<?=admin::labels('edit')?>" title="<?=admin::labels('edit')?>"></a></td>            
+	<a href="clasificaEdit.php?con_uid=<?=$con_uid2?>&token=<?=admin::getParam("token");?>"><img src="lib/edit_es.gif" border="0" alt="<?=admin::labels('edit')?>" title="<?=admin::labels('edit')?>"></a></td>            
 	<td align="center" width="13%" height="5">
-		<a href="removeList" onclick="removeList(<?=$con_uid2?>,<?=$con_uid2?>,3);return false;">
+		<a href="removeList" onclick="removeList(<?=$con_uid2?>);return false;">
 		<img src="lib/delete_es.gif" border="0" title="<?=admin::labels('delete')?>" alt="<?=admin::labels('delete')?>">		</a>	</td>
 	<td align="center" width="14%" height="5">
 	<div id="status_<?=$con_uid2?>">
@@ -340,9 +353,59 @@ while ($regSubSubContent=$db3->next_record()){
 	</div>    
 	</td></tr>
 	</table>
-	</div>                                        
-<?php
+	</div> 
+    <?php    
+        if ($swSubmenu2){ 
 
+  //echo "\n";
+    ?>
+    <div class="treeList_<?=$con_uid2?>" id="treeList_<?=$con_uid2?>" style="display:none;width:100%">
+                                        
+    <?php
+}   
+if ($nrmreg2>0) $arrayscript .="
+ subSubList[$con_uid1]=$nrmreg2;";
+ 
+while ($regSubSubContent=$db4->next_record()){
+   
+	$con_uid3 = $regSubSubContent["cla_uid"];
+	$title3 = $regSubSubContent["cla_title"]; 
+	$cont_status3 = $regSubSubContent["cla_status"]; 
+	if ($cont_status3 =='ACTIVE') $labels_content3='status_on';
+	else $labels_content3='status_off';   
+	?>
+	<div class="groupSubItem_<?=$con_uid3?>" id="<?=$con_uid3?>">
+	<table class="list2a" width="100%" border="0"><tr><td width="49%">
+	<li id="lista_<?=$con_uid3?>" class="<?=$class?>a">
+         <span><img src="lib/buttons/more_off.gif" title="<?=admin::labels('more_off')?>" alt="<?=admin::labels('more_off')?>"></span>&nbsp;   
+ 
+    <?=admin::toHtml($title3)?>
+            </li>
+	</td><td align="center" width="13%" height="5">
+	<span id="div_view_off_<?=$con_uid1?>" style="">
+        <img src="lib/view_off_es.gif" border="0" title="<?=admin::labels('view')?>" alt="<?=admin::labels('view')?>">
+        </span>
+        </td>
+	<td align="center" width="11%" height="5">
+	<a href="clasificaEdit.php?con_uid=<?=$con_uid3?>&token=<?=admin::getParam("token");?>"><img src="lib/edit_es.gif" border="0" alt="<?=admin::labels('edit')?>" title="<?=admin::labels('edit')?>"></a></td>            
+	<td align="center" width="13%" height="5">
+		<a href="removeList" onclick="removeList(<?=$con_uid3?>);return false;">
+		<img src="lib/delete_es.gif" border="0" title="<?=admin::labels('delete')?>" alt="<?=admin::labels('delete')?>">		</a>	</td>
+	<td align="center" width="14%" height="5">
+	<div id="status_<?=$con_uid3?>">
+	   <a href="javascript:contentCS('<?=$con_uid3?>','<?=$cont_status2?>');">
+		<img src="<?=admin::labels($labels_content2,'linkImage')?>" border="0" title="<?=admin::labels($labels_content)?>" alt="<?=admin::labels($labels_content)?>">
+	   </a>
+	</div>    
+	</td></tr>
+	</table>
+	</div>     
+        
+<?php
+}
+?>
+    </div>
+        <?php
 $k++;
 }
 if ($swSubmenu1){
@@ -390,6 +453,20 @@ else{ ?>
 <div id="itemList"> 
 </div>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">   
+     <tr>
+      <td width="77%" height="40"><span class="title"><?=admin::modulesLabels()?></span></td>
+    <td width="23%" height="40" align="right">
+     <?php
+        $moduleId=95;
+        $valuePermit=admin::getDBvalue("select moa_status from sys_modules_options,sys_modules_access where mop_uid=moa_mop_uid and mop_status='ACTIVE'and mop_mod_uid=$moduleId and mop_lab_category='Crear' and moa_rol_uid=".$_SESSION['usr_rol']."");
+	if($valuePermit=='ACTIVE'){?>
+            <a href="<?=admin::modulesLink($etiquetaCrear)?>?tipUid=<?=admin::getParam("tipUid")?>"><?=admin::modulesLabels($etiquetaCrear)?></a>
+        <?php
+        }
+        ?>
+            &nbsp;  
+    </td>
+  </tr>
   <tr>
     <td colspan="2" id="contentListing">
 <div  style="background-color: #f7f8f8;">
