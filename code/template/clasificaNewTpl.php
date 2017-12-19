@@ -118,11 +118,11 @@
 			<tr>
 				<td width="59%" align="center">
                                     <a href="#" onclick="frmClasificador.submit();" class="button" tabindex="7">
-				<?=admin::labels('public');?>
+				Guardar
 				</a> 
 				</td>
           <td width="41%" style="font-size:11px;">
-		  		<?=admin::labels('or');?> <a href="clasificaList.php?token=<?=admin::getParam("token")?>" tabindex="8" ><?=admin::labels('cancel');?></a> 
+		  		<?=admin::labels('or');?> <a href="clasificaList.php" tabindex="8" ><?=admin::labels('cancel');?></a> 
 		  </td>
         </tr>
       </table></div>

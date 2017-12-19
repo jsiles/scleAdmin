@@ -6,7 +6,7 @@ $clasifica=$db->next_record();
 
 ?>
 <br />
-<form name="frmClasificador" id="frmClasificador" method="post" action="code/execute/clasificaAdd.php" enctype="multipart/form-data">
+<form name="frmClasificador" id="frmClasificador" method="post" action="code/execute/clasificaUpd.php" enctype="multipart/form-data">
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td width="77%" height="40"><span class="title">Crear Clasificador</span></td>
@@ -23,8 +23,8 @@ $clasifica=$db->next_record();
                         </tr>
                         <tr>
                           <td width="29%">C&oacute;digo Clasificador:</td>
-                          <td width="64%">
-                              <input name="cla_codigo" value="<?=$clasifica["cla_uid"]?>" type="text" class="input" id="cla_codigo" tabindex="1" onfocus="setClassInput(this,'ON');document.getElementById('div_cla_codigo').style.display='none';" onblur="setClassInput(this,'OFF');document.getElementById('div_cla_codigo').style.display='none';" onclick="setClassInput(this,'ON');document.getElementById('div_cla_codigo').style.display='none';" size="10" />
+                          <td width="64%"><input name="cla_uid" value="<?=$clasifica["cla_uid"]?>" type="hidden" />
+                              <input name="cla_codigo" value="<?=$clasifica["cla_cod"]?>" type="text" class="input" id="cla_codigo" tabindex="1" onfocus="setClassInput(this,'ON');document.getElementById('div_cla_codigo').style.display='none';" onblur="setClassInput(this,'OFF');document.getElementById('div_cla_codigo').style.display='none';" onclick="setClassInput(this,'ON');document.getElementById('div_cla_codigo').style.display='none';" size="10" />
                                 <br /><span id="div_cla_codigo" style="display:none; padding-left:5px; padding-right:5px;" class="error">Campo requerido</span>			</td>
                         </tr>
                         <tr>
@@ -151,11 +151,11 @@ $clasifica=$db->next_record();
 			<tr>
 				<td width="59%" align="center">
                                     <a href="#" onclick="frmClasificador.submit();" class="button" tabindex="7">
-				<?=admin::labels('public');?>
+				Actualizar
 				</a> 
 				</td>
           <td width="41%" style="font-size:11px;">
-		  		<?=admin::labels('or');?> <a href="clasificaList.php?token=<?=admin::getParam("token")?>" tabindex="8" ><?=admin::labels('cancel');?></a> 
+		  		<?=admin::labels('or');?> <a href="clasificaList.php" tabindex="8" ><?=admin::labels('cancel');?></a> 
 		  </td>
         </tr>
       </table></div>
