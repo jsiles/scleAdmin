@@ -192,6 +192,7 @@ while ($subasta_list = $pagDb->next_record())
        $monedaLit =admin::getDbValue("select cur_description from mdl_currency where cur_uid=$sub_moneda");
         
         if(($deadtime=='subastandose')&&($sub_finish==1)) $sub_finish=2;
+        if($deadtime=='aprobada') $sub_finish=1;
         if(($countBids==0)&&($sub_finish==3)) $sub_finish=7;
      /*
     
@@ -288,7 +289,9 @@ while ($subasta_list = $pagDb->next_record())
         <td align="center" width="5%" height="5">
             <?php
                 $valuePermit=admin::getDBvalue("select moa_status from sys_modules_options,sys_modules_access where mop_uid=moa_mop_uid and mop_status='ACTIVE'and mop_mod_uid=$moduleListId and mop_lab_category='Ver' and moa_rol_uid=".$_SESSION['usr_rol']."");
-                if($valuePermit=='ACTIVE'){
+                //echo $sub_estado;
+                if(($valuePermit=='ACTIVE')&&($sub_estado!='SUBASTANDOSE')){
+               //  if($valuePermit=='ACTIVE'){
             ?>
         <a href="subastasView.php?pro_uid=<?=$pro_uid?>&sub_uid=<?=$sub_uid?>&tipUid=<?=$tipUid?>">
             <img src="lib/view_es.gif" border="0" title="<?=admin::labels('view')?>" alt="<?=admin::labels('view')?>">
@@ -312,7 +315,7 @@ while ($subasta_list = $pagDb->next_record())
 	?>
                 <?php
             $valuePermit=admin::getDBvalue("select moa_status from sys_modules_options,sys_modules_access where mop_uid=moa_mop_uid and mop_status='ACTIVE'and mop_mod_uid=$moduleListId and mop_lab_category='Editar' and moa_rol_uid=".$_SESSION['usr_rol']."");
-            if($valuePermit=='ACTIVE'){
+            if(($valuePermit=='ACTIVE')&&($sub_estado!='SUBASTANDOSE')){
             ?>
 		<a href="subastasEdit.php?pro_uid=<?=$pro_uid?>&sub_uid=<?=$sub_uid?>&tipUid=<?=$tipUid?>">
 		<img src="<?=admin::labels('edit','linkImage')?>" border="0" title="<?=admin::labels('edit')?>" alt="<?=admin::labels('edit')?>">

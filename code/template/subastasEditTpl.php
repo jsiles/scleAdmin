@@ -280,8 +280,14 @@ $prod = $db->next_record();
                     <option <?php if ('PRECIO'==$prod["sub_modalidad"]) echo 'selected="selected"';?> value="PRECIO">Por Precio</option>
                     </select>
 				<br /><span id="div_sub_modalidad" style="display:none; padding-left:5px; padding-right:5px;" class="error"><?=admin::labels('required');?></span>
-                                <input type="hidden" name="sub_type" id="sub_type" value="VENTA" />
-				</td>
+                          <?php if ('COMPRA'==$prod["sub_type"]) {?>
+                                <input type="hidden" name="sub_type" id="sub_type" value="COMPRA" />
+			<?php
+                          }else{
+                        ?>     <input type="hidden" name="sub_type" id="sub_type" value="VENTA" />
+			<?php
+                          }?>
+                                </td>
 			</tr>         
                 
            <!--     

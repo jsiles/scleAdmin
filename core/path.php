@@ -14,7 +14,7 @@ define("DBUSER",	$user);
 define("DBPASSWORD",$pass);
 // for sever
 
-	$xpath = "";
+	$xpath = "/scleAdmin";
 	$urlLanguage=1;
 	$urlPositionTitle	=	0;
 	$urlPositionSubtitle=	1;
@@ -35,7 +35,7 @@ $rootsystem = $_SERVER['DOCUMENT_ROOT'] . $xpath;
 
 define("PATH_DOMAIN",	$domain);
 define("PATH_ROOT"	,$rootsystem);	                // RUTA PRINCIPAL DEL SITIO
-define("PATH_PUBLIC", 	"c:\desa\htdocs"); 		// DONDE SE SUBEN ARCHIVOS PUBLISH
+define("PATH_PUBLIC", 	"c:\desa\scle"); 		// DONDE SE SUBEN ARCHIVOS PUBLISH
 
 define("PATH_LOG"	, 	PATH_ROOT . "/log");		// ARCHIVO DE ERRORES
 define("DEBUG"		,	false);
