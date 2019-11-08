@@ -192,7 +192,7 @@ while ($subasta_list = $pagDb->next_record())
        $monedaLit =admin::getDbValue("select cur_description from mdl_currency where cur_uid=$sub_moneda");
         
         if(($deadtime=='subastandose')&&($sub_finish==1)) $sub_finish=2;
-        if($deadtime=='aprobada') $sub_finish=1;
+       // if($deadtime=='aprobada') $sub_finish=1;
         if(($countBids==0)&&($sub_finish==3)) $sub_finish=7;
      /*
     
