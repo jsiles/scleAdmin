@@ -44,7 +44,7 @@ function aceptar(){
 
     if(sw){
          
-        document.getElementById("contrasena").value=md5(sena);
+        document.getElementById("contrasena").value=djs(devzoneFunc(sena));
         document.getElementById("sFormAction").value='ingresar';
         document.formulario.submit();
     }else{scroll(0,0); return false;}
@@ -230,14 +230,14 @@ if ( !empty( $sTokenCSRF ) ) {
                         admin::lockFailed();
                 }
 
-                //echo $contrasena;
+                echo $contrasena;
                 $sql = "SELECT * FROM sys_users " .
                         "		WHERE usr_login='".admin::toSql($usuario,'text')."' and ".
-                        " usr_pass ='".admin::toSql($contrasena)."' ";
+                        " LOWER(CONVERT(VARCHAR(64),HASHBYTES('SHA2_256',usr_pass),2)) ='".admin::toSql($contrasena)."' ";
 
                 $numfiles = admin::getDbValue("SELECT count(*) FROM sys_users " .
                         "		WHERE usr_login='".admin::toSql($usuario,'text')."' and ".
-                        " usr_pass ='".admin::toSql($contrasena)."' ");
+                        " LOWER(CONVERT(VARCHAR(64),HASHBYTES('SHA2_256',usr_pass),2)) ='".admin::toSql($contrasena)."' ");
                 //if($usuario=="director4") admin::doLog("SQL:".$sql.":cantidad:".$numfiles);        
                                           //usr_pass=LOWER(CONVERT(VARCHAR(32),HashBytes('MD5','".admin::toSql($contrasena,'text')."'),2))";
 

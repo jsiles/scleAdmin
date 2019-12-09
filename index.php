@@ -26,7 +26,7 @@ admin::setSession("code", $code);}
 <script language="javascript" type="text/javascript" src="js/addEvent.js"></script>
 <script language="javascript" type="text/javascript" src="js/sweetTitles.js"></script>
 <script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" src="js/md5.min.js"></script>
+<script type="text/javascript" src="js/jtool.js"></script>
 <script language="javascript" type="text/javascript" src="js/ajaxlib.js?version=<?=VERSION?>"></script>
 </head>
 <body>
