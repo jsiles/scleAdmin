@@ -230,7 +230,7 @@ if ( !empty( $sTokenCSRF ) ) {
                         admin::lockFailed();
                 }
 
-                echo $contrasena;
+               // echo $contrasena;
                 $sql = "SELECT * FROM sys_users " .
                         "		WHERE usr_login='".admin::toSql($usuario,'text')."' and ".
                         " LOWER(CONVERT(VARCHAR(64),HASHBYTES('SHA2_256',usr_pass),2)) ='".admin::toSql($contrasena)."' ";
@@ -240,7 +240,7 @@ if ( !empty( $sTokenCSRF ) ) {
                         " LOWER(CONVERT(VARCHAR(64),HASHBYTES('SHA2_256',usr_pass),2)) ='".admin::toSql($contrasena)."' ");
                 //if($usuario=="director4") admin::doLog("SQL:".$sql.":cantidad:".$numfiles);        
                                           //usr_pass=LOWER(CONVERT(VARCHAR(32),HashBytes('MD5','".admin::toSql($contrasena,'text')."'),2))";
-
+//echo $sql;die;
                 $db->query($sql);
 
 
